@@ -8,9 +8,7 @@ const schema = z.object({
   SANITY_REVALIDATE_SECRET: z.string().optional(),
   RESEND_API_KEY: z.string().optional(),
   QUOTE_TO_EMAIL: z.string().default("ontariomillwright@gmail.com"),
-  QUOTE_FROM_EMAIL: z
-    .string()
-    .default("Ontario Millwright <quotes@ontariomillwright.ca>"),
+  QUOTE_FROM_EMAIL: z.string().default("Ontario Millwright <quotes@ontariomillwright.ca>"),
   TURNSTILE_SECRET_KEY: z.string().optional(),
 });
 

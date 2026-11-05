@@ -7,13 +7,4 @@ import { service } from "./documents/service";
 import { industry } from "./documents/industry";
 import { project } from "./documents/project";
 
-export const schemaTypes = [
-  seo,
-  capability,
-  detail,
-  siteSettings,
-  homePage,
-  service,
-  industry,
-  project,
-];
+export const schemaTypes = [seo, capability, detail, siteSettings, homePage, service, industry, project];

@@ -9,8 +9,14 @@ export type Service = {
   id: string;
   slug: string;
   title: string;
+  /** Short copy for the home card. */
   summary: string;
+  /** Long copy for the service detail page (from the original demo service modal). */
+  description: string;
+  /** Short scope chips on the home card. */
   scope: string[];
+  /** Full scope of work on the detail page. */
+  fullScope: string[];
   image: Img;
   featured?: boolean;
 };

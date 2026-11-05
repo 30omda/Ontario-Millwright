@@ -4,13 +4,7 @@ import { useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /** A8 · Spotlight hover: a radial yellow glow follows the pointer (CSS vars, no re-render). */
-export function SpotlightCard({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+export function SpotlightCard({ children, className }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLElement>(null);
   return (
     <article

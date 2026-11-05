@@ -24,8 +24,7 @@ export function CalProvider({ enabled }: { enabled: boolean }) {
       });
       cal("on", {
         action: "bookingSuccessfulV2",
-        callback: () =>
-          window.dispatchEvent(new CustomEvent("om:booking-success")),
+        callback: () => window.dispatchEvent(new CustomEvent("om:booking-success")),
       });
     })();
     return () => {

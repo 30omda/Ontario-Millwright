@@ -3,12 +3,9 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://ontariomillwright.ca",
-  ),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://ontariomillwright.ca"),
   title: {
-    default:
-      "Ontario Millwright | Industrial Millwright Contractors in Ontario",
+    default: "Ontario Millwright | Industrial Millwright Contractors in Ontario",
     template: "%s | Ontario Millwright",
   },
   description:

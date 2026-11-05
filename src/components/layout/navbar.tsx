@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "motion/react";
@@ -11,12 +12,12 @@ import { Tape } from "@/components/ui/tape";
 import { cn } from "@/lib/utils";
 
 export const NAV_LINKS = [
-  { href: "#services", label: "Services" },
-  { href: "#industries", label: "Industries" },
-  { href: "#process", label: "Process" },
-  { href: "#work", label: "Work" },
-  { href: "#safety", label: "Safety" },
-  { href: "#about", label: "About" },
+  { href: "/#services", label: "Services" },
+  { href: "/#industries", label: "Industries" },
+  { href: "/#process", label: "Process" },
+  { href: "/#work", label: "Work" },
+  { href: "/#safety", label: "Safety" },
+  { href: "/#about", label: "About" },
 ] as const;
 
 type Props = {
@@ -63,31 +64,20 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
         data-navbar
         className={cn(
           "relative mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-4 rounded-[22px] border border-steel-200 bg-white pl-5 transition-[padding,box-shadow] duration-300",
-          compact
-            ? "py-2 pr-2 shadow-[0_18px_40px_-22px_rgb(11_34_57/0.55)]"
-            : "py-2.5 pr-2.5 shadow-(--shadow-nav)",
+          compact ? "py-2 pr-2 shadow-[0_18px_40px_-22px_rgb(11_34_57/0.55)]" : "py-2.5 pr-2.5 shadow-(--shadow-nav)",
         )}
       >
         <Tape side="left" width={70} />
         <Tape side="right" width={70} />
 
-        <a href="#top" className="flex items-center gap-2.5 text-navy-900">
+        <Link href="/#top" className="flex items-center gap-2.5 text-navy-900">
           <LogoMark />
-          <span className="text-base font-semibold tracking-[-0.02em]">
-            {name}
-          </span>
-        </a>
+          <span className="text-base font-semibold tracking-[-0.02em]">{name}</span>
+        </Link>
 
-        <nav
-          aria-label="Primary"
-          className="hidden items-center gap-5 text-[15px] font-medium xl:gap-6.5 nav:flex"
-        >
+        <nav aria-label="Primary" className="hidden items-center gap-5 text-[15px] font-medium nav:flex xl:gap-6.5">
           {NAV_LINKS.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-navy-900 transition-colors hover:text-yellow-700"
-            >
+            <a key={l.href} href={l.href} className="text-navy-900 transition-colors hover:text-yellow-700">
               {l.label}
             </a>
           ))}
@@ -96,33 +86,17 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
         <div className="flex items-center gap-1.5">
           <ConsultLink
             calLink={calLink}
-            className={cn(
-              buttonVariants({ variant: "info", size: "md" }),
-              "hidden nav:inline-flex",
-            )}
+            className={cn(buttonVariants({ variant: "info", size: "md" }), "hidden nav:inline-flex")}
           >
             <CalendarDays className="size-4" aria-hidden="true" />
             Free consultation
           </ConsultLink>
-          <a
-            href={phoneHref}
-            className="hidden px-3.5 py-3 text-[15px] font-semibold text-navy-900 xl:inline-block"
-          >
+          <a href={phoneHref} className="hidden px-3.5 py-3 text-[15px] font-semibold text-navy-900 xl:inline-block">
             {phone}
           </a>
-          <a
-            href="#quote"
-            className={cn(
-              buttonVariants({ variant: "dark", size: "md" }),
-              "hidden sm:inline-flex",
-            )}
-          >
-            Request a Quote{" "}
-            <ArrowUpRight
-              className="size-4 text-yellow-500"
-              aria-hidden="true"
-            />
-          </a>
+          <Link href="/#quote" className={cn(buttonVariants({ variant: "dark", size: "md" }), "hidden sm:inline-flex")}>
+            Request a Quote <ArrowUpRight className="size-4 text-yellow-500" aria-hidden="true" />
+          </Link>
 
           <Dialog.Root open={open} onOpenChange={setOpen}>
             <Dialog.Trigger
@@ -161,9 +135,7 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
                           <X className="size-5" aria-hidden="true" />
                         </Dialog.Close>
                       </div>
-                      <Dialog.Description className="sr-only">
-                        Site navigation
-                      </Dialog.Description>
+                      <Dialog.Description className="sr-only">Site navigation</Dialog.Description>
                       <nav aria-label="Mobile" className="mt-4 flex flex-col">
                         {NAV_LINKS.map((l, i) => (
                           <motion.a
@@ -183,18 +155,12 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
                         <ConsultLink
                           calLink={calLink}
                           onClick={() => setOpen(false)}
-                          className={cn(
-                            buttonVariants({ variant: "primary", size: "lg" }),
-                          )}
+                          className={cn(buttonVariants({ variant: "primary", size: "lg" }))}
                         >
-                          <CalendarDays
-                            className="size-[18px]"
-                            aria-hidden="true"
-                          />{" "}
-                          Book a free consultation
+                          <CalendarDays className="size-[18px]" aria-hidden="true" /> Book a free consultation
                         </ConsultLink>
-                        <a
-                          href="#quote"
+                        <Link
+                          href="/#quote"
                           onClick={() => setOpen(false)}
                           className={buttonVariants({
                             variant: "dark",
@@ -202,7 +168,7 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
                           })}
                         >
                           Request a Quote
-                        </a>
+                        </Link>
                         <a
                           href={phoneHref}
                           className={buttonVariants({
@@ -210,8 +176,7 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
                             size: "lg",
                           })}
                         >
-                          <Phone className="size-4" aria-hidden="true" />{" "}
-                          {phone}
+                          <Phone className="size-4" aria-hidden="true" /> {phone}
                         </a>
                       </div>
                     </motion.div>

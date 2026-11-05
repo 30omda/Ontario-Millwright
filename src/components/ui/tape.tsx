@@ -1,15 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /** Yellow zig-zag "safety tape" used on the taped Navbar and Footer cards. Hidden below md. */
-export function Tape({
-  side,
-  className,
-  width = 84,
-}: {
-  side: "left" | "right";
-  className?: string;
-  width?: number;
-}) {
+export function Tape({ side, className, width = 84 }: { side: "left" | "right"; className?: string; width?: number }) {
   return (
     <svg
       aria-hidden="true"

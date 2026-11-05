@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { CalendarDays, Pause, Play } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -35,8 +36,7 @@ export function HeroVideo({ hero, calLink }: Props) {
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry) return;
-        if (entry.isIntersecting && !v.dataset.userPaused)
-          v.play().catch(() => {});
+        if (entry.isIntersecting && !v.dataset.userPaused) v.play().catch(() => {});
         else v.pause();
       },
       { threshold: 0.05 },
@@ -66,23 +66,15 @@ export function HeroVideo({ hero, calLink }: Props) {
 
       mm.add(
         {
-          desktop:
-            "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
-          mobile:
-            "(max-width: 767.98px) and (prefers-reduced-motion: no-preference)",
+          desktop: "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
+          mobile: "(max-width: 767.98px) and (prefers-reduced-motion: no-preference)",
           reduce: "(prefers-reduced-motion: reduce)",
         },
         (ctx) => {
-          const { desktop, mobile, reduce } = ctx.conditions as Record<
-            string,
-            boolean
-          >;
-          const frame =
-            root.current!.querySelector<HTMLElement>("[data-hero-frame]")!;
-          const media =
-            root.current!.querySelector<HTMLElement>("[data-hero-media]")!;
-          const corners =
-            root.current!.querySelectorAll<HTMLElement>("[data-hero-corner]");
+          const { desktop, mobile, reduce } = ctx.conditions as Record<string, boolean>;
+          const frame = root.current!.querySelector<HTMLElement>("[data-hero-frame]")!;
+          const media = root.current!.querySelector<HTMLElement>("[data-hero-media]")!;
+          const corners = root.current!.querySelectorAll<HTMLElement>("[data-hero-corner]");
 
           if (reduce) {
             gsap.set(frame, { clipPath: "inset(0px 0px 0px 0px round 0px)" });
@@ -91,8 +83,7 @@ export function HeroVideo({ hero, calLink }: Props) {
           }
 
           // ── A1: intro ──
-          const h1 =
-            root.current!.querySelector<HTMLElement>("[data-hero-title]")!;
+          const h1 = root.current!.querySelector<HTMLElement>("[data-hero-title]")!;
           const split = SplitText.create(h1, {
             type: "words,lines",
             mask: "lines",
@@ -111,11 +102,7 @@ export function HeroVideo({ hero, calLink }: Props) {
               },
               0.15,
             )
-            .from(
-              "[data-hero-sub]",
-              { y: 16, opacity: 0, duration: 0.6, stagger: 0.08 },
-              "-=0.45",
-            )
+            .from("[data-hero-sub]", { y: 16, opacity: 0, duration: 0.6, stagger: 0.08 }, "-=0.45")
             .from(
               "[data-hero-cap]",
               {
@@ -150,12 +137,7 @@ export function HeroVideo({ hero, calLink }: Props) {
               invalidateOnRefresh: true,
             },
           });
-          tl.fromTo(
-            frame,
-            { clipPath: startClip },
-            { clipPath: "inset(0px 0px 0px 0px round 0px)" },
-            0,
-          )
+          tl.fromTo(frame, { clipPath: startClip }, { clipPath: "inset(0px 0px 0px 0px round 0px)" }, 0)
             .fromTo(media, { scale: 1.08 }, { scale: 1 }, 0)
             .to(corners, { opacity: 0, duration: 0.4 }, 0);
 
@@ -179,7 +161,7 @@ export function HeroVideo({ hero, calLink }: Props) {
       {/* Media layer clipped into a rounded frame that expands to full-bleed */}
       <div
         data-hero-frame
-        className="absolute inset-0 overflow-hidden bg-navy-950 [clip-path:inset(84px_12px_12px_12px_round_22px)] md:[clip-path:inset(96px_max(16px,calc((100%-1180px)/2))_16px_max(16px,calc((100%-1180px)/2))_round_28px)] motion-reduce:[clip-path:none]"
+        className="absolute inset-0 overflow-hidden bg-navy-950 [clip-path:inset(84px_12px_12px_12px_round_22px)] motion-reduce:[clip-path:none] md:[clip-path:inset(96px_max(16px,calc((100%-1180px)/2))_16px_max(16px,calc((100%-1180px)/2))_round_28px)]"
       >
         <div data-hero-media className="absolute inset-0 will-change-transform">
           <video
@@ -193,11 +175,7 @@ export function HeroVideo({ hero, calLink }: Props) {
             poster={video.poster}
             aria-label="Close-up of meshing industrial gears turning in a factory machine"
           >
-            <source
-              src={video.mp4_720}
-              type="video/mp4"
-              media="(max-width: 768px)"
-            />
+            <source src={video.mp4_720} type="video/mp4" media="(max-width: 768px)" />
             <source src={video.webm} type="video/webm" />
             <source src={video.mp4_1080} type="video/mp4" />
           </video>
@@ -230,8 +208,7 @@ export function HeroVideo({ hero, calLink }: Props) {
                 data-hero-title
                 className="text-[44px] leading-[0.95] font-extrabold tracking-[-0.055em] [text-shadow:0_2px_24px_rgb(7_22_39/0.45)] sm:text-[clamp(56px,7.6vw,112px)] sm:leading-[0.92]"
               >
-                {hero.headline}{" "}
-                <span className="text-yellow-500">{hero.accent}</span>
+                {hero.headline} <span className="text-yellow-500">{hero.accent}</span>
               </h1>
               <p
                 data-hero-sub
@@ -242,23 +219,20 @@ export function HeroVideo({ hero, calLink }: Props) {
               <div data-hero-sub className="mt-8 flex flex-wrap gap-3">
                 <ConsultLink
                   calLink={calLink}
-                  className={cn(
-                    buttonVariants({ variant: "primary", size: "lg" }),
-                    "font-bold",
-                  )}
+                  className={cn(buttonVariants({ variant: "primary", size: "lg" }), "font-bold")}
                 >
                   <CalendarDays className="size-[18px]" aria-hidden="true" />
                   Book a free consultation
                 </ConsultLink>
-                <a
-                  href="#quote"
+                <Link
+                  href="/#quote"
                   className={buttonVariants({
                     variant: "ghostDark",
                     size: "lg",
                   })}
                 >
                   Request a Quote
-                </a>
+                </Link>
               </div>
             </div>
             <ul className="grid grid-cols-2 gap-2 lg:grid-cols-4 lg:gap-2.5">
@@ -273,15 +247,8 @@ export function HeroVideo({ hero, calLink }: Props) {
                       : "border border-white/22 bg-white/12 backdrop-blur-[14px]",
                   )}
                 >
-                  <p className="text-[15px] font-bold sm:text-[17px]">
-                    {c.title}
-                  </p>
-                  <p
-                    className={cn(
-                      "text-[13px]",
-                      c.highlight ? "text-yellow-900" : "text-white/80",
-                    )}
-                  >
+                  <p className="text-[15px] font-bold sm:text-[17px]">{c.title}</p>
+                  <p className={cn("text-[13px]", c.highlight ? "text-yellow-900" : "text-white/80")}>
                     {c.description}
                   </p>
                 </li>
@@ -294,16 +261,10 @@ export function HeroVideo({ hero, calLink }: Props) {
           type="button"
           onClick={toggle}
           aria-pressed={paused}
-          aria-label={
-            paused ? "Play background video" : "Pause background video"
-          }
+          aria-label={paused ? "Play background video" : "Pause background video"}
           className="absolute top-[100px] right-[max(24px,calc((100%-1180px)/2+64px))] z-20 flex size-11 items-center justify-center rounded-full border border-white/45 bg-navy-950/55 text-white backdrop-blur md:top-[124px]"
         >
-          {paused ? (
-            <Play className="size-4" aria-hidden="true" />
-          ) : (
-            <Pause className="size-4" aria-hidden="true" />
-          )}
+          {paused ? <Play className="size-4" aria-hidden="true" /> : <Pause className="size-4" aria-hidden="true" />}
         </button>
       </div>
     </section>

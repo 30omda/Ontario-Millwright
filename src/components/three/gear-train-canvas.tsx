@@ -4,19 +4,8 @@ import { useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { ContactShadows, Environment, Lightformer } from "@react-three/drei";
 import * as THREE from "three";
-import {
-  gearOutline,
-  meshSpeed,
-  placeTrain,
-  trainBounds,
-  GEAR_MODULE,
-} from "@/lib/gears";
-import {
-  driverSpeed,
-  GEAR_FILLS,
-  GEAR_TRAIN_SPEC,
-  scrollMotion,
-} from "@/lib/scroll-motion";
+import { gearOutline, meshSpeed, placeTrain, trainBounds, GEAR_MODULE } from "@/lib/gears";
+import { driverSpeed, GEAR_FILLS, GEAR_TRAIN_SPEC, scrollMotion } from "@/lib/scroll-motion";
 
 const SCALE = 0.0046; // gear units → world units
 
@@ -52,15 +41,7 @@ function useGearGeometry(z: number) {
   }, [z]);
 }
 
-function Gear({
-  z,
-  color,
-  index,
-}: {
-  z: number;
-  color: string;
-  index: number;
-}) {
+function Gear({ z, color, index }: { z: number; color: string; index: number }) {
   const geo = useGearGeometry(z);
   return (
     <mesh geometry={geo} castShadow receiveShadow userData={{ index }}>
@@ -91,12 +72,7 @@ function Train() {
     // Commission step (last quarter) runs the train up to speed.
     const runUp = p > 0.75 ? 1 + 2 * ((p - 0.75) / 0.25) : 1;
     angle.current += driverSpeed() * runUp * d;
-    scrollMotion.velocity = THREE.MathUtils.damp(
-      scrollMotion.velocity,
-      0,
-      4,
-      d,
-    );
+    scrollMotion.velocity = THREE.MathUtils.damp(scrollMotion.velocity, 0, 4, d);
     train.forEach((g, i) => {
       const grp = refs.current[i];
       if (grp) grp.rotation.z = angle.current * meshSpeed(train, i) + g.phase;
@@ -105,8 +81,7 @@ function Train() {
     if (laser.current) {
       const k = THREE.MathUtils.clamp((p - 0.5) / 0.2, 0, 1);
       laser.current.scale.x = Math.max(k, 0.0001);
-      (laser.current.material as THREE.MeshBasicMaterial).opacity =
-        k > 0 ? 0.95 : 0;
+      (laser.current.material as THREE.MeshBasicMaterial).opacity = k > 0 ? 0.95 : 0;
     }
     // Camera story: wide survey → closer as the job progresses, tiny orbit.
     const cam = state.camera;
@@ -114,13 +89,7 @@ function Train() {
     cam.position.y = THREE.MathUtils.damp(cam.position.y, 0.5 - p * 0.4, 3, d);
     cam.position.z = THREE.MathUtils.damp(cam.position.z, 6.4 - p * 1.3, 3, d);
     cam.lookAt(0, 0, 0);
-    if (root.current)
-      root.current.rotation.y = THREE.MathUtils.damp(
-        root.current.rotation.y,
-        -0.18 + p * 0.3,
-        3,
-        d,
-      );
+    if (root.current) root.current.rotation.y = THREE.MathUtils.damp(root.current.rotation.y, -0.18 + p * 0.3, 3, d);
   });
 
   const laserGeo = useMemo(() => {
@@ -146,33 +115,16 @@ function Train() {
         ))}
         {/* coupling + shaft on the driver gear */}
         <mesh position={[g0.x, g0.y, -26]} rotation={[Math.PI / 2, 0, 0]}>
-          <cylinderGeometry
-            args={[g0.pitchRadius * 0.42, g0.pitchRadius * 0.42, 22, 48]}
-          />
-          <meshStandardMaterial
-            color="#FFB81C"
-            metalness={0.3}
-            roughness={0.5}
-          />
+          <cylinderGeometry args={[g0.pitchRadius * 0.42, g0.pitchRadius * 0.42, 22, 48]} />
+          <meshStandardMaterial color="#FFB81C" metalness={0.3} roughness={0.5} />
         </mesh>
         <mesh position={[g0.x, g0.y, -60]} rotation={[Math.PI / 2, 0, 0]}>
-          <cylinderGeometry
-            args={[g0.pitchRadius * 0.2, g0.pitchRadius * 0.2, 70, 32]}
-          />
-          <meshStandardMaterial
-            color="#C9D1DA"
-            metalness={0.9}
-            roughness={0.25}
-          />
+          <cylinderGeometry args={[g0.pitchRadius * 0.2, g0.pitchRadius * 0.2, 70, 32]} />
+          <meshStandardMaterial color="#C9D1DA" metalness={0.9} roughness={0.25} />
         </mesh>
         {/* laser alignment line: anchored at the left edge, grows toward the coupling */}
         <mesh ref={laser} position={[b.minX, g0.y, -30]} geometry={laserGeo}>
-          <meshBasicMaterial
-            color="#FFB81C"
-            transparent
-            opacity={0}
-            toneMapped={false}
-          />
+          <meshBasicMaterial color="#FFB81C" transparent opacity={0} toneMapped={false} />
         </mesh>
       </group>
     </group>
@@ -195,28 +147,12 @@ export default function GearTrainCanvas() {
       role="img"
     >
       <ambientLight intensity={0.35} />
-      <directionalLight
-        position={[3, 4, 5]}
-        intensity={1.4}
-        castShadow
-        shadow-mapSize={[1024, 1024]}
-      />
+      <directionalLight position={[3, 4, 5]} intensity={1.4} castShadow shadow-mapSize={[1024, 1024]} />
       <Train />
-      <ContactShadows
-        position={[0, -1.7, 0]}
-        opacity={0.3}
-        scale={10}
-        blur={2.6}
-        far={3}
-      />
+      <ContactShadows position={[0, -1.7, 0]} opacity={0.3} scale={10} blur={2.6} far={3} />
       <Environment resolution={256}>
         <Lightformer intensity={2.2} position={[0, 4, 3]} scale={[8, 2, 1]} />
-        <Lightformer
-          intensity={1.2}
-          position={[-5, 0, 2]}
-          rotation-y={Math.PI / 2}
-          scale={[6, 2, 1]}
-        />
+        <Lightformer intensity={1.2} position={[-5, 0, 2]} rotation-y={Math.PI / 2} scale={[6, 2, 1]} />
         <Lightformer
           intensity={0.8}
           color="#FFB81C"

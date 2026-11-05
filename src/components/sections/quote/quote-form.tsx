@@ -5,18 +5,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { AnimatePresence, motion } from "motion/react";
-import {
-  Building2,
-  Check,
-  ChevronDown,
-  Clock,
-  Loader2,
-  Mail,
-  MapPin,
-  Paperclip,
-  Phone,
-  User,
-} from "lucide-react";
+import { Building2, Check, ChevronDown, Clock, Loader2, Mail, MapPin, Paperclip, Phone, User } from "lucide-react";
 import { toast } from "sonner";
 import { submitQuote } from "@/app/actions/quote";
 import { quoteSchema, type QuoteInput } from "@/lib/schemas/quote";
@@ -39,11 +28,7 @@ const tile = "flex min-h-14 items-center gap-3 rounded-2xl bg-steel-50 px-4";
 
 function FieldError({ id, msg }: { id: string; msg?: string }) {
   return msg ? (
-    <p
-      id={id}
-      role="alert"
-      className="mt-1 text-[13px] font-medium text-danger"
-    >
+    <p id={id} role="alert" className="mt-1 text-[13px] font-medium text-danger">
       {msg}
     </p>
   ) : null;
@@ -105,29 +90,20 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
           setSent(false);
         }, 4000);
       } else if (res.status === "error") {
-        Object.entries(res.fieldErrors ?? {}).forEach(([k, m]) =>
-          setError(k as keyof QuoteInput, { message: m }),
-        );
+        Object.entries(res.fieldErrors ?? {}).forEach(([k, m]) => setError(k as keyof QuoteInput, { message: m }));
         toast.error(res.message);
         shake();
       }
     });
   };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) =>
-    handleSubmit(onValid, () => shake())(e);
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => handleSubmit(onValid, () => shake())(e);
 
   const err = (k: keyof QuoteInput) => errors[k]?.message;
   const serviceId = useWatch({ control, name: "serviceId" });
   const customService = useWatch({ control, name: "customService" });
 
   return (
-    <form
-      ref={formRef}
-      onSubmit={onSubmit}
-      noValidate
-      className="flex flex-col gap-3.5"
-      aria-describedby="quote-help"
-    >
+    <form ref={formRef} onSubmit={onSubmit} noValidate className="flex flex-col gap-3.5" aria-describedby="quote-help">
       <p id="quote-help" className="sr-only">
         Fields marked with an asterisk are required.
       </p>
@@ -199,9 +175,7 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
             <div className="pl-11">
               <FieldError id={`e-${f.name}`} msg={err(f.name)} />
             </div>
-            {i < arr.length - 1 ? (
-              <hr className="ml-11 border-steel-100" />
-            ) : null}
+            {i < arr.length - 1 ? <hr className="ml-11 border-steel-100" /> : null}
           </div>
         ))}
       </fieldset>
@@ -238,20 +212,12 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
             <option value="planned">Planned shutdown</option>
             <option value="flexible">Flexible</option>
           </select>
-          <ChevronDown
-            className="pointer-events-none size-4"
-            aria-hidden="true"
-          />
+          <ChevronDown className="pointer-events-none size-4" aria-hidden="true" />
         </label>
         <label htmlFor="q-location" className={tile}>
           <MapPin className="size-5 text-ink-soft" aria-hidden="true" />
           <span className="sr-only">Facility location</span>
-          <input
-            id="q-location"
-            placeholder="City, Ontario"
-            className={bareInput}
-            {...register("location")}
-          />
+          <input id="q-location" placeholder="City, Ontario" className={bareInput} {...register("location")} />
         </label>
       </div>
 
@@ -274,9 +240,7 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
         >
           <Paperclip className="size-[18px] text-navy-900" aria-hidden="true" />
           <span className="font-medium text-navy-900">
-            {files.length
-              ? `${files.length} file${files.length > 1 ? "s" : ""} attached`
-              : "Attach photos or drawings"}
+            {files.length ? `${files.length} file${files.length > 1 ? "s" : ""} attached` : "Attach photos or drawings"}
           </span>
           <span className="basis-full pl-7 text-[13px] whitespace-nowrap text-ink-soft sm:ml-auto sm:basis-auto sm:pl-0">
             PDF, JPG, PNG · up to 10 MB
@@ -287,25 +251,15 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
             multiple
             accept="application/pdf,image/jpeg,image/png"
             className="sr-only"
-            onChange={(e) =>
-              setFiles(Array.from(e.target.files ?? []).slice(0, 5))
-            }
+            onChange={(e) => setFiles(Array.from(e.target.files ?? []).slice(0, 5))}
           />
         </label>
       </div>
       <FieldError id="e-details" msg={err("details")} />
 
       <div>
-        <label
-          htmlFor="q-consent"
-          className="flex items-start gap-2.5 text-[13px] text-ink-muted"
-        >
-          <input
-            id="q-consent"
-            type="checkbox"
-            className="mt-0.5 size-4 accent-navy-900"
-            {...register("consent")}
-          />
+        <label htmlFor="q-consent" className="flex items-start gap-2.5 text-[13px] text-ink-muted">
+          <input id="q-consent" type="checkbox" className="mt-0.5 size-4 accent-navy-900" {...register("consent")} />
           You may contact me about this request (CASL).
         </label>
         <FieldError id="e-consent" msg={err("consent")} />
@@ -334,8 +288,7 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
                 animate={{ opacity: 1, y: 0 }}
                 className="inline-flex items-center gap-2"
               >
-                Request sent{" "}
-                <Check className="size-4 text-yellow-500" aria-hidden="true" />
+                Request sent <Check className="size-4 text-yellow-500" aria-hidden="true" />
               </motion.span>
             ) : pending ? (
               <motion.span
@@ -344,15 +297,10 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
                 animate={{ opacity: 1 }}
                 className="inline-flex items-center gap-2"
               >
-                <Loader2 className="size-4 animate-spin" aria-hidden="true" />{" "}
-                Sending…
+                <Loader2 className="size-4 animate-spin" aria-hidden="true" /> Sending…
               </motion.span>
             ) : (
-              <motion.span
-                key="idle"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-              >
+              <motion.span key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                 Send my request <span className="text-yellow-500">→</span>
               </motion.span>
             )}

@@ -2,12 +2,7 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import { gearPath, meshSpeed, placeTrain, trainBounds } from "@/lib/gears";
-import {
-  driverSpeed,
-  GEAR_FILLS,
-  GEAR_TRAIN_SPEC,
-  scrollMotion,
-} from "@/lib/scroll-motion";
+import { driverSpeed, GEAR_FILLS, GEAR_TRAIN_SPEC, scrollMotion } from "@/lib/scroll-motion";
 
 /** 2D fallback of the gear train (mobile, reduced motion, low-power). Same math as the 3D version. */
 export function GearTrainSvg({ animate = true }: { animate?: boolean }) {
@@ -17,11 +12,7 @@ export function GearTrainSvg({ animate = true }: { animate?: boolean }) {
   const groups = useRef<Array<SVGGElement | null>>([]);
 
   useEffect(() => {
-    if (
-      !animate ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
+    if (!animate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let angle = 0;
     let last = performance.now();
     let raf = 0;
@@ -42,10 +33,7 @@ export function GearTrainSvg({ animate = true }: { animate?: boolean }) {
       scrollMotion.velocity *= 0.92; // inertia decay when scrolling stops
       train.forEach((g, i) => {
         const a = ((angle * meshSpeed(train, i) + g.phase) * 180) / Math.PI;
-        groups.current[i]?.setAttribute(
-          "transform",
-          `translate(${g.x} ${g.y}) rotate(${a.toFixed(2)})`,
-        );
+        groups.current[i]?.setAttribute("transform", `translate(${g.x} ${g.y}) rotate(${a.toFixed(2)})`);
       });
       raf = visible ? requestAnimationFrame(tick) : 0;
     };
@@ -70,13 +58,7 @@ export function GearTrainSvg({ animate = true }: { animate?: boolean }) {
           }}
           transform={`translate(${g.x} ${g.y}) rotate(${((g.phase * 180) / Math.PI).toFixed(2)})`}
         >
-          <path
-            d={paths[i]}
-            fill={GEAR_FILLS[i]}
-            fillRule="evenodd"
-            stroke="#0B2239"
-            strokeWidth={1.2}
-          />
+          <path d={paths[i]} fill={GEAR_FILLS[i]} fillRule="evenodd" stroke="#0B2239" strokeWidth={1.2} />
           <circle
             r={(g.pitchRadius * 0.34).toFixed(1)}
             fill="none"

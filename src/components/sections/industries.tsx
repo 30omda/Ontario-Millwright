@@ -5,32 +5,13 @@ import type { HomeContent } from "@/content/types";
 
 export function Industries({ data }: { data: HomeContent["industries"] }) {
   return (
-    <section
-      id="industries"
-      aria-labelledby="industries-title"
-      className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26"
-    >
-      <div
-        data-industries-block
-        className="relative overflow-hidden rounded-[28px] bg-navy-900 text-white"
-      >
+    <section id="industries" aria-labelledby="industries-title" className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26">
+      <div data-industries-block className="relative overflow-hidden rounded-[28px] bg-navy-900 text-white">
         <CursorGrid tone="dark" />
-        <Reveal
-          items="[data-tile]"
-          stagger={0.05}
-          y={24}
-          className="relative p-7 md:p-[clamp(28px,5vw,56px)]"
-        >
+        <Reveal items="[data-tile]" stagger={0.05} y={24} className="relative p-7 md:p-[clamp(28px,5vw,56px)]">
           <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
-            <SectionHeading
-              id="industries-title"
-              lead={data.title}
-              accent={data.accent}
-              dark
-            />
-            <p className="max-w-[420px] text-[15px] leading-relaxed text-[#c5d0db] md:text-base">
-              {data.intro}
-            </p>
+            <SectionHeading id="industries-title" lead={data.title} accent={data.accent} dark />
+            <p className="max-w-[420px] text-[15px] leading-relaxed text-[#c5d0db] md:text-base">{data.intro}</p>
           </div>
           <ul className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
             {data.items.map((i) => (
@@ -42,9 +23,7 @@ export function Industries({ data }: { data: HomeContent["industries"] }) {
                 <span className="text-[19px] font-semibold tracking-[-0.02em] transition-transform duration-300 group-hover:translate-x-1">
                   {i.title}
                 </span>
-                <span className="text-[13px] text-on-navy-soft">
-                  {i.description}
-                </span>
+                <span className="text-[13px] text-on-navy-soft">{i.description}</span>
               </li>
             ))}
           </ul>

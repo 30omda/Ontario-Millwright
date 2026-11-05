@@ -18,7 +18,7 @@ export const HOME_QUERY = defineQuery(`{
     marqueeRowA, marqueeRowB, servicesIntro, industriesIntro, workIntro, safetyBody, aboutBody
   },
   "services": *[_type == "service"] | order(order asc){
-    "id": _id, "slug": slug.current, title, summary, scope, featured, "image": image${imageProjection}
+    "id": _id, "slug": slug.current, title, summary, description, scope, fullScope, featured, "image": image${imageProjection}
   },
   "industries": *[_type == "industry"] | order(order asc){ "id": _id, title, description },
   "projects": *[_type == "project"] | order(order asc)[0...3]{

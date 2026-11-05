@@ -9,11 +9,9 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-yellow-500 text-navy-950 hover:bg-[#ffc642]",
-        secondary:
-          "border border-steel-300 bg-white text-navy-900 font-medium hover:border-navy-900",
+        secondary: "border border-steel-300 bg-white text-navy-900 font-medium hover:border-navy-900",
         dark: "bg-navy-900 text-white font-medium hover:bg-navy-800",
-        ghostDark:
-          "border-[1.5px] border-white/70 bg-white/8 text-white hover:bg-white/16",
+        ghostDark: "border-[1.5px] border-white/70 bg-white/8 text-white hover:bg-white/16",
         info: "border border-blue-200 bg-blue-50 text-blue-800 hover:bg-[#d3e5f8]",
         link: "rounded-none px-0 font-medium text-navy-900 shadow-[inset_0_-2px_0_var(--color-yellow-500)] hover:text-yellow-700",
       },
@@ -27,21 +25,9 @@ export const buttonVariants = cva(
   },
 );
 
-export type ButtonProps = React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & { asChild?: boolean };
+export type ButtonProps = React.ComponentProps<"button"> & VariantProps<typeof buttonVariants> & { asChild?: boolean };
 
-export function Button({
-  className,
-  variant,
-  size,
-  asChild,
-  ...props
-}: ButtonProps) {
+export function Button({ className, variant, size, asChild, ...props }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
-  return (
-    <Comp
-      className={cn(buttonVariants({ variant, size }), className)}
-      {...props}
-    />
-  );
+  return <Comp className={cn(buttonVariants({ variant, size }), className)} {...props} />;
 }

@@ -25,23 +25,14 @@ function GearMark() {
  * A4 · Scroll-velocity marquee (ReactBits "Scroll Velocity" adapted).
  * Each row loops at rest; scroll velocity boosts speed; scrolling up reverses direction.
  */
-export function VelocityMarquee({
-  rows,
-  label,
-}: {
-  rows: Row[];
-  label: string;
-}) {
+export function VelocityMarquee({ rows, label }: { rows: Row[]; label: string }) {
   const root = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        const tracks = gsap.utils.toArray<HTMLElement>(
-          "[data-track]",
-          root.current,
-        );
+        const tracks = gsap.utils.toArray<HTMLElement>("[data-track]", root.current);
         const loops = tracks.map((el, i) => {
           const dir = rows[i]?.direction ?? 1;
           return gsap.fromTo(
@@ -73,14 +64,8 @@ export function VelocityMarquee({
             });
           },
         });
-        const hoverIn = () =>
-          loops.forEach((t) =>
-            gsap.to(t, { timeScale: 0.3 * scrollDir, duration: 0.4 }),
-          );
-        const hoverOut = () =>
-          loops.forEach((t) =>
-            gsap.to(t, { timeScale: scrollDir, duration: 0.4 }),
-          );
+        const hoverIn = () => loops.forEach((t) => gsap.to(t, { timeScale: 0.3 * scrollDir, duration: 0.4 }));
+        const hoverOut = () => loops.forEach((t) => gsap.to(t, { timeScale: scrollDir, duration: 0.4 }));
         const node = root.current!;
         if (window.matchMedia("(hover: hover)").matches) {
           node.addEventListener("pointerenter", hoverIn);
@@ -97,17 +82,9 @@ export function VelocityMarquee({
   );
 
   return (
-    <section
-      ref={root}
-      aria-label={label}
-      className="mt-16 overflow-hidden border-y border-steel-200 py-4 md:mt-24"
-    >
+    <section ref={root} aria-label={label} className="mt-16 overflow-hidden border-y border-steel-200 py-4 md:mt-24">
       {rows.map((row, i) => (
-        <div
-          key={i}
-          className="overflow-hidden py-1.5 whitespace-nowrap md:py-2.5"
-          aria-hidden={i > 0}
-        >
+        <div key={i} className="overflow-hidden py-1.5 whitespace-nowrap md:py-2.5" aria-hidden={i > 0}>
           <div
             data-track
             className={cn(
@@ -116,11 +93,7 @@ export function VelocityMarquee({
             )}
           >
             {[...row.items, ...row.items].map((t, k) => (
-              <span
-                key={k}
-                className="inline-flex items-center gap-5 md:gap-9"
-                aria-hidden={k >= row.items.length}
-              >
+              <span key={k} className="inline-flex items-center gap-5 md:gap-9" aria-hidden={k >= row.items.length}>
                 {t}
                 <GearMark />
               </span>

@@ -1,13 +1,7 @@
 import type { Service, SiteSettings } from "@/content/types";
 
 /** LocalBusiness + services structured data. */
-export function JsonLd({
-  settings,
-  services,
-}: {
-  settings: SiteSettings;
-  services: Service[];
-}) {
+export function JsonLd({ settings, services }: { settings: SiteSettings; services: Service[] }) {
   const data = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",

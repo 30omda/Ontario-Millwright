@@ -26,12 +26,4 @@ export const GEAR_TRAIN_SPEC = [
   { z: 18, angleDeg: 110 },
   { z: 30, angleDeg: 150 },
 ];
-export const GEAR_FILLS = [
-  "#1B3A61",
-  "#C9D1DA",
-  "#1B3A61",
-  "#C9D1DA",
-  "#FFB81C",
-  "#1B3A61",
-  "#C9D1DA",
-];
+export const GEAR_FILLS = ["#1B3A61", "#C9D1DA", "#1B3A61", "#C9D1DA", "#FFB81C", "#1B3A61", "#C9D1DA"];

@@ -34,11 +34,7 @@ export function FooterReveal({ children }: { children: ReactNode }) {
             },
             "-=0.3",
           )
-          .from(
-            "[data-footer-col]",
-            { y: 16, opacity: 0, duration: 0.5, stagger: 0.06 },
-            "-=0.4",
-          );
+          .from("[data-footer-col]", { y: 16, opacity: 0, duration: 0.5, stagger: 0.06 }, "-=0.4");
       });
     },
     { scope: root },

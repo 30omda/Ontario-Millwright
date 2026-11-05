@@ -24,13 +24,10 @@ export function CursorGrid({ tone, cell = 32, className }: Props) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const canHover = window.matchMedia("(hover: hover)").matches;
     const interactive = !reduce && canHover;
-    const line =
-      tone === "dark" ? "rgba(255,255,255,0.07)" : "rgba(11,34,57,0.09)";
+    const line = tone === "dark" ? "rgba(255,255,255,0.07)" : "rgba(11,34,57,0.09)";
     const hitAlpha = tone === "dark" ? 0.55 : 0.62;
     const FADE = 600;
 
@@ -59,14 +56,7 @@ export function CursorGrid({ tone, cell = 32, className }: Props) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
       if (pointer && interactive) {
-        const g = ctx.createRadialGradient(
-          pointer.x,
-          pointer.y,
-          0,
-          pointer.x,
-          pointer.y,
-          Math.max(w, h) * 0.35,
-        );
+        const g = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, Math.max(w, h) * 0.35);
         g.addColorStop(0, `rgba(255,184,28,${tone === "dark" ? 0.16 : 0.12})`);
         g.addColorStop(1, "rgba(255,184,28,0)");
         ctx.fillStyle = g;
@@ -110,10 +100,7 @@ export function CursorGrid({ tone, cell = 32, className }: Props) {
 
     const loop = (now: number) => {
       draw(now);
-      raf =
-        visible && (hits.size > 0 || pulses.length > 0 || pointer)
-          ? requestAnimationFrame(loop)
-          : 0;
+      raf = visible && (hits.size > 0 || pulses.length > 0 || pointer) ? requestAnimationFrame(loop) : 0;
     };
     const kick = () => {
       if (!raf && visible) raf = requestAnimationFrame(loop);
@@ -122,10 +109,7 @@ export function CursorGrid({ tone, cell = 32, className }: Props) {
     const onMove = (e: PointerEvent) => {
       const r = host.getBoundingClientRect();
       pointer = { x: e.clientX - r.left, y: e.clientY - r.top };
-      hits.set(
-        `${Math.floor(pointer.x / cell)}:${Math.floor(pointer.y / cell)}`,
-        performance.now(),
-      );
+      hits.set(`${Math.floor(pointer.x / cell)}:${Math.floor(pointer.y / cell)}`, performance.now());
       kick();
     };
     const onLeave = () => {
@@ -164,11 +148,5 @@ export function CursorGrid({ tone, cell = 32, className }: Props) {
     };
   }, [tone, cell]);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      aria-hidden="true"
-      className={className ?? "pointer-events-none absolute inset-0"}
-    />
-  );
+  return <canvas ref={canvasRef} aria-hidden="true" className={className ?? "pointer-events-none absolute inset-0"} />;
 }

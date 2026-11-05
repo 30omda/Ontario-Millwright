@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
@@ -9,11 +10,7 @@ export function About({ data }: { data: HomeContent["about"] }) {
   const quote = `${data.quoteLead} ${data.quoteRest}`;
   const leadWords = data.quoteLead.split(/\s+/).length;
   return (
-    <section
-      id="about"
-      aria-labelledby="about-title"
-      className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26"
-    >
+    <section id="about" aria-labelledby="about-title" className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26">
       <Reveal className="grid gap-12 lg:grid-cols-2">
         <div>
           <h2
@@ -24,10 +21,7 @@ export function About({ data }: { data: HomeContent["about"] }) {
             {data.title} <span className="text-steel-500">{data.accent}</span>
           </h2>
           <div className="relative mt-9 pl-5">
-            <span
-              aria-hidden="true"
-              className="absolute top-0 bottom-0 left-0 w-[3px] bg-yellow-500"
-            />
+            <span aria-hidden="true" className="absolute top-0 bottom-0 left-0 w-[3px] bg-yellow-500" />
             <ScrollRevealText
               as="blockquote"
               text={quote}
@@ -46,15 +40,10 @@ export function About({ data }: { data: HomeContent["about"] }) {
             sizes="(min-width: 1024px) 600px, 100vw"
             className="h-auto w-full rounded-[24px]"
           />
-          <p className="text-[15px] leading-[1.7] text-ink-muted md:text-base">
-            {data.body}
-          </p>
-          <a
-            href="#quote"
-            className={`${buttonVariants({ variant: "secondary", size: "lg" })} self-start`}
-          >
+          <p className="text-[15px] leading-[1.7] text-ink-muted md:text-base">{data.body}</p>
+          <Link href="/#quote" className={`${buttonVariants({ variant: "secondary", size: "lg" })} self-start`}>
             Work with us <ArrowRight className="size-4" aria-hidden="true" />
-          </a>
+          </Link>
         </div>
       </Reveal>
     </section>

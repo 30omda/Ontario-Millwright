@@ -12,11 +12,7 @@ export const quoteSchema = z
     customService: z.string().trim().max(120).optional().or(z.literal("")),
     urgency: z.enum(URGENCY, { message: "Pick how urgent the job is" }),
     location: z.string().trim().max(120).optional().or(z.literal("")),
-    details: z
-      .string()
-      .trim()
-      .min(20, "Tell us a bit more (at least 20 characters)")
-      .max(4000),
+    details: z.string().trim().min(20, "Tell us a bit more (at least 20 characters)").max(4000),
     consent: z.literal(true, { message: "Please confirm we can contact you" }),
     turnstileToken: z.string().optional(),
   })

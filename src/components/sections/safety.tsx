@@ -7,17 +7,8 @@ import type { HomeContent } from "@/content/types";
 
 export function Safety({ data }: { data: HomeContent["safety"] }) {
   return (
-    <section
-      id="safety"
-      aria-labelledby="safety-title"
-      className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26"
-    >
-      <Reveal
-        items="[data-check]"
-        stagger={0.12}
-        y={16}
-        className="grid gap-3 lg:grid-cols-12"
-      >
+    <section id="safety" aria-labelledby="safety-title" className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26">
+      <Reveal items="[data-check]" stagger={0.12} y={16} className="grid gap-3 lg:grid-cols-12">
         <div className="rounded-[24px] bg-cream p-6 sm:p-[clamp(24px,4vw,44px)] lg:col-span-7">
           <SectionHeading
             id="safety-title"
@@ -60,9 +51,7 @@ export function Safety({ data }: { data: HomeContent["safety"] }) {
                 </span>
                 <span>
                   <span className="block font-semibold">{c.title}</span>
-                  <span className="block text-sm text-ink-soft">
-                    {c.description}
-                  </span>
+                  <span className="block text-sm text-ink-soft">{c.description}</span>
                 </span>
               </li>
             ))}

@@ -25,9 +25,7 @@ function Highlight({ text, query }: { text: string; query: string }) {
   return (
     <>
       {text.slice(0, i)}
-      <mark className="rounded-[3px] bg-yellow-200 font-semibold text-inherit">
-        {text.slice(i, i + q.length)}
-      </mark>
+      <mark className="rounded-[3px] bg-yellow-200 font-semibold text-inherit">{text.slice(i, i + q.length)}</mark>
       {text.slice(i + q.length)}
     </>
   );
@@ -37,25 +35,12 @@ function Highlight({ text, query }: { text: string; query: string }) {
  * Creatable combobox (A11): pick one of the services or add a custom one.
  * Built on cmdk (keyboard + ARIA listbox) inside a Radix Popover.
  */
-export function ServiceCombobox({
-  options,
-  value,
-  onChange,
-  invalid,
-  describedBy,
-}: Props) {
+export function ServiceCombobox({ options, value, onChange, invalid, describedBy }: Props) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const all = useMemo(
-    () => [...options, { id: "not-sure", title: "Not sure, help me choose" }],
-    [options],
-  );
-  const selected = value.serviceId
-    ? all.find((o) => o.id === value.serviceId)?.title
-    : value.customService;
-  const exact = all.some(
-    (o) => o.title.toLowerCase() === query.trim().toLowerCase(),
-  );
+  const all = useMemo(() => [...options, { id: "not-sure", title: "Not sure, help me choose" }], [options]);
+  const selected = value.serviceId ? all.find((o) => o.id === value.serviceId)?.title : value.customService;
+  const exact = all.some((o) => o.title.toLowerCase() === query.trim().toLowerCase());
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
@@ -70,21 +55,13 @@ export function ServiceCombobox({
           aria-describedby={describedBy}
           aria-label="Service needed (required): pick one or type your own"
           className={cn(
-            "flex min-h-14 w-full items-center gap-3 rounded-2xl bg-steel-50 px-4 text-left text-base outline-none transition-shadow",
+            "flex min-h-14 w-full items-center gap-3 rounded-2xl bg-steel-50 px-4 text-left text-base transition-shadow outline-none",
             "focus-visible:shadow-[inset_0_0_0_2px_var(--color-navy-900)]",
             invalid && "shadow-[inset_0_0_0_2px_var(--color-danger)]",
           )}
         >
-          <Wrench
-            className="size-5 shrink-0 text-ink-soft"
-            aria-hidden="true"
-          />
-          <span
-            className={cn(
-              "min-w-0 grow truncate",
-              !selected && "text-ink-soft",
-            )}
-          >
+          <Wrench className="size-5 shrink-0 text-ink-soft" aria-hidden="true" />
+          <span className={cn("min-w-0 grow truncate", !selected && "text-ink-soft")}>
             {selected || "Service needed *"}
           </span>
           <AnimatePresence>
@@ -101,10 +78,7 @@ export function ServiceCombobox({
             ) : null}
           </AnimatePresence>
           <ChevronDown
-            className={cn(
-              "size-4 shrink-0 transition-transform",
-              open && "rotate-180",
-            )}
+            className={cn("size-4 shrink-0 transition-transform", open && "rotate-180")}
             aria-hidden="true"
           />
         </button>
@@ -116,11 +90,7 @@ export function ServiceCombobox({
           sideOffset={6}
           className="z-[70] w-(--radix-popover-trigger-width) rounded-[14px] border border-steel-300 bg-white p-1.5 shadow-[0_18px_40px_-18px_rgb(11_34_57/0.35)]"
         >
-          <Command
-            shouldFilter
-            label="Services"
-            className="text-[15px] text-navy-900"
-          >
+          <Command shouldFilter label="Services" className="text-[15px] text-navy-900">
             <Command.Input
               value={query}
               onValueChange={setQuery}
@@ -160,8 +130,7 @@ export function ServiceCombobox({
                     <Plus className="size-3.5" />
                   </span>
                   <span>
-                    Add “<b className="font-semibold">{query.trim()}</b>” as a
-                    custom service
+                    Add “<b className="font-semibold">{query.trim()}</b>” as a custom service
                   </span>
                 </Command.Item>
               ) : null}

@@ -1,12 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export function LogoMark({
-  className,
-  inverted = false,
-}: {
-  className?: string;
-  inverted?: boolean;
-}) {
+export function LogoMark({ className, inverted = false }: { className?: string; inverted?: boolean }) {
   return (
     <span
       className={cn(
@@ -25,12 +19,7 @@ export function LogoMark({
           strokeWidth="5"
           strokeDasharray="3.5 2.78"
         />
-        <circle
-          cx="14"
-          cy="14"
-          r="3.4"
-          fill={inverted ? "#0B2239" : "#FFB81C"}
-        />
+        <circle cx="14" cy="14" r="3.4" fill={inverted ? "#0B2239" : "#FFB81C"} />
       </svg>
     </span>
   );

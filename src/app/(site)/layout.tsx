@@ -16,13 +16,8 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
         Skip to content
       </a>
       <CalProvider enabled={Boolean(settings.calLink)} />
-      <div className="bg-blueprint min-h-svh overflow-x-clip">
-        <Navbar
-          name={settings.name}
-          phone={settings.phone}
-          phoneHref={settings.phoneHref}
-          calLink={settings.calLink}
-        />
+      <div className="min-h-svh overflow-x-clip bg-blueprint">
+        <Navbar name={settings.name} phone={settings.phone} phoneHref={settings.phoneHref} calLink={settings.calLink} />
         <main id="main">{children}</main>
         <Footer settings={settings} services={home.services.items} />
       </div>

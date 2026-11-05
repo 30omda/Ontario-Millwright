@@ -8,14 +8,9 @@ import type { HomeContent, Img, SiteSettings } from "./types";
 type Raw = Record<string, unknown> | null;
 
 const pick = <T>(value: T | null | undefined, fallback: T): T =>
-  value === null ||
-  value === undefined ||
-  (Array.isArray(value) && value.length === 0)
-    ? fallback
-    : value;
+  value === null || value === undefined || (Array.isArray(value) && value.length === 0) ? fallback : value;
 
-const toPhoneHref = (phone: string) =>
-  `tel:+${phone.replace(/\D/g, "").replace(/^(?!1)/, "1")}`;
+const toPhoneHref = (phone: string) => `tel:+${phone.replace(/\D/g, "").replace(/^(?!1)/, "1")}`;
 
 export async function getSettings(): Promise<SiteSettings> {
   "use cache";
@@ -55,8 +50,7 @@ export async function getHomeContent(): Promise<HomeContent> {
       projects: HomeContent["work"]["items"];
     };
     const p = data.page ?? {};
-    const validImg = (i: Img | undefined) =>
-      Boolean(i?.src && i.width && i.height);
+    const validImg = (i: Img | undefined) => Boolean(i?.src && i.width && i.height);
     return {
       ...seedHome,
       hero: {
@@ -64,10 +58,7 @@ export async function getHomeContent(): Promise<HomeContent> {
         headline: pick(p.heroHeadline as string, seedHome.hero.headline),
         accent: pick(p.heroAccent as string, seedHome.hero.accent),
         subcopy: pick(p.heroSubcopy as string, seedHome.hero.subcopy),
-        capabilities: pick(
-          p.capabilities as HomeContent["hero"]["capabilities"],
-          seedHome.hero.capabilities,
-        ),
+        capabilities: pick(p.capabilities as HomeContent["hero"]["capabilities"], seedHome.hero.capabilities),
       },
       marquee: {
         rowA: pick(p.marqueeRowA as string[], seedHome.marquee.rowA),
@@ -76,7 +67,7 @@ export async function getHomeContent(): Promise<HomeContent> {
       services: {
         ...seedHome.services,
         intro: pick(p.servicesIntro as string, seedHome.services.intro),
-        items: data.services?.every((s) => validImg(s.image))
+        items: data.services?.every((s) => validImg(s.image) && s.description && s.fullScope?.length)
           ? pick(data.services, seedHome.services.items)
           : seedHome.services.items,
       },
@@ -104,4 +95,13 @@ export async function getHomeContent(): Promise<HomeContent> {
   } catch {
     return seedHome;
   }
+}
+
+/** One service by slug (from the same cached home payload), or null. */
+export async function getService(slug: string) {
+  const home = await getHomeContent();
+  const list = home.services.items;
+  const index = list.findIndex((s) => s.slug === slug);
+  if (index < 0) return null;
+  return { service: list[index]!, others: list.filter((_, i) => i !== index), home };
 }

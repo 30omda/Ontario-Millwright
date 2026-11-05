@@ -19,14 +19,7 @@ type Props = {
  * headings → masked line reveal, items → ScrollTrigger.batch fade-up.
  * SSR renders final state; GSAP sets "from" states on the client only.
  */
-export function Reveal({
-  children,
-  className,
-  items,
-  headings = true,
-  y = 40,
-  stagger = 0.08,
-}: Props) {
+export function Reveal({ children, className, items, headings = true, y = 40, stagger = 0.08 }: Props) {
   const root = useRef<HTMLDivElement>(null);
   useGSAP(
     () => {
@@ -34,22 +27,20 @@ export function Reveal({
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         const splits: SplitText[] = [];
         if (headings) {
-          gsap.utils
-            .toArray<HTMLElement>("[data-reveal-heading]", root.current)
-            .forEach((h) => {
-              const split = SplitText.create(h, {
-                type: "lines",
-                mask: "lines",
-              });
-              splits.push(split);
-              gsap.from(split.lines, {
-                yPercent: 105,
-                duration: 0.8,
-                ease: "expo.out",
-                stagger: 0.08,
-                scrollTrigger: { trigger: h, start: "top 85%", once: true },
-              });
+          gsap.utils.toArray<HTMLElement>("[data-reveal-heading]", root.current).forEach((h) => {
+            const split = SplitText.create(h, {
+              type: "lines",
+              mask: "lines",
             });
+            splits.push(split);
+            gsap.from(split.lines, {
+              yPercent: 105,
+              duration: 0.8,
+              ease: "expo.out",
+              stagger: 0.08,
+              scrollTrigger: { trigger: h, start: "top 85%", once: true },
+            });
+          });
         }
         if (items) {
           const els = gsap.utils.toArray<HTMLElement>(items, root.current);

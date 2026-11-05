@@ -16,11 +16,7 @@ export type PlacedGear = {
 };
 
 /** Points (x,y) of the gear outline centred on 0,0. */
-export function gearOutline(
-  z: number,
-  m = GEAR_MODULE,
-  rot = 0,
-): Array<[number, number]> {
+export function gearOutline(z: number, m = GEAR_MODULE, rot = 0): Array<[number, number]> {
   const r = (z * m) / 2;
   const ra = r + m;
   const rf = r - 1.25 * m;
@@ -28,16 +24,12 @@ export function gearOutline(
   const step = (2 * Math.PI) / z;
   const r0 = Math.max(rb, rf);
   const psi = (R: number) =>
-    Math.PI / (2 * z) +
-    inv(PRESSURE_ANGLE) -
-    inv(Math.acos(Math.min(1, rb / Math.max(R, rb))));
+    Math.PI / (2 * z) + inv(PRESSURE_ANGLE) - inv(Math.acos(Math.min(1, rb / Math.max(R, rb))));
   const pts: Array<[number, number]> = [];
-  const P = (R: number, a: number) =>
-    pts.push([R * Math.cos(a + rot), R * Math.sin(a + rot)]);
+  const P = (R: number, a: number) => pts.push([R * Math.cos(a + rot), R * Math.sin(a + rot)]);
   for (let i = 0; i < z; i++) {
     const c = i * step;
-    for (let k = 0; k <= 2; k++)
-      P(rf, c - step / 2 + ((step / 2 - psi(r0)) * k) / 2);
+    for (let k = 0; k <= 2; k++) P(rf, c - step / 2 + ((step / 2 - psi(r0)) * k) / 2);
     for (let k = 0; k <= 5; k++) {
       const R = r0 + ((ra - r0) * k) / 5;
       P(R, c - psi(R));
@@ -46,8 +38,7 @@ export function gearOutline(
       const R = r0 + ((ra - r0) * k) / 5;
       P(R, c + psi(R));
     }
-    for (let k = 1; k <= 2; k++)
-      P(rf, c + psi(r0) + ((step / 2 - psi(r0)) * k) / 2);
+    for (let k = 1; k <= 2; k++) P(rf, c + psi(r0) + ((step / 2 - psi(r0)) * k) / 2);
   }
   return pts;
 }
@@ -91,8 +82,7 @@ export function placeTrain(specs: GearSpec[], m = GEAR_MODULE): PlacedGear[] {
     const dist = ((prev.z + s.z) * m) / 2;
     const x = prev.x + Math.cos(b) * dist;
     const y = prev.y + Math.sin(b) * dist;
-    const phase =
-      (-prev.phase * prev.z) / s.z + b * (1 + prev.z / s.z) + Math.PI / s.z;
+    const phase = (-prev.phase * prev.z) / s.z + b * (1 + prev.z / s.z) + Math.PI / s.z;
     out.push({ z: s.z, x, y, phase, pitchRadius: (s.z * m) / 2 });
   });
   return out;

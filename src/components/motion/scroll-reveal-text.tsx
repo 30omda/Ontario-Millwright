@@ -17,13 +17,7 @@ type Props = {
  * A9/A10 · Scroll Reveal (ReactBits adapted): words go from opacity .1 + blur 4px to fully visible,
  * container straightens from 3° as you scroll. Screen readers get the sentence once via aria-label.
  */
-export function ScrollRevealText({
-  text,
-  as: Tag = "p",
-  className,
-  mutedFrom,
-  mutedClassName,
-}: Props) {
+export function ScrollRevealText({ text, as: Tag = "p", className, mutedFrom, mutedClassName }: Props) {
   const ref = useRef<HTMLElement>(null);
   const words = text.split(/(\s+)/);
 
@@ -34,10 +28,8 @@ export function ScrollRevealText({
       const mm = gsap.matchMedia();
       mm.add(
         {
-          desktop:
-            "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
-          mobile:
-            "(max-width: 767.98px) and (prefers-reduced-motion: no-preference)",
+          desktop: "(min-width: 768px) and (prefers-reduced-motion: no-preference)",
+          mobile: "(max-width: 767.98px) and (prefers-reduced-motion: no-preference)",
         },
         (ctx) => {
           const { desktop } = ctx.conditions as Record<string, boolean>;
@@ -84,21 +76,12 @@ export function ScrollRevealText({
     return acc;
   }, []);
   return (
-    <Tag
-      ref={ref as never}
-      aria-label={text}
-      className={cn("origin-left will-change-transform", className)}
-    >
+    <Tag ref={ref as never} aria-label={text} className={cn("origin-left will-change-transform", className)}>
       {indexed.map(({ w, idx }, i) => {
         if (/^\s+$/.test(w)) return w;
         const muted = mutedFrom !== undefined && idx >= mutedFrom;
         return (
-          <span
-            key={i}
-            data-word
-            aria-hidden="true"
-            className={cn("inline-block", muted && mutedClassName)}
-          >
+          <span key={i} data-word aria-hidden="true" className={cn("inline-block", muted && mutedClassName)}>
             {w}
           </span>
         );

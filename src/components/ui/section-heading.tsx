@@ -11,15 +11,7 @@ type Props = {
 };
 
 /** Two-tone heading: same font/weight, accent word in steel (light) or yellow (dark). */
-export function SectionHeading({
-  as: Tag = "h2",
-  lead,
-  accent,
-  tail,
-  dark,
-  className,
-  id,
-}: Props) {
+export function SectionHeading({ as: Tag = "h2", lead, accent, tail, dark, className, id }: Props) {
   return (
     <Tag
       id={id}
@@ -30,12 +22,7 @@ export function SectionHeading({
         className,
       )}
     >
-      {lead}{" "}
-      {accent ? (
-        <span className={dark ? "text-yellow-500" : "text-steel-500"}>
-          {accent}
-        </span>
-      ) : null}
+      {lead} {accent ? <span className={dark ? "text-yellow-500" : "text-steel-500"}>{accent}</span> : null}
       {tail ? <> {tail}</> : null}
     </Tag>
   );

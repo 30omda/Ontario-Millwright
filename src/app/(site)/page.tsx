@@ -41,11 +41,7 @@ export default async function HomePage() {
       <RecentWork data={home.work} />
       <Safety data={home.safety} />
       <About data={home.about} />
-      <QuoteSection
-        data={home.quote}
-        services={serviceOptions}
-        settings={settings}
-      />
+      <QuoteSection data={home.quote} services={serviceOptions} settings={settings} />
     </>
   );
 }

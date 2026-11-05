@@ -11,13 +11,10 @@ import { cn } from "@/lib/utils";
 import { useMediaQuery } from "@/lib/use-media-query";
 import type { HomeContent } from "@/content/types";
 
-const GearTrainCanvas = dynamic(
-  () => import("@/components/three/gear-train-canvas"),
-  {
-    ssr: false,
-    loading: () => <GearTrainSvg animate={false} />,
-  },
-);
+const GearTrainCanvas = dynamic(() => import("@/components/three/gear-train-canvas"), {
+  ssr: false,
+  loading: () => <GearTrainSvg animate={false} />,
+});
 
 type Mode = "svg" | "webgl";
 
@@ -30,19 +27,14 @@ export function Process({ data }: { data: HomeContent["process"] }) {
   const figure = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [near, setNear] = useState(false);
-  const wide = useMediaQuery(
-    "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
-  );
+  const wide = useMediaQuery("(min-width: 1024px) and (prefers-reduced-motion: no-preference)");
   const lowPower = useSyncExternalStore(
     () => () => {},
     () => {
       const nav = navigator as Navigator & {
         connection?: { saveData?: boolean };
       };
-      return (
-        (navigator.hardwareConcurrency ?? 4) < 4 ||
-        Boolean(nav.connection?.saveData)
-      );
+      return (navigator.hardwareConcurrency ?? 4) < 4 || Boolean(nav.connection?.saveData);
     },
     () => true,
   );
@@ -69,8 +61,7 @@ export function Process({ data }: { data: HomeContent["process"] }) {
       const mm = gsap.matchMedia();
       mm.add(
         {
-          desktop:
-            "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+          desktop: "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
           other: "(max-width: 1023.98px), (prefers-reduced-motion: reduce)",
         },
         (ctx) => {
@@ -120,36 +111,25 @@ export function Process({ data }: { data: HomeContent["process"] }) {
       className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26 lg:flex lg:min-h-[calc(100svh-96px)] lg:flex-col lg:justify-center lg:pt-10"
     >
       <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
-        <SectionHeading
-          id="process-title"
-          lead={data.title}
-          accent={data.accent}
-          tail={data.titleEnd}
-        />
+        <SectionHeading id="process-title" lead={data.title} accent={data.accent} tail={data.titleEnd} />
       </div>
       <div className="grid items-stretch gap-4 lg:grid-cols-2">
         <ol data-steps className="relative flex flex-col gap-3 pl-[34px]">
-          <li
-            aria-hidden="true"
-            className="absolute top-3 bottom-3 left-2.5 w-0.5 bg-steel-200"
-          />
+          <li aria-hidden="true" className="absolute top-3 bottom-3 left-2.5 w-0.5 bg-steel-200" />
           <li
             aria-hidden="true"
             data-beam
             className="absolute top-3 bottom-3 left-2.5 w-0.5 origin-top scale-y-0 bg-yellow-500 shadow-[0_0_10px_rgb(255_184_28/0.8)] motion-reduce:scale-y-100"
           />
           {data.steps.map((s, i) => {
-            const state =
-              i < active ? "done" : i === active ? "active" : "todo";
+            const state = i < active ? "done" : i === active ? "active" : "todo";
             return (
               <li
                 key={s.id}
                 aria-current={state === "active" ? "step" : undefined}
                 className={cn(
                   "relative flex flex-col gap-2 rounded-[22px] border px-6 py-5.5 transition-[background-color,border-color,opacity] duration-500",
-                  state === "active"
-                    ? "border-navy-900 bg-white"
-                    : "border-steel-200 bg-white/60",
+                  state === "active" ? "border-navy-900 bg-white" : "border-steel-200 bg-white/60",
                   state === "todo" && "lg:opacity-70",
                 )}
               >
@@ -160,12 +140,8 @@ export function Process({ data }: { data: HomeContent["process"] }) {
                     state === "todo" ? "bg-white" : "bg-yellow-500",
                   )}
                 />
-                <span className="text-[21px] font-semibold tracking-[-0.02em] lg:text-[22px]">
-                  {s.title}
-                </span>
-                <span className="text-[15px] leading-relaxed text-ink-muted lg:text-sm">
-                  {s.description}
-                </span>
+                <span className="text-[21px] font-semibold tracking-[-0.02em] lg:text-[22px]">{s.title}</span>
+                <span className="text-[15px] leading-relaxed text-ink-muted lg:text-sm">{s.description}</span>
               </li>
             );
           })}
