@@ -12,7 +12,7 @@ function ServiceCard({ s }: { s: Service }) {
   return (
     <article
       data-card
-      className="group flex flex-col overflow-hidden rounded-[24px] border border-steel-200 bg-white transition-[box-shadow,border-color] duration-300 hover:border-yellow-500 hover:shadow-(--shadow-glow)"
+      className="group mb-3 flex break-inside-avoid flex-col overflow-hidden rounded-[24px] border border-steel-200 bg-white transition-[box-shadow,border-color] duration-300 hover:border-yellow-500 hover:shadow-(--shadow-glow)"
     >
       <div className="px-2.5 pt-2.5">
         <div className="overflow-hidden rounded-2xl bg-steel-100">
@@ -63,13 +63,14 @@ export function Services({ data, settings }: { data: HomeContent["services"]; se
           <SectionHeading id="services-title" lead={data.title} accent={data.accent} />
           <p className="max-w-[400px] text-[15px] leading-relaxed text-ink-muted md:text-base">{data.intro}</p>
         </div>
-        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+        {/* Masonry: cards keep their natural height (full-ratio images), no empty gaps */}
+        <div className="columns-1 gap-3 md:columns-2 lg:columns-3">
           {data.items.map((s) => (
             <ServiceCard key={s.id} s={s} />
           ))}
           <article
             data-card
-            className="group flex flex-col gap-3.5 rounded-[24px] bg-navy-900 px-6.5 py-7 text-white"
+            className="group mb-3 flex break-inside-avoid flex-col gap-3.5 rounded-[24px] bg-navy-900 px-6.5 py-7 text-white"
             style={{ "--gear-state": "running" } as React.CSSProperties}
           >
             <span className="flex size-11 items-center justify-center rounded-xl bg-yellow-500">
@@ -82,7 +83,7 @@ export function Services({ data, settings }: { data: HomeContent["services"]; se
               Tell us what the machine is doing. A millwright will walk through it with you and point you to the right
               crew.
             </p>
-            <div className="-mx-6.5 my-1 flex min-h-[170px] grow items-center justify-center">
+            <div className="-mx-6.5 my-1 flex min-h-[170px] items-center justify-center">
               <MiniGears className="h-full max-h-[260px] w-full overflow-visible" />
             </div>
             <div className="mt-auto flex flex-wrap items-center gap-2.5">
