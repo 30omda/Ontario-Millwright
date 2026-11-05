@@ -114,7 +114,7 @@ export function Process({ data }: { data: HomeContent["process"] }) {
         <SectionHeading id="process-title" lead={data.title} accent={data.accent} tail={data.titleEnd} />
       </div>
       <div className="grid items-stretch gap-4 lg:grid-cols-2">
-        <ol data-steps className="relative flex flex-col gap-3 pl-[34px]">
+        <ol data-steps className="relative flex flex-col gap-3 pl-[34px] lg:z-10">
           <li aria-hidden="true" className="absolute top-3 bottom-3 left-2.5 w-0.5 bg-steel-200" />
           <li
             aria-hidden="true"
@@ -148,12 +148,13 @@ export function Process({ data }: { data: HomeContent["process"] }) {
         </ol>
         <div
           ref={figure}
-          className="relative min-h-[340px] overflow-hidden rounded-[28px] md:min-h-[460px] lg:min-h-[560px]"
+          className="relative min-h-[340px] overflow-hidden rounded-[28px] md:min-h-[460px] lg:min-h-[560px] lg:overflow-visible lg:rounded-none"
         >
           <div className="absolute inset-0 [mask-image:radial-gradient(closest-side,#000_55%,transparent_100%)]">
             <CursorGrid tone="light" />
           </div>
-          <div className="pointer-events-none absolute inset-0 p-2 md:p-6">
+          {/* lg: widen the canvas equally both ways so the train keeps its spot but is never clipped and runs behind the cards */}
+          <div className="pointer-events-none absolute inset-0 p-2 md:p-6 lg:-inset-x-1/2 lg:p-0">
             {mode === "webgl" && near ? <GearTrainCanvas /> : <GearTrainSvg />}
           </div>
         </div>
