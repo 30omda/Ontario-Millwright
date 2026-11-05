@@ -11,6 +11,9 @@ const PAGES = {
 
 type Slug = keyof typeof PAGES;
 
+// Every slug is prerendered via generateStaticParams; awaiting params at the top keeps unknown slugs a real 404.
+export const instant = false;
+
 export function generateStaticParams() {
   return Object.keys(PAGES).map((slug) => ({ slug }));
 }
