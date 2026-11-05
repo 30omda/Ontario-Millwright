@@ -3,7 +3,8 @@ import { HeroVideo } from "@/components/sections/hero-video";
 import { Industries } from "@/components/sections/industries";
 import { Process } from "@/components/sections/process";
 import { QuoteSection } from "@/components/sections/quote/quote-section";
-import { RecentWork } from "@/components/sections/recent-work";
+// Recent work is hidden for now; uncomment this import and <RecentWork /> below to bring it back.
+// import { RecentWork } from "@/components/sections/recent-work";
 import { Safety } from "@/components/sections/safety";
 import { Services } from "@/components/sections/services";
 import { VelocityMarquee } from "@/components/motion/velocity-marquee";
@@ -38,7 +39,7 @@ export default async function HomePage() {
       <Services data={home.services} settings={settings} />
       <Industries data={home.industries} />
       <Process data={home.process} />
-      <RecentWork data={home.work} />
+      {/* <RecentWork data={home.work} /> */}
       <Safety data={home.safety} />
       <About data={home.about} />
       <QuoteSection data={home.quote} services={serviceOptions} settings={settings} />

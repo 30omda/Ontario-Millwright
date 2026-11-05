@@ -10,7 +10,7 @@ import { Year } from "@/components/ui/year";
 const COMPANY = [
   { href: "/#industries", label: "Industries" },
   { href: "/#process", label: "How we work" },
-  { href: "/#work", label: "Recent work" },
+  // { href: "/#work", label: "Recent work" }, // section is hidden
   { href: "/#safety", label: "Safety" },
   { href: "/#about", label: "About" },
 ];
