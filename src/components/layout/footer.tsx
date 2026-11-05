@@ -32,7 +32,7 @@ export function Footer({ settings, services }: { settings: SiteSettings; service
           <div className="grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-3 lg:grid-cols-[minmax(240px,1.3fr)_minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,1.3fr)] lg:gap-x-8 lg:gap-y-10">
             <div data-footer-col className="col-span-2 flex flex-col items-start gap-3.5 md:col-span-3 lg:col-span-1">
               <Link href="/#top" className="inline-flex items-center">
-                <Logo name={settings.name} className="text-xl" />
+                <Logo name={settings.name} className="h-16 sm:h-20" />
               </Link>
               <p className="max-w-80 text-base leading-relaxed text-ink-soft">{settings.tagline}</p>
               <a
