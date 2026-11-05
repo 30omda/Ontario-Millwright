@@ -15,7 +15,7 @@ export const NAV_LINKS = [
   { href: "/#services", label: "Services" },
   { href: "/#industries", label: "Industries" },
   { href: "/#process", label: "Process" },
-  { href: "/#work", label: "Work" },
+  // { href: "/#work", label: "Work" }, // Recent work section is hidden
   { href: "/#safety", label: "Safety" },
   { href: "/#about", label: "About" },
 ] as const;
