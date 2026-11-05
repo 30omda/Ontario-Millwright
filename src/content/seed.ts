@@ -25,8 +25,8 @@ const img = (src: string, alt: string, width: number, height: number) => ({
 
 export const seedHome: HomeContent = {
   hero: {
-    headline: "Industrial,",
-    accent: "kept running.",
+    headline: "ONTARIO",
+    accent: "Millwright Services",
     subcopy:
       "We install, move, align, and maintain the machinery Ontario's production depends on, from single-machine changeouts to full plant relocations, done safely and on schedule.",
     capabilities: [
@@ -266,19 +266,20 @@ export const seedHome: HomeContent = {
     intro:
       "Examples of the work our crews do: equipment changeouts, precision overhauls, and production-line installs.",
     items: [
-      {
-        id: "pressure-vessel",
-        slug: "pressure-vessel-changeout",
-        category: "Pressure equipment",
-        title: "Pressure Vessel Changeout",
-        summary:
-          "Removing a spent reactor vessel and setting its replacement at a process plant: removal, transport, setting, and re-piping support inside a planned shutdown window.",
-        image: img("/media/motor-rotor.jpg", "Heavy rotor on stands ready for setting", 1125, 750),
-        details: [
-          { label: "Scope", value: "Vessel swap & re-piping" },
-          { label: "Setting", value: "Planned shutdown" },
-        ],
-      },
+      // Hidden for now (uncomment to show the card again):
+      // {
+      //   id: "pressure-vessel",
+      //   slug: "pressure-vessel-changeout",
+      //   category: "Pressure equipment",
+      //   title: "Pressure Vessel Changeout",
+      //   summary:
+      //     "Removing a spent reactor vessel and setting its replacement at a process plant: removal, transport, setting, and re-piping support inside a planned shutdown window.",
+      //   image: img("/media/motor-rotor.jpg", "Heavy rotor on stands ready for setting", 1125, 750),
+      //   details: [
+      //     { label: "Scope", value: "Vessel swap & re-piping" },
+      //     { label: "Setting", value: "Planned shutdown" },
+      //   ],
+      // },
       {
         id: "conveyor",
         slug: "distribution-conveyor-install",

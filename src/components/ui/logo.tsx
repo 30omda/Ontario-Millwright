@@ -36,6 +36,9 @@ export function Logo({ className, name = "Ontario Millwright" }: { className?: s
         <span className="mt-[0.08em] text-[0.86em] text-yellow-500 [text-shadow:0_0.06em_0_#d99a00,0_0.12em_0_#b37d00,0_0.2em_0.25em_rgb(11_34_57/0.3)]">
           Millwright
         </span>
+        <span className="mt-[0.3em] text-[0.62em] font-semibold tracking-[0.04em] text-green-700 normal-case">
+          Going green 💚
+        </span>
       </span>
     </span>
   );

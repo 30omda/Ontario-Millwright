@@ -12,7 +12,7 @@ export function RecentWork({ data }: { data: HomeContent["work"] }) {
           <SectionHeading id="work-title" lead={data.title} accent={data.accent} />
           <p className="max-w-[400px] text-[15px] leading-relaxed text-ink-muted md:text-base">{data.intro}</p>
         </div>
-        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+        <div className={`grid gap-3 md:grid-cols-2 ${data.items.length >= 3 ? "lg:grid-cols-3" : ""}`}>
           {data.items.map((p) => (
             <SpotlightCard key={p.id}>
               <div className="relative z-10 overflow-hidden bg-steel-100">

@@ -84,25 +84,25 @@ export function HeroVideo({ hero, calLink }: Props) {
 
           // ── A1: intro ──
           const h1 = root.current!.querySelector<HTMLElement>("[data-hero-title]")!;
+          // autoSplit re-splits on resize / font load, so line breaks never go stale
           const split = SplitText.create(h1, {
             type: "words,lines",
             mask: "lines",
             linesClass: "pb-[0.06em]",
-          });
-          const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
-          intro
-            .from(
-              split.words,
-              {
+            autoSplit: true,
+            onSplit: (self) =>
+              gsap.from(self.words, {
                 yPercent: 110,
                 opacity: 0,
                 duration: 0.9,
                 ease: "expo.out",
                 stagger: 0.06,
-              },
-              0.15,
-            )
-            .from("[data-hero-sub]", { y: 16, opacity: 0, duration: 0.6, stagger: 0.08 }, "-=0.45")
+                delay: 0.15,
+              }),
+          });
+          const intro = gsap.timeline({ defaults: { ease: "power3.out" } });
+          intro
+            .from("[data-hero-sub]", { y: 16, opacity: 0, duration: 0.6, stagger: 0.08 }, 0.6)
             .from(
               "[data-hero-cap]",
               {
@@ -202,11 +202,11 @@ export function HeroVideo({ hero, calLink }: Props) {
         {/* Copy */}
         <div className="absolute inset-x-0 bottom-0 z-10">
           <div className="mx-auto flex max-w-[1240px] flex-col gap-6 px-6 pb-6 sm:px-[clamp(24px,5vw,64px)] sm:pb-[clamp(24px,4vw,48px)] md:gap-7">
-            <div className="max-w-[760px]">
+            <div>
               <h1
                 id="hero-title"
                 data-hero-title
-                className="text-[44px] leading-[0.95] font-extrabold tracking-[-0.055em] [text-shadow:0_2px_24px_rgb(7_22_39/0.45)] sm:text-[clamp(56px,7.6vw,112px)] sm:leading-[0.92]"
+                className="text-[44px] leading-[0.95] font-extrabold tracking-[-0.055em] [text-shadow:0_2px_24px_rgb(7_22_39/0.45)] sm:text-[clamp(56px,min(7.6vw,13svh),112px)] sm:leading-[0.92]"
               >
                 {hero.headline} <span className="text-yellow-500">{hero.accent}</span>
               </h1>
