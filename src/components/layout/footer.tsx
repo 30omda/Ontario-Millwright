@@ -54,7 +54,7 @@ export function Footer({ settings, services }: { settings: SiteSettings; service
               <ul className="flex flex-col gap-3">
                 {services.map((s) => (
                   <li key={s.id}>
-                    <Link href="/#services" className={linkCls}>
+                    <Link href={`/services/${s.slug}`} className={linkCls}>
                       {s.title}
                     </Link>
                   </li>
