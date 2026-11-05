@@ -1,26 +1,16 @@
+import Image from "next/image";
+import logo from "../../../public/brand/logo.png";
 import { cn } from "@/lib/utils";
 
-export function LogoMark({ className, inverted = false }: { className?: string; inverted?: boolean }) {
+/** Brand lockup (gear | ONTARIO / MILLWRIGHT) with the "Going green" tagline. Size it with a height class. */
+export function Logo({ className, name = "Ontario Millwright" }: { className?: string; name?: string }) {
   return (
-    <span
-      className={cn(
-        "flex size-9 items-center justify-center rounded-[10px]",
-        inverted ? "bg-yellow-500" : "bg-navy-900",
-        className,
-      )}
-    >
-      <svg width="20" height="20" viewBox="0 0 28 28" aria-hidden="true">
-        <circle
-          cx="14"
-          cy="14"
-          r="10"
-          fill="none"
-          stroke={inverted ? "#0B2239" : "#FFB81C"}
-          strokeWidth="5"
-          strokeDasharray="3.5 2.78"
-        />
-        <circle cx="14" cy="14" r="3.4" fill={inverted ? "#0B2239" : "#FFB81C"} />
-      </svg>
+    <span className="inline-flex flex-col items-start">
+      <Image src={logo} alt={name} priority className={cn("h-12 w-auto sm:h-14", className)} />
+      {/* pl-[36%] lines the tagline up under the wordmark, not the gear */}
+      <span className="-mt-0.5 w-full pl-[36%] text-[11px] leading-none font-semibold tracking-[0.04em] text-green-700">
+        Going green 💚
+      </span>
     </span>
   );
 }

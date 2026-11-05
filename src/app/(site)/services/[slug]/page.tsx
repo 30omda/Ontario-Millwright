@@ -11,6 +11,9 @@ import { ConsultLink } from "@/components/ui/consult-link";
 import { getHomeContent, getService, getSettings } from "@/content/get-content";
 import { cn } from "@/lib/utils";
 
+// Every slug is prerendered via generateStaticParams; awaiting params at the top keeps unknown slugs a real 404.
+export const instant = false;
+
 export async function generateStaticParams() {
   const home = await getHomeContent();
   return home.services.items.map((s) => ({ slug: s.slug }));

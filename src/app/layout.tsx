@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     locale: "en_CA",
     siteName: "Ontario Millwright",
   },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {

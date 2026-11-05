@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { CalendarDays, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { ConsultLink } from "@/components/ui/consult-link";
-import { LogoMark } from "@/components/ui/logo";
+import { Logo } from "@/components/ui/logo";
 import { Tape } from "@/components/ui/tape";
 import type { Service, SiteSettings } from "@/content/types";
 import { FooterReveal } from "@/components/motion/footer-reveal";
@@ -31,9 +31,8 @@ export function Footer({ settings, services }: { settings: SiteSettings; service
           <Tape side="right" />
           <div className="grid grid-cols-2 gap-x-5 gap-y-8 md:grid-cols-3 lg:grid-cols-[minmax(240px,1.3fr)_minmax(0,1fr)_minmax(0,0.8fr)_minmax(0,1.3fr)] lg:gap-x-8 lg:gap-y-10">
             <div data-footer-col className="col-span-2 flex flex-col items-start gap-3.5 md:col-span-3 lg:col-span-1">
-              <Link href="/#top" className="inline-flex items-center gap-2.5 text-navy-900">
-                <LogoMark className="size-10 rounded-xl" />
-                <span className="text-2xl font-bold tracking-[-0.03em]">{settings.name}</span>
+              <Link href="/#top" className="inline-flex items-center">
+                <Logo name={settings.name} className="h-16 sm:h-20" />
               </Link>
               <p className="max-w-80 text-base leading-relaxed text-ink-soft">{settings.tagline}</p>
               <a

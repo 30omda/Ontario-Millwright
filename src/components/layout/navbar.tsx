@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, CalendarDays, Menu, Phone, X } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ConsultLink } from "@/components/ui/consult-link";
-import { LogoMark } from "@/components/ui/logo";
+import { Logo } from "@/components/ui/logo";
 import { Tape } from "@/components/ui/tape";
 import { cn } from "@/lib/utils";
 
@@ -70,9 +70,8 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
         <Tape side="left" width={70} />
         <Tape side="right" width={70} />
 
-        <Link href="/#top" className="flex items-center gap-2.5 text-navy-900">
-          <LogoMark />
-          <span className="text-base font-semibold tracking-[-0.02em]">{name}</span>
+        <Link href="/#top" className="flex items-center">
+          <Logo name={name} />
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-5 text-[15px] font-medium nav:flex xl:gap-6.5">
@@ -126,7 +125,7 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
                     >
                       <div className="flex items-center justify-between">
                         <Dialog.Title className="flex items-center gap-2.5 font-semibold text-navy-900">
-                          <LogoMark /> {name}
+                          <Logo name={name} />
                         </Dialog.Title>
                         <Dialog.Close
                           className="inline-flex size-11 items-center justify-center rounded-full border border-steel-200"
