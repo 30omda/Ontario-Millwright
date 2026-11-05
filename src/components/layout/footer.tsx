@@ -124,7 +124,7 @@ export function Footer({
                     className="size-[18px] text-yellow-700"
                     aria-hidden="true"
                   />
-                  <a href={`mailto:${settings.email}`} className={linkCls}>
+                  <a href={`mailto:${settings.email}`} className={`${linkCls} break-all`}>
                     {settings.email}
                   </a>
                 </li>
