@@ -1,26 +1,136 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ───────────────────────── Design tokens (Direction B · Blueprint) ───────────────────────── */
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --color-navy-950: #071627;
+  --color-navy-900: #0b2239;
+  --color-navy-800: #13304f;
+  --color-navy-700: #23415f;
+  --color-navy-600: #2b4a6b;
+  --color-steel-500: #7c8b9a;
+  --color-steel-400: #9aa8b5;
+  --color-steel-300: #c9d3dc;
+  --color-steel-200: #d5dde4;
+  --color-steel-100: #e2e8ed;
+  --color-steel-50: #f1f4f7;
+  --color-page: #eef2f5;
+  --color-ink: #0b2239;
+  --color-ink-muted: #3b4a58;
+  --color-ink-soft: #4a5a6a;
+  --color-on-navy: #c9d3dc;
+  --color-on-navy-soft: #a9b7c6;
+  --color-yellow-500: #ffb81c;
+  --color-yellow-200: #ffe7a8;
+  --color-yellow-700: #8a5a00;
+  --color-yellow-900: #3b2a00;
+  --color-blue-50: #e2eefb;
+  --color-blue-200: #b9d3f0;
+  --color-blue-800: #0e4a86;
+  --color-cream: #f0e7cd;
+  --color-danger: #b4232a;
+
+  /* breakpoints: sm 640 · md 768 · nav 900 · lg 1024 · xl 1280 (Tailwind defaults + nav) */
+  --breakpoint-nav: 56.25rem;
+
+  --radius-card: 24px;
+  --radius-panel: 28px;
+  --radius-tile: 16px;
+
+  --shadow-taped: 0 24px 50px -30px rgb(11 34 57 / 0.35);
+  --shadow-nav: 0 14px 34px -24px rgb(11 34 57 / 0.45);
+  --shadow-glow: 0 0 0 2px #ffb81c, 0 18px 40px -20px rgb(255 184 28 / 0.6);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-spin-gear: om-spin linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes om-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ───────────────────────── Base ───────────────────────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 96px;
+  }
+  body {
+    background-color: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: var(--color-yellow-500);
+    color: var(--color-navy-950);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-yellow-500);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+}
+
+/* 32px blueprint grid behind the whole page */
+@utility bg-blueprint {
+  background-image:
+    linear-gradient(rgb(11 34 57 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(11 34 57 / 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Heading accent word: steel on light, yellow on dark (no font change) */
+@utility accent {
+  color: var(--color-steel-500);
+}
+@utility accent-dark {
+  color: var(--color-yellow-500);
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Reduced motion: never animate decorative loops */
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe-spin {
+    animation: none !important;
+  }
+}
+
+/* Visually hidden helper */
+@utility sr-only-focusable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  &:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    clip: auto;
+  }
 }
