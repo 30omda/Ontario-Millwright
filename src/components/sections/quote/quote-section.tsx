@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { MapPin } from "lucide-react";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { ConsultLink } from "@/components/ui/consult-link";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import type { HomeContent, SiteSettings } from "@/content/types";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { QuoteForm } from "./quote-form";
@@ -16,6 +17,7 @@ type Props = {
 
 export async function QuoteSection({ data, services, settings }: Props) {
   const t = await getTranslations("quote");
+  const tw = await getTranslations("whatsapp");
   const whatsapp = buildWhatsAppUrl(settings.whatsappNumber);
   return (
     <section id="quote" aria-labelledby="quote-title" className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26">
@@ -77,10 +79,24 @@ export async function QuoteSection({ data, services, settings }: Props) {
                 href={whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-2xl border border-white/25 bg-white/14 px-4 py-3.5 text-sm text-white backdrop-blur-[10px]"
+                aria-label={tw("cardAria")}
+                className="group flex cursor-pointer items-center gap-3 rounded-2xl border border-white/25 bg-white/14 px-4 py-3.5 text-sm text-white backdrop-blur-[10px] transition-[border-color,background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-[#25D366] hover:bg-white/20 hover:shadow-[0_10px_24px_-12px_rgb(37_211_102/0.55)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
-                <span className="block text-xs font-semibold text-yellow-500">WhatsApp</span>
-                {t("messageUs")}
+                <span
+                  aria-hidden="true"
+                  className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white"
+                >
+                  <WhatsAppIcon className="size-5" />
+                </span>
+                <span className="min-w-0 grow">
+                  <span className="block text-xs font-semibold tracking-[0.06em] text-yellow-500 uppercase">WhatsApp</span>
+                  <span className="block text-[15px] font-semibold">{tw("cardCta")}</span>
+                  <span className="block text-xs text-white/75">{tw("cardSub")}</span>
+                </span>
+                <ArrowUpRight
+                  aria-hidden="true"
+                  className="size-4 shrink-0 text-[#25D366] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </a>
             ) : (
               <span className="rounded-2xl border border-white/25 bg-white/14 px-4 py-3.5 text-sm text-white/80">
