@@ -5,10 +5,8 @@ import { getTranslations } from "next-intl/server";
 import { Resend } from "resend";
 import { routing } from "@/i18n/routing";
 import { env } from "@/lib/env";
-import { quoteSchema, type QuoteActionState, type QuoteInput } from "@/lib/schemas/quote";
+import { MAX_ATTACHMENT_BYTES, MAX_ATTACHMENTS, quoteSchema, type QuoteActionState, type QuoteInput } from "@/lib/schemas/quote";
 
-const MAX_FILES = 5;
-const MAX_BYTES = 10 * 1024 * 1024;
 const ALLOWED = ["application/pdf", "image/jpeg", "image/png"];
 
 async function verifyTurnstile(token: string | undefined) {
@@ -74,9 +72,9 @@ export async function submitQuote(formData: FormData): Promise<QuoteActionState>
   }
 
   const files = formData.getAll("attachments").filter((f): f is File => f instanceof File && f.size > 0);
-  if (files.length > MAX_FILES) return { status: "error", message: "maxFiles", values: { max: MAX_FILES } };
+  if (files.length > MAX_ATTACHMENTS) return { status: "error", message: "maxFiles", values: { max: MAX_ATTACHMENTS } };
+  if (files.reduce((n, f) => n + f.size, 0) > MAX_ATTACHMENT_BYTES) return { status: "error", message: "fileTooLarge" };
   for (const f of files) {
-    if (f.size > MAX_BYTES) return { status: "error", message: "fileTooLarge", values: { name: f.name } };
     if (!ALLOWED.includes(f.type)) return { status: "error", message: "fileType", values: { name: f.name } };
   }
 
@@ -98,7 +96,7 @@ export async function submitQuote(formData: FormData): Promise<QuoteActionState>
   ].join("\n");
 
   if (!env.RESEND_API_KEY) {
-    console.info("[quote] RESEND_API_KEY not set; request logged instead of emailed:\n" + text);
+    console.info("[quote] RESEND_API_KEY not set; request not emailed");
     return {
       status: "success",
       message: "success",

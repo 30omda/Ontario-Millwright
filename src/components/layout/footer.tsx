@@ -6,6 +6,7 @@ import { Logo } from "@/components/ui/logo";
 import { Tape } from "@/components/ui/tape";
 import type { Service, SiteSettings } from "@/content/types";
 import { FooterReveal } from "@/components/motion/footer-reveal";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { Year } from "@/components/ui/year";
 
 const COMPANY = [
@@ -23,7 +24,7 @@ export async function Footer({ settings, services }: { settings: SiteSettings; s
   const t = await getTranslations("footer");
   const tn = await getTranslations("nav");
   const tc = await getTranslations("common");
-  const whatsapp = settings.whatsappNumber ? `https://wa.me/${settings.whatsappNumber}` : null;
+  const whatsapp = buildWhatsAppUrl(settings.whatsappNumber);
   return (
     <footer className="mx-auto max-w-[1240px] px-4 pt-16 pb-6 md:pt-26">
       <FooterReveal>

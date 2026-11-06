@@ -67,7 +67,7 @@
     "detailsPlaceholder": "What are we working on? Equipment, weight, shutdown window, site conditions… *",
     "attach": "Attach photos or drawings",
     "filesAttached": "{count, plural, one {# file attached} other {# files attached}}",
-    "fileHint": "PDF, JPG, PNG · up to 10 MB",
+    "fileHint": "PDF, JPG, PNG · up to 4 MB total",
     "consent": "You may contact me about this request (CASL).",
     "sent": "Request sent",
     "sending": "Sending…",
@@ -86,7 +86,7 @@
       "checkFields": "Please check the highlighted fields.",
       "humanCheck": "We couldn't verify you're human. Please try again.",
       "maxFiles": "Attach up to {max} files.",
-      "fileTooLarge": "{name} is larger than 10 MB.",
+      "fileTooLarge": "Attachments must total 4 MB or less.",
       "fileType": "{name}: use PDF, JPG or PNG.",
       "sendFailed": "Something went wrong sending your request. Please call us instead.",
       "nameRequired": "Please enter your name",
@@ -144,5 +144,15 @@
   "quoteEmail": {
     "subject": "We received your request · Ontario Millwright",
     "body": "Hi {name},\n\nThanks for reaching out. A millwright will review your request and get back to you.\n\nOntario Millwright"
+  },
+  "whatsapp": {
+    "chat": "Chat with us on WhatsApp",
+    "tooltip": "Chat with us on WhatsApp",
+    "heroSub": "Have a question? Talk directly with our team.",
+    "ready": "Your request is in. Your WhatsApp message is ready: press Send in WhatsApp to chat with us.",
+    "open": "Open WhatsApp",
+    "startNew": "Start a new request",
+    "prefer": "Prefer WhatsApp?",
+    "chatNow": "Chat now"
   }
 }

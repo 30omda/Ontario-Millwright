@@ -6,6 +6,7 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { notFound } from "next/navigation";
 import { Toaster } from "sonner";
 import { Footer } from "@/components/layout/footer";
+import { WhatsAppButton } from "@/components/layout/whatsapp-button";
 import { Navbar } from "@/components/layout/navbar";
 import { CalProvider } from "@/components/providers/cal-provider";
 import { LenisProvider } from "@/components/providers/lenis-provider";
@@ -53,12 +54,12 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   setRequestLocale(locale);
   const t = await getTranslations("common");
   // Only the namespaces used by client components are sent to the browser.
-  const { nav, common, hero, quote } = await getMessages();
+  const { nav, common, hero, quote, whatsapp } = await getMessages();
   const [settings, home] = await Promise.all([getSettings(locale), getHomeContent(locale)]);
   return (
     <html lang={HTML_LANG[locale]} className={`${GeistSans.variable} ${locale === "zh" ? notoSC.variable : ""} antialiased`}>
       <body>
-        <NextIntlClientProvider messages={{ nav, common, hero, quote }}>
+        <NextIntlClientProvider messages={{ nav, common, hero, quote, whatsapp }}>
           <LenisProvider>
             <a
               href="#main"
@@ -72,6 +73,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
               <main id="main">{children}</main>
               <Footer settings={settings} services={home.services.items} />
             </div>
+            <WhatsAppButton number={settings.whatsappNumber} />
             <Toaster position="bottom-center" richColors closeButton />
           </LenisProvider>
         </NextIntlClientProvider>

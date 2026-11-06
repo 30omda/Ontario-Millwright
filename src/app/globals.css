@@ -48,6 +48,13 @@
   --animate-spin-gear: om-spin linear infinite;
 }
 
+@keyframes om-pop {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.6);
+  }
+}
+
 @keyframes om-spin {
   to {
     transform: rotate(360deg);

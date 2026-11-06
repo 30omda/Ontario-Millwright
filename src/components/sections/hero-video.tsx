@@ -8,10 +8,12 @@ import { buttonVariants } from "@/components/ui/button";
 import { ConsultLink } from "@/components/ui/consult-link";
 import { gsap, ScrollTrigger, SplitText, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { useMediaQuery } from "@/lib/use-media-query";
 import type { HomeContent } from "@/content/types";
 
-type Props = { hero: HomeContent["hero"]; calLink: string };
+type Props = { hero: HomeContent["hero"]; calLink: string; whatsappNumber: string | null };
 
 const FRAME_MAX = 1180; // px, width of the rounded frame before it expands
 
@@ -19,7 +21,9 @@ const FRAME_MAX = 1180; // px, width of the rounded frame before it expands
  * A1 (page-load intro) + A2 (scroll-expand: rounded frame → full-bleed).
  * The frame is a clip-path on a full-viewport media layer, so expanding never causes layout/reflow.
  */
-export function HeroVideo({ hero, calLink }: Props) {
+export function HeroVideo({ hero, calLink, whatsappNumber }: Props) {
+  const tw = useTranslations("whatsapp");
+  const whatsappUrl = buildWhatsAppUrl(whatsappNumber);
   const t = useTranslations("hero");
   const tc = useTranslations("common");
   const root = useRef<HTMLElement>(null);
@@ -237,6 +241,23 @@ export function HeroVideo({ hero, calLink }: Props) {
                   {tc("requestQuote")}
                 </Link>
               </div>
+              {whatsappUrl ? (
+                <p
+                  data-hero-sub
+                  className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-white/85 [@media(max-height:720px)]:hidden"
+                >
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center gap-2 font-semibold text-white underline-offset-4 hover:underline"
+                  >
+                    <WhatsAppIcon className="size-5 text-[#25D366]" />
+                    {tw("chat")}
+                  </a>
+                  <span className="hidden sm:inline">{tw("heroSub")}</span>
+                </p>
+              ) : null}
             </div>
             <ul className="grid grid-cols-2 gap-2 lg:grid-cols-4 lg:gap-2.5">
               {capabilities.map((c) => (

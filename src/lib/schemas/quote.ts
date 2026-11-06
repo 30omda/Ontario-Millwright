@@ -1,5 +1,9 @@
 import { z } from "zod";
 
+/** Attachments total, kept under Vercel's 4.5 MB request-body cap (also set as serverActions.bodySizeLimit). */
+export const MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024;
+export const MAX_ATTACHMENTS = 5;
+
 export const URGENCY = ["emergency", "planned", "flexible"] as const;
 
 export const quoteSchema = z

@@ -9,8 +9,10 @@ import { AnimatePresence, motion } from "motion/react";
 import { Building2, Check, ChevronDown, Clock, Loader2, Mail, MapPin, Paperclip, Phone, User } from "lucide-react";
 import { toast } from "sonner";
 import { submitQuote } from "@/app/actions/quote";
-import { quoteSchema, type QuoteInput } from "@/lib/schemas/quote";
+import { MAX_ATTACHMENT_BYTES, MAX_ATTACHMENTS, quoteSchema, type QuoteInput } from "@/lib/schemas/quote";
 import { cn } from "@/lib/utils";
+import { buildInquiryMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { ConsultLink } from "@/components/ui/consult-link";
 import { ServiceCombobox } from "./service-combobox";
 
@@ -18,6 +20,7 @@ type Props = {
   services: Array<{ id: string; title: string }>;
   turnstileSiteKey?: string;
   calLink: string;
+  whatsappNumber: string | null;
 };
 
 const fieldRow = "relative flex items-center gap-3.5 py-2";
@@ -35,11 +38,15 @@ function FieldError({ id, msg }: { id: string; msg?: string }) {
   ) : null;
 }
 
-export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
+export function QuoteForm({ services, turnstileSiteKey, calLink, whatsappNumber }: Props) {
   const t = useTranslations("quote");
+  const tw = useTranslations("whatsapp");
   const locale = useLocale();
   const [pending, startTransition] = useTransition();
   const [sent, setSent] = useState(false);
+  // Pre-filled WhatsApp link for the last valid submit; stays until the visitor starts a new request.
+  const [waUrl, setWaUrl] = useState<string | null>(null);
+  const [emailFailed, setEmailFailed] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -78,7 +85,37 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
       { duration: 300, iterations: 1 },
     );
 
+  const startNew = () => {
+    reset();
+    setFiles([]);
+    setSent(false);
+    setWaUrl(null);
+    setEmailFailed(false);
+  };
+
   const onValid = (values: QuoteInput) => {
+    // WhatsApp only prepares the message; the visitor still has to press Send there.
+    const service = values.customService
+      ? `${values.customService} (custom)`
+      : `${services.find((s) => s.id === values.serviceId)?.title ?? t("notSure")} (${values.serviceId})`;
+    const url = buildWhatsAppUrl(
+      whatsappNumber,
+      buildInquiryMessage({
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        service,
+        details: values.details,
+        hasAttachments: files.length > 0,
+      }),
+    );
+    setWaUrl(url);
+    setEmailFailed(false);
+    // Best-effort auto-open while still close to the click; Safari may block it, so the link below is the main path.
+    if (url) {
+      const w = window.open(url, "_blank");
+      if (w) w.opener = null;
+    }
     const fd = new FormData();
     fd.set("locale", locale);
     Object.entries(values).forEach(([k, v]) => fd.set(k, String(v ?? "")));
@@ -88,12 +125,8 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
       if (res.status === "success") {
         setSent(true);
         toast.success(t(`result.${res.message}`));
-        setTimeout(() => {
-          reset();
-          setFiles([]);
-          setSent(false);
-        }, 4000);
       } else if (res.status === "error") {
+        setEmailFailed(true);
         Object.entries(res.fieldErrors ?? {}).forEach(([k, m]) => setError(k as keyof QuoteInput, { message: m }));
         toast.error(t(`result.${res.message}`, res.values));
         shake();
@@ -259,7 +292,16 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
             multiple
             accept="application/pdf,image/jpeg,image/png"
             className="sr-only"
-            onChange={(e) => setFiles(Array.from(e.target.files ?? []).slice(0, 5))}
+            onChange={(e) => {
+              const picked = Array.from(e.target.files ?? []).slice(0, MAX_ATTACHMENTS);
+              if (picked.reduce((n, f) => n + f.size, 0) > MAX_ATTACHMENT_BYTES) {
+                // Reject before submit: an oversized Server Action body crashes the page.
+                toast.error(t("result.fileTooLarge"));
+                e.target.value = "";
+                return;
+              }
+              setFiles(picked);
+            }}
           />
         </label>
       </div>
@@ -279,6 +321,28 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
           options={{ size: "flexible", theme: "light" }}
           onSuccess={(t) => setValue("turnstileToken", t)}
         />
+      ) : null}
+
+      {waUrl && (sent || emailFailed) ? (
+        <div role="status" className="flex flex-col gap-3 rounded-2xl border border-steel-200 bg-steel-50 p-4 text-[15px]">
+          {sent ? <p className="text-navy-900">{tw("ready")}</p> : null}
+          <div className="flex flex-wrap items-center gap-3">
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#25D366] px-5 font-semibold text-white"
+            >
+              <WhatsAppIcon className="size-5" />
+              {tw("open")}
+            </a>
+            {sent ? (
+              <button type="button" onClick={startNew} className="min-h-11 px-2 font-medium text-navy-900 underline underline-offset-4">
+                {tw("startNew")}
+              </button>
+            ) : null}
+          </div>
+        </div>
       ) : null}
 
       <div className="flex flex-wrap items-center gap-x-5 gap-y-3 pt-1">
