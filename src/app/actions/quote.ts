@@ -1,6 +1,9 @@
 "use server";
 
+import { hasLocale } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Resend } from "resend";
+import { routing } from "@/i18n/routing";
 import { env } from "@/lib/env";
 import { quoteSchema, type QuoteActionState, type QuoteInput } from "@/lib/schemas/quote";
 
@@ -30,6 +33,8 @@ const URGENCY_LABEL: Record<QuoteInput["urgency"], string> = {
 
 /** Quote form Server Action: validate → Turnstile → email (Resend) with attachments. */
 export async function submitQuote(formData: FormData): Promise<QuoteActionState> {
+  const requested = formData.get("locale");
+  const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
   const raw = Object.fromEntries(
     [
       "name",
@@ -56,7 +61,7 @@ export async function submitQuote(formData: FormData): Promise<QuoteActionState>
     }
     return {
       status: "error",
-      message: "Please check the highlighted fields.",
+      message: "checkFields",
       fieldErrors,
     };
   }
@@ -64,15 +69,15 @@ export async function submitQuote(formData: FormData): Promise<QuoteActionState>
   if (!(await verifyTurnstile(parsed.data.turnstileToken))) {
     return {
       status: "error",
-      message: "We couldn't verify you're human. Please try again.",
+      message: "humanCheck",
     };
   }
 
   const files = formData.getAll("attachments").filter((f): f is File => f instanceof File && f.size > 0);
-  if (files.length > MAX_FILES) return { status: "error", message: `Attach up to ${MAX_FILES} files.` };
+  if (files.length > MAX_FILES) return { status: "error", message: "maxFiles", values: { max: MAX_FILES } };
   for (const f of files) {
-    if (f.size > MAX_BYTES) return { status: "error", message: `${f.name} is larger than 10 MB.` };
-    if (!ALLOWED.includes(f.type)) return { status: "error", message: `${f.name}: use PDF, JPG or PNG.` };
+    if (f.size > MAX_BYTES) return { status: "error", message: "fileTooLarge", values: { name: f.name } };
+    if (!ALLOWED.includes(f.type)) return { status: "error", message: "fileType", values: { name: f.name } };
   }
 
   const q = parsed.data;
@@ -86,6 +91,7 @@ export async function submitQuote(formData: FormData): Promise<QuoteActionState>
     `Phone: ${q.phone || "-"}`,
     `Service: ${service}`,
     `Urgency: ${URGENCY_LABEL[q.urgency]}`,
+    `Site language: ${locale}`,
     `Location: ${q.location || "-"}`,
     ``,
     q.details,
@@ -95,12 +101,14 @@ export async function submitQuote(formData: FormData): Promise<QuoteActionState>
     console.info("[quote] RESEND_API_KEY not set; request logged instead of emailed:\n" + text);
     return {
       status: "success",
-      message: "Thanks! Your request is in. We'll get back to you shortly.",
+      message: "success",
     };
   }
 
   try {
     const resend = new Resend(env.RESEND_API_KEY);
+    // The team email stays English; only the visitor confirmation is localized.
+    const tEmail = await getTranslations({ locale, namespace: "quoteEmail" });
     const attachments = await Promise.all(
       files.map(async (f) => ({
         filename: f.name,
@@ -119,18 +127,18 @@ export async function submitQuote(formData: FormData): Promise<QuoteActionState>
     await resend.emails.send({
       from: env.QUOTE_FROM_EMAIL,
       to: q.email,
-      subject: "We received your request · Ontario Millwright",
-      text: `Hi ${q.name},\n\nThanks for reaching out. A millwright will review your request and get back to you.\n\nOntario Millwright`,
+      subject: tEmail("subject"),
+      text: tEmail("body", { name: q.name }),
     });
     return {
       status: "success",
-      message: "Thanks! Your request is in. We'll get back to you shortly.",
+      message: "success",
     };
   } catch (err) {
     console.error("[quote] send failed", err);
     return {
       status: "error",
-      message: "Something went wrong sending your request. Please call us instead.",
+      message: "sendFailed",
     };
   }
 }

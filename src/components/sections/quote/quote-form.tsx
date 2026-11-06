@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,6 +36,8 @@ function FieldError({ id, msg }: { id: string; msg?: string }) {
 }
 
 export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
+  const t = useTranslations("quote");
+  const locale = useLocale();
   const [pending, startTransition] = useTransition();
   const [sent, setSent] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
@@ -77,13 +80,14 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
 
   const onValid = (values: QuoteInput) => {
     const fd = new FormData();
+    fd.set("locale", locale);
     Object.entries(values).forEach(([k, v]) => fd.set(k, String(v ?? "")));
     files.forEach((f) => fd.append("attachments", f));
     startTransition(async () => {
       const res = await submitQuote(fd);
       if (res.status === "success") {
         setSent(true);
-        toast.success(res.message);
+        toast.success(t(`result.${res.message}`));
         setTimeout(() => {
           reset();
           setFiles([]);
@@ -91,26 +95,30 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
         }, 4000);
       } else if (res.status === "error") {
         Object.entries(res.fieldErrors ?? {}).forEach(([k, m]) => setError(k as keyof QuoteInput, { message: m }));
-        toast.error(res.message);
+        toast.error(t(`result.${res.message}`, res.values));
         shake();
       }
     });
   };
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => handleSubmit(onValid, () => shake())(e);
 
-  const err = (k: keyof QuoteInput) => errors[k]?.message;
+  // Schema and server errors are message keys; translate them here.
+  const err = (k: keyof QuoteInput) => {
+    const key = errors[k]?.message;
+    return key ? t(`result.${key}`) : undefined;
+  };
   const serviceId = useWatch({ control, name: "serviceId" });
   const customService = useWatch({ control, name: "customService" });
 
   return (
     <form ref={formRef} onSubmit={onSubmit} noValidate className="flex flex-col gap-3.5" aria-describedby="quote-help">
       <p id="quote-help" className="sr-only">
-        Fields marked with an asterisk are required.
+        {t("requiredNote")}
       </p>
 
       {/* Contact group: icons joined by a dashed connector (draws in on reveal) */}
       <fieldset className="relative rounded-[18px] bg-steel-50 px-4 py-1.5">
-        <legend className="sr-only">Your contact details</legend>
+        <legend className="sr-only">{t("contactLegend")}</legend>
         <span
           data-connector
           aria-hidden="true"
@@ -120,7 +128,7 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
           [
             {
               name: "name",
-              label: "Full name",
+              label: t("name"),
               required: true,
               icon: User,
               type: "text",
@@ -128,7 +136,7 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
             },
             {
               name: "company",
-              label: "Company",
+              label: t("company"),
               required: false,
               icon: Building2,
               type: "text",
@@ -136,7 +144,7 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
             },
             {
               name: "email",
-              label: "Work email",
+              label: t("emailField"),
               required: true,
               icon: Mail,
               type: "email",
@@ -144,7 +152,7 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
             },
             {
               name: "phone",
-              label: "Phone",
+              label: t("phone"),
               required: false,
               icon: Phone,
               type: "tel",
@@ -159,7 +167,7 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
               </span>
               <span className="sr-only">
                 {f.label}
-                {f.required ? " (required)" : ""}
+                {f.required ? ` ${t("required")}` : ""}
               </span>
               <input
                 id={`q-${f.name}`}
@@ -202,32 +210,32 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
       <div className="grid gap-3 sm:grid-cols-2">
         <label htmlFor="q-urgency" className={cn(tile, "relative")}>
           <Clock className="size-5 text-ink-soft" aria-hidden="true" />
-          <span className="sr-only">How urgent is it? (required)</span>
+          <span className="sr-only">{`${t("urgency")} ${t("required")}`}</span>
           <select
             id="q-urgency"
             className="h-13 min-w-0 grow appearance-none bg-transparent text-base outline-none"
             {...register("urgency")}
           >
-            <option value="emergency">Emergency</option>
-            <option value="planned">Planned shutdown</option>
-            <option value="flexible">Flexible</option>
+            <option value="emergency">{t("emergencyOpt")}</option>
+            <option value="planned">{t("plannedOpt")}</option>
+            <option value="flexible">{t("flexibleOpt")}</option>
           </select>
           <ChevronDown className="pointer-events-none size-4" aria-hidden="true" />
         </label>
         <label htmlFor="q-location" className={tile}>
           <MapPin className="size-5 text-ink-soft" aria-hidden="true" />
-          <span className="sr-only">Facility location</span>
-          <input id="q-location" placeholder="City, Ontario" className={bareInput} {...register("location")} />
+          <span className="sr-only">{t("locationLabel")}</span>
+          <input id="q-location" placeholder={t("locationPlaceholder")} className={bareInput} {...register("location")} />
         </label>
       </div>
 
       <div className="overflow-hidden rounded-2xl bg-steel-50">
         <label htmlFor="q-details" className="block">
-          <span className="sr-only">Project details (required)</span>
+          <span className="sr-only">{`${t("detailsLabel")} ${t("required")}`}</span>
           <textarea
             id="q-details"
             rows={4}
-            placeholder="What are we working on? Equipment, weight, shutdown window, site conditions… *"
+            placeholder={t("detailsPlaceholder")}
             aria-invalid={Boolean(err("details")) || undefined}
             aria-describedby={err("details") ? "e-details" : undefined}
             className="block w-full resize-y border-0 bg-transparent p-4 text-base leading-normal outline-none placeholder:text-ink-soft"
@@ -240,10 +248,10 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
         >
           <Paperclip className="size-[18px] text-navy-900" aria-hidden="true" />
           <span className="font-medium text-navy-900">
-            {files.length ? `${files.length} file${files.length > 1 ? "s" : ""} attached` : "Attach photos or drawings"}
+            {files.length ? t("filesAttached", { count: files.length }) : t("attach")}
           </span>
           <span className="basis-full pl-7 text-[13px] whitespace-nowrap text-ink-soft sm:ml-auto sm:basis-auto sm:pl-0">
-            PDF, JPG, PNG · up to 10 MB
+            {t("fileHint")}
           </span>
           <input
             id="q-files"
@@ -260,7 +268,7 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
       <div>
         <label htmlFor="q-consent" className="flex items-start gap-2.5 text-[13px] text-ink-muted">
           <input id="q-consent" type="checkbox" className="mt-0.5 size-4 accent-navy-900" {...register("consent")} />
-          You may contact me about this request (CASL).
+          {t("consent")}
         </label>
         <FieldError id="e-consent" msg={err("consent")} />
       </div>
@@ -288,7 +296,7 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
                 animate={{ opacity: 1, y: 0 }}
                 className="inline-flex items-center gap-2"
               >
-                Request sent <Check className="size-4 text-yellow-500" aria-hidden="true" />
+                {t("sent")} <Check className="size-4 text-yellow-500" aria-hidden="true" />
               </motion.span>
             ) : pending ? (
               <motion.span
@@ -297,19 +305,19 @@ export function QuoteForm({ services, turnstileSiteKey, calLink }: Props) {
                 animate={{ opacity: 1 }}
                 className="inline-flex items-center gap-2"
               >
-                <Loader2 className="size-4 animate-spin" aria-hidden="true" /> Sending…
+                <Loader2 className="size-4 animate-spin" aria-hidden="true" /> {t("sending")}
               </motion.span>
             ) : (
               <motion.span key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                Send my request <span className="text-yellow-500">→</span>
+                {t("send")} <span className="text-yellow-500">→</span>
               </motion.span>
             )}
           </AnimatePresence>
         </motion.button>
         <ConsultLink calLink={calLink} className="text-[15px] text-ink-muted">
-          Prefer to talk?{" "}
+          {t("preferTalk")}{" "}
           <span className="font-semibold text-navy-900 shadow-[inset_0_-2px_0_var(--color-yellow-500)]">
-            Book a free consultation →
+            {t("bookLink")}
           </span>
         </ConsultLink>
       </div>

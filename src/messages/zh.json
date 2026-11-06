@@ -1,0 +1,401 @@
+{
+  "common": {
+    "skipToContent": "跳到主要内容",
+    "bookConsultation": "预约免费咨询",
+    "freeConsultation": "免费咨询",
+    "requestQuote": "获取报价",
+    "requestThisService": "申请此服务",
+    "viewService": "查看服务",
+    "backToHome": "返回首页",
+    "backToTop": "回到顶部 ↑",
+    "goingGreen": "绿色环保 💚"
+  },
+  "nav": {
+    "services": "服务",
+    "industries": "行业",
+    "process": "流程",
+    "safety": "安全",
+    "about": "关于我们",
+    "primary": "主导航",
+    "mobile": "移动端导航",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
+    "siteNav": "网站导航",
+    "language": "语言",
+    "quote": "获取报价"
+  },
+  "hero": {
+    "videoLabel": "工厂机器内啮合转动的工业齿轮特写",
+    "play": "播放背景视频",
+    "pause": "暂停背景视频"
+  },
+  "marquee": {
+    "label": "服务与行业"
+  },
+  "services": {
+    "notSureTitle": "不确定需要哪项服务？",
+    "notSureBody": "告诉我们设备出了什么问题。机械安装技师会与您逐项梳理，并为您安排合适的施工队。",
+    "scopeLabel": "{title}服务范围"
+  },
+  "about": {
+    "cta": "与我们合作"
+  },
+  "quote": {
+    "serving": "服务安大略省各地工厂",
+    "emergency": "紧急情况？{phone}",
+    "consultTitle": "30 分钟免费咨询",
+    "consultBody": "在您做决定之前，先一起把工作讲清楚。",
+    "bookTime": "预约时间",
+    "email": "电子邮件",
+    "whatsapp": "WhatsApp",
+    "messageUs": "给我们留言",
+    "numberSoon": "号码即将公布",
+    "requiredNote": "带星号的字段为必填项。",
+    "contactLegend": "您的联系方式",
+    "required": "（必填）",
+    "name": "姓名",
+    "company": "公司",
+    "emailField": "工作邮箱",
+    "phone": "电话",
+    "urgency": "紧急程度如何？",
+    "emergencyOpt": "紧急",
+    "plannedOpt": "计划停机",
+    "flexibleOpt": "时间灵活",
+    "locationLabel": "工厂所在地",
+    "locationPlaceholder": "城市，安大略省",
+    "detailsLabel": "项目详情",
+    "detailsPlaceholder": "需要做什么？设备、重量、停机窗口、现场条件…… *",
+    "attach": "上传照片或图纸",
+    "filesAttached": "已附加 {count} 个文件",
+    "fileHint": "PDF、JPG、PNG · 最大 10 MB",
+    "consent": "您可以就此申请与我联系（CASL）。",
+    "sent": "申请已发送",
+    "sending": "发送中……",
+    "send": "提交我的申请",
+    "preferTalk": "更想直接沟通？",
+    "bookLink": "预约免费咨询 →",
+    "serviceAria": "所需服务（必填）：请选择一项或自行输入",
+    "serviceNeeded": "所需服务 *",
+    "notSure": "不确定，请帮我选择",
+    "customService": "自定义服务",
+    "servicesList": "服务",
+    "searchPlaceholder": "输入以搜索，或添加您自己的服务……",
+    "addCustom": "添加“<b>{name}</b>”为自定义服务",
+    "result": {
+      "success": "谢谢！我们已收到您的申请，会尽快回复您。",
+      "checkFields": "请检查高亮显示的字段。",
+      "humanCheck": "我们无法验证您是真人，请重试。",
+      "maxFiles": "最多可附加 {max} 个文件。",
+      "fileTooLarge": "{name} 超过 10 MB。",
+      "fileType": "{name}：请使用 PDF、JPG 或 PNG 格式。",
+      "sendFailed": "发送您的申请时出了问题，请改为致电我们。",
+      "nameRequired": "请输入您的姓名",
+      "emailInvalid": "请输入有效的电子邮件地址",
+      "urgencyRequired": "请选择工作的紧急程度",
+      "detailsShort": "请再多告诉我们一些信息（至少 20 个字符）",
+      "consentRequired": "请确认我们可以联系您",
+      "serviceRequired": "请选择一项服务或添加您自己的服务",
+      "tooLong": "内容过长"
+    }
+  },
+  "footer": {
+    "services": "服务",
+    "company": "公司",
+    "howWeWork": "工作方式",
+    "getInTouch": "联系我们",
+    "emergencyLine": "紧急热线",
+    "requestQuote": "获取报价",
+    "whatsappTbc": "WhatsApp [待确认]",
+    "rights": "© <year></year> {name} Services。保留所有权利。",
+    "privacy": "隐私",
+    "accessibility": "无障碍"
+  },
+  "servicePage": {
+    "home": "首页",
+    "services": "服务",
+    "breadcrumb": "面包屑导航",
+    "emergencyCall": "设备故障或紧急情况？请致电 {phone}",
+    "scopeLead": "工作",
+    "scopeAccent": "范围",
+    "scopeSub": "我们的施工队在“{service}”中承担的工作。",
+    "scopeJsonLd": "{service}：工作范围",
+    "stepsLead": "工程",
+    "stepsAccent": "如何进行",
+    "step": "第 {n} 步",
+    "industriesLead": "我们服务的",
+    "industriesAccent": "行业",
+    "safetyHeading": "每项工程都以安全为先",
+    "otherLead": "其他",
+    "otherAccent": "服务",
+    "allServices": "全部服务",
+    "titleSuffix": "安大略省{service}"
+  },
+  "legal": {
+    "privacy": "隐私政策",
+    "accessibility": "无障碍",
+    "placeholder": "[待确认] 本页面正等待 Ontario Millwright 提供最终文本。"
+  },
+  "content": {
+    "settings": {
+      "tagline": "从勘测到投产，由同一支负责到底的团队，服务安大略省各地工厂。",
+      "serviceArea": "加拿大安大略省全境"
+    },
+    "hero": {
+      "accent": "机械安装与维护服务",
+      "subcopy": "我们负责安装、搬迁、校准和维护安大略省生产所依赖的机械设备，从单台设备更换到整厂搬迁，安全、准时完成。",
+      "capabilities": [
+        {
+          "title": "工厂搬迁",
+          "description": "整条生产线拆运、就位并重新安装"
+        },
+        {
+          "title": "精密作业",
+          "description": "激光对中与光学找平"
+        },
+        {
+          "title": "紧急支援",
+          "description": "故障与停机抢修团队"
+        },
+        {
+          "title": "安全第一",
+          "description": "每项工程、每个班次都有书面方案"
+        }
+      ]
+    },
+    "marquee": {
+      "rowA": [
+        "安装",
+        "精密对中",
+        "维护保养",
+        "焊接与制造",
+        "设备大修"
+      ],
+      "rowB": [
+        "制造业",
+        "食品饮料",
+        "造纸",
+        "矿业与金属",
+        "发电",
+        "汽车"
+      ]
+    },
+    "services": {
+      "title": "机械安装",
+      "accent": "服务",
+      "intro": "五大核心工种，一个团队全程负责，从设备卸车到全面投产。每张卡片都列出了真实的工作范围。",
+      "items": {
+        "installation": {
+          "title": "设备安装与搬迁",
+          "summary": "从单台压力机到整座工厂，我们负责接收、开箱、就位、找平并连接您的设备，使其可以交给电工和调试团队。搬迁时，我们会做好记录，拆卸、运输，并按拆卸的相反顺序在新址重新装配生产线。",
+          "description": "从单台压力机到整座工厂，我们负责接收、开箱、就位、找平并连接您的设备，使其可以交给电工和调试团队。搬迁时，我们会做好记录，拆卸、运输，并按拆卸的相反顺序在新址重新装配生产线。",
+          "scope": [
+            "设备接收与开箱",
+            "基础与垫板就位",
+            "整厂搬迁",
+            "生产线安装",
+            "输送与分拣系统",
+            "按规范锚固、灌浆与找平"
+          ],
+          "fullScope": [
+            "设备接收与开箱",
+            "基础与垫板就位",
+            "整厂搬迁",
+            "生产线安装",
+            "输送与分拣系统",
+            "按规范锚固、灌浆与找平"
+          ],
+          "imageAlt": "工厂内带输送机的灌装线"
+        },
+        "alignment": {
+          "title": "精密对中与找平",
+          "summary": "将旋转设备恢复到原厂公差，并提供前后对比报告。",
+          "description": "不对中是轴承、密封和联轴器的隐形杀手。我们的对中专家会将旋转设备恢复到原厂公差，并提供前后对比报告，供您的可靠性团队存档。",
+          "scope": [
+            "激光轴对中",
+            "光学与激光找平",
+            "软脚校正",
+            "热膨胀补偿"
+          ],
+          "fullScope": [
+            "激光轴对中",
+            "孔与联轴器对中",
+            "光学与激光找平",
+            "底座平面度检查",
+            "软脚校正",
+            "热膨胀补偿"
+          ],
+          "imageAlt": "大型转子轴上的联轴器法兰"
+        },
+        "maintenance": {
+          "title": "维护与维修",
+          "summary": "定期保养巡检、停机检修用工以及紧急抢修团队。",
+          "description": "无论计划内还是计划外，我们都让设备保持运转：定期保养巡检、为您的大修停机提供完整人力，以及带着工具和备件到场、让您尽快恢复生产的紧急抢修团队。",
+          "scope": [
+            "预防性维护",
+            "停机与检修用工",
+            "故障紧急抢修",
+            "轴承与密封更换"
+          ],
+          "fullScope": [
+            "预防性维护计划",
+            "停机与检修用工",
+            "故障紧急抢修",
+            "轴承与密封更换",
+            "减速机检查与保养",
+            "输送带与传动保养"
+          ],
+          "imageAlt": "机器上的皮带传动、皮带轮与轴"
+        },
+        "rebuilds": {
+          "title": "设备翻新与大修",
+          "summary": "拆解至机壳，逐一测量磨损面，并随设备交付完整检验报告。",
+          "description": "做得好的翻新只需更换成本的一小部分，还省去等待供货的时间。我们将设备拆解至机壳，测量每个磨损面，更换磨损部件，并随设备交付完整的检验报告。",
+          "scope": [
+            "减速机翻新",
+            "泵与压缩机大修",
+            "磨损测量与报告",
+            "试运行与文件记录"
+          ],
+          "fullScope": [
+            "减速机翻新",
+            "泵与压缩机大修",
+            "电机轴承更换",
+            "磨损测量与报告",
+            "轴与壳体修复",
+            "试运行与文件记录"
+          ],
+          "imageAlt": "显示齿轮与叶轮的减速机剖面"
+        },
+        "welding": {
+          "title": "焊接与制造",
+          "summary": "平台、夹层、机器护罩、溜槽和结构支架，按图纸或现场实测制作。",
+          "description": "当零件不存在时，我们来制造。我们的焊工和加工师傅按图纸或现场实测制作平台、夹层、机器护罩、溜槽和结构支架。",
+          "scope": [
+            "结构钢",
+            "平台、楼梯与护栏",
+            "机器护罩",
+            "认证结构焊接"
+          ],
+          "fullScope": [
+            "结构钢制造",
+            "平台、楼梯与护栏",
+            "机器护罩",
+            "溜槽、料斗与过渡件",
+            "认证结构焊接",
+            "现场改造与修复"
+          ],
+          "imageAlt": "火花飞溅过车间地面"
+        }
+      }
+    },
+    "industries": {
+      "title": "我们服务的",
+      "accent": "行业",
+      "intro": "我们的施工队每周都在安大略省各地运行中的工厂里工作。我们会围绕您的生产窗口来安排：夜间、周末和计划停机期间。",
+      "items": {
+        "manufacturing": {
+          "title": "制造业",
+          "description": "压力机、数控生产线、装配设备"
+        },
+        "food": {
+          "title": "食品饮料",
+          "description": "卫生级安装、包装线"
+        },
+        "pulp": {
+          "title": "造纸",
+          "description": "造纸机、卷纸机、停机检修"
+        },
+        "mining": {
+          "title": "矿业与金属",
+          "description": "磨机、破碎机、输送机、熔炉"
+        },
+        "power": {
+          "title": "发电",
+          "description": "汽轮机、发电机、辅助系统"
+        },
+        "automotive": {
+          "title": "汽车",
+          "description": "冲压、传送线、机器人工作站"
+        },
+        "warehousing": {
+          "title": "仓储与物流",
+          "description": "分拣、输送机、货架系统"
+        },
+        "chemical": {
+          "title": "化工与流程",
+          "description": "容器、换热器、工艺管道"
+        }
+      }
+    },
+    "process": {
+      "title": "从勘测",
+      "accent": "到",
+      "titleEnd": "投产",
+      "steps": {
+        "survey": {
+          "title": "勘测与规划",
+          "description": "我们实地踏勘，核实重量、尺寸和通道条件，在拧下第一颗螺栓之前就规划好搬运与安装。"
+        },
+        "move": {
+          "title": "搬运与定位",
+          "description": "经验丰富的团队将设备运入、运出或在厂内转运，并摆放到位，准备就位安装。"
+        },
+        "align": {
+          "title": "就位与对中",
+          "description": "设备安放在垫板或新基础上，经灌浆、找平，并按原厂规范进行激光对中。"
+        },
+        "commission": {
+          "title": "调试与支持",
+          "description": "我们协助启动和测试，移交对中报告，并通过预防性维护计划持续待命。"
+        }
+      }
+    },
+    "safety": {
+      "title": "没有任何工作值得",
+      "accent": "以受伤为代价。",
+      "body": "每项工程都从方案和危险评估开始，团队中任何人一旦发现异常，都可以随时叫停工作。正是这种纪律，让厂长们愿意把最关键的工作交给我们。",
+      "checklistTitle": "开工前检查清单",
+      "checklistNote": "每项工程 · 每个班次",
+      "checklist": [
+        {
+          "title": "书面作业方案",
+          "description": "开工前完成危险评估并签字确认。"
+        },
+        {
+          "title": "训练有素的人员",
+          "description": "合格的机械安装技师，现场有经验丰富的主管。"
+        },
+        {
+          "title": "每日班前会",
+          "description": "每个班次与全体人员一起进行作业危险分析。"
+        },
+        {
+          "title": "上锁挂牌",
+          "description": "开工前确认能量已隔离。"
+        }
+      ]
+    },
+    "about": {
+      "title": "技工出身。",
+      "accent": "以实践成为伙伴。",
+      "quoteLead": "“量两次，装到位，",
+      "quoteRest": "让设备比我们接手时更好。”",
+      "body": "机械安装技师是让工业机械运转起来的行家：看图纸、安放设备、校准轴系，并让它们稳定运行数十年。如今，我们的团队通过安装项目、停机与检修用工以及长期维护合同，为安大略省各种规模的工厂提供支持。",
+      "imageAlt": "带输送机和工艺设备的灌装厂"
+    },
+    "quote": {
+      "titleLead": "告诉我们您的设备情况。",
+      "accent": "其余交给我们。"
+    }
+  },
+  "meta": {
+    "title": "安大略省工业机械安装承包商",
+    "description": "为安大略省各地工厂提供设备安装与搬迁、精密对中、维护保养、焊接和设备翻新服务。预约免费咨询。",
+    "ogLocale": "zh_CN",
+    "catalog": "机械安装服务"
+  },
+  "quoteEmail": {
+    "subject": "我们已收到您的申请 · Ontario Millwright",
+    "body": "{name}，您好：\n\n感谢您与我们联系。机械安装技师会查看您的申请并尽快回复您。\n\nOntario Millwright"
+  }
+}

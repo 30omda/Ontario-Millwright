@@ -1,14 +1,19 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
+import { getLocale, getTranslations } from "next-intl/server";
+import { countWords } from "@/lib/words";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { ScrollRevealText } from "@/components/motion/scroll-reveal-text";
 import { buttonVariants } from "@/components/ui/button";
 import type { HomeContent } from "@/content/types";
 
-export function About({ data }: { data: HomeContent["about"] }) {
-  const quote = `${data.quoteLead} ${data.quoteRest}`;
-  const leadWords = data.quoteLead.split(/\s+/).length;
+export async function About({ data }: { data: HomeContent["about"] }) {
+  const t = await getTranslations("about");
+  const locale = await getLocale();
+  // Chinese is written without spaces
+  const quote = `${data.quoteLead}${locale === "zh" ? "" : " "}${data.quoteRest}`;
+  const leadWords = countWords(data.quoteLead, locale);
   return (
     <section id="about" aria-labelledby="about-title" className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26">
       <Reveal className="grid gap-12 lg:grid-cols-2">
@@ -42,7 +47,7 @@ export function About({ data }: { data: HomeContent["about"] }) {
           />
           <p className="text-[15px] leading-[1.7] text-ink-muted md:text-base">{data.body}</p>
           <Link href="/#quote" className={`${buttonVariants({ variant: "secondary", size: "lg" })} self-start`}>
-            Work with us <ArrowRight className="size-4" aria-hidden="true" />
+            {t("cta")} <ArrowRight className="size-4" aria-hidden="true" />
           </Link>
         </div>
       </Reveal>

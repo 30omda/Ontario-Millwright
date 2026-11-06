@@ -2,6 +2,7 @@ import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
 import { client } from "@/sanity/client";
 import { HOME_QUERY, SETTINGS_QUERY } from "@/sanity/queries";
+import { localizeHome, localizeSettings } from "./localize";
 import { seedHome, seedSettings } from "./seed";
 import type { HomeContent, Img, SiteSettings } from "./types";
 
@@ -12,7 +13,7 @@ const pick = <T>(value: T | null | undefined, fallback: T): T =>
 
 const toPhoneHref = (phone: string) => `tel:+${phone.replace(/\D/g, "").replace(/^(?!1)/, "1")}`;
 
-export async function getSettings(): Promise<SiteSettings> {
+async function getSettingsEn(): Promise<SiteSettings> {
   "use cache";
   cacheLife("hours");
   cacheTag("settings");
@@ -37,7 +38,7 @@ export async function getSettings(): Promise<SiteSettings> {
 }
 
 /** Home content from Sanity, falling back field-by-field to the approved canvas copy. */
-export async function getHomeContent(): Promise<HomeContent> {
+async function getHomeContentEn(): Promise<HomeContent> {
   "use cache";
   cacheLife("hours");
   cacheTag("home");
@@ -97,9 +98,17 @@ export async function getHomeContent(): Promise<HomeContent> {
   }
 }
 
+export async function getSettings(locale: string): Promise<SiteSettings> {
+  return localizeSettings(await getSettingsEn(), locale);
+}
+
+export async function getHomeContent(locale: string): Promise<HomeContent> {
+  return localizeHome(await getHomeContentEn(), locale);
+}
+
 /** One service by slug (from the same cached home payload), or null. */
-export async function getService(slug: string) {
-  const home = await getHomeContent();
+export async function getService(slug: string, locale: string) {
+  const home = await getHomeContent(locale);
   const list = home.services.items;
   const index = list.findIndex((s) => s.slug === slug);
   if (index < 0) return null;

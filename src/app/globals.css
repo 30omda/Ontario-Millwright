@@ -134,3 +134,26 @@ html.lenis body {
     clip: auto;
   }
 }
+
+/* ───────────────────────── Per-language typography ───────────────────────── */
+/* Unlayered on purpose: these must beat Tailwind utilities such as tracking-[-0.04em] and uppercase. */
+body {
+  overflow-wrap: break-word;
+}
+html:lang(fr-CA) :is(p, h1, h2, h3, li) {
+  hyphens: auto;
+}
+html:lang(zh-CN) body {
+  font-family: var(--font-noto-sc), "PingFang SC", "Microsoft YaHei", var(--font-sans);
+}
+/* CJK has no case, and negative tracking collides the glyphs */
+html:lang(zh-CN) :is([class*="tracking-"], .uppercase) {
+  letter-spacing: normal;
+  text-transform: none;
+}
+html:lang(zh-CN) :is(h1, h2, h3, h4, [data-reveal-heading]) {
+  line-height: 1.2;
+}
+html:lang(zh-CN) :is(p, li, blockquote) {
+  line-height: 1.75;
+}

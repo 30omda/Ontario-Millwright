@@ -1,4 +1,5 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 import { CalendarDays, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { ConsultLink } from "@/components/ui/consult-link";
 import { Logo } from "@/components/ui/logo";
@@ -8,17 +9,20 @@ import { FooterReveal } from "@/components/motion/footer-reveal";
 import { Year } from "@/components/ui/year";
 
 const COMPANY = [
-  { href: "/#industries", label: "Industries" },
-  { href: "/#process", label: "How we work" },
+  { href: "/#industries", key: "industries" },
+  { href: "/#process", key: "howWeWork" },
   // { href: "/#work", label: "Recent work" }, // section is hidden
-  { href: "/#safety", label: "Safety" },
-  { href: "/#about", label: "About" },
-];
+  { href: "/#safety", key: "safety" },
+  { href: "/#about", key: "about" },
+] as const;
 
 const headingCls = "mb-4 text-[13px] font-bold tracking-[0.08em] text-yellow-700 uppercase";
 const linkCls = "text-[15px] font-medium text-ink-muted transition-colors hover:text-navy-900";
 
-export function Footer({ settings, services }: { settings: SiteSettings; services: Service[] }) {
+export async function Footer({ settings, services }: { settings: SiteSettings; services: Service[] }) {
+  const t = await getTranslations("footer");
+  const tn = await getTranslations("nav");
+  const tc = await getTranslations("common");
   const whatsapp = settings.whatsappNumber ? `https://wa.me/${settings.whatsappNumber}` : null;
   return (
     <footer className="mx-auto max-w-[1240px] px-4 pt-16 pb-6 md:pt-26">
@@ -43,13 +47,13 @@ export function Footer({ settings, services }: { settings: SiteSettings; service
                   <Phone className="size-[17px] text-navy-900" aria-hidden="true" />
                 </span>
                 <span>
-                  <span className="block text-xs font-semibold text-yellow-500">Emergency line</span>
+                  <span className="block text-xs font-semibold text-yellow-500">{t("emergencyLine")}</span>
                   <span className="block text-xl font-semibold tracking-[-0.02em]">{settings.phone}</span>
                 </span>
               </a>
             </div>
-            <nav aria-label="Services" data-footer-col>
-              <p className={headingCls}>Services</p>
+            <nav aria-label={t("services")} data-footer-col>
+              <p className={headingCls}>{t("services")}</p>
               <ul className="flex flex-col gap-3">
                 {services.map((s) => (
                   <li key={s.id}>
@@ -60,14 +64,14 @@ export function Footer({ settings, services }: { settings: SiteSettings; service
                 ))}
               </ul>
             </nav>
-            <nav aria-label="Company" data-footer-col>
-              <p className={headingCls}>Company</p>
+            <nav aria-label={t("company")} data-footer-col>
+              <p className={headingCls}>{t("company")}</p>
               <ul className="flex flex-col gap-3">
                 {COMPANY.map((l) => (
                   <li key={l.href}>
-                    <a href={l.href} className={linkCls}>
-                      {l.label}
-                    </a>
+                    <Link href={l.href} className={linkCls}>
+                      {l.key === "howWeWork" ? t("howWeWork") : tn(l.key)}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -76,19 +80,19 @@ export function Footer({ settings, services }: { settings: SiteSettings; service
               data-footer-col
               className="col-span-2 border-t border-steel-100 pt-6 md:col-span-1 md:border-0 md:pt-0"
             >
-              <p className={headingCls}>Get in touch</p>
+              <p className={headingCls}>{t("getInTouch")}</p>
               <ul className="flex flex-col gap-3.5 text-[15px] font-medium">
                 <li>
                   <ConsultLink
                     calLink={settings.calLink}
                     className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-2 text-blue-800"
                   >
-                    <CalendarDays className="size-4" aria-hidden="true" /> Free consultation
+                    <CalendarDays className="size-4" aria-hidden="true" /> {tc("freeConsultation")}
                   </ConsultLink>
                 </li>
                 <li>
                   <Link href="/#quote" className={linkCls}>
-                    Request a quote
+                    {t("requestQuote")}
                   </Link>
                 </li>
                 <li className="flex items-center gap-2.5">
@@ -104,7 +108,7 @@ export function Footer({ settings, services }: { settings: SiteSettings; service
                       WhatsApp
                     </a>
                   ) : (
-                    <span className="text-ink-soft">WhatsApp [TBC]</span>
+                    <span className="text-ink-soft">{t("whatsappTbc")}</span>
                   )}
                 </li>
                 <li className="flex items-center gap-2.5 text-ink-muted">
@@ -117,18 +121,16 @@ export function Footer({ settings, services }: { settings: SiteSettings; service
         </div>
         <div className="flex flex-col items-start justify-between gap-3 px-2 pt-5 text-sm text-ink-soft sm:flex-row sm:items-center sm:px-8">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span>
-              © <Year /> {settings.name} Services. All rights reserved.
-            </span>
+            <span>{t.rich("rights", { year: () => <Year />, name: settings.name })}</span>
             <Link href="/legal/privacy" className="hover:text-navy-900">
-              Privacy
+              {t("privacy")}
             </Link>
             <Link href="/legal/accessibility" className="hover:text-navy-900">
-              Accessibility
+              {t("accessibility")}
             </Link>
           </div>
           <Link href="/#top" className="font-semibold text-navy-900">
-            Back to top ↑
+            {tc("backToTop")}
           </Link>
         </div>
       </FooterReveal>

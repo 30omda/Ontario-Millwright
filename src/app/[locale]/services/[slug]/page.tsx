@@ -1,10 +1,13 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import type { Metadata } from "next";
 import Image from "next/image";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, CalendarDays, Check, Phone } from "lucide-react";
 import { CursorGrid } from "@/components/motion/cursor-grid";
 import { MiniGears } from "@/components/motion/mini-gears";
+import { alternatesFor } from "@/i18n/alternates";
+import { HTML_LANG, type Locale } from "@/i18n/routing";
 import { Reveal } from "@/components/motion/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { ConsultLink } from "@/components/ui/consult-link";
@@ -15,19 +18,20 @@ import { cn } from "@/lib/utils";
 export const instant = false;
 
 export async function generateStaticParams() {
-  const home = await getHomeContent();
+  const home = await getHomeContent("en");
   return home.services.items.map((s) => ({ slug: s.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps<"/services/[slug]">): Promise<Metadata> {
-  const { slug } = await params;
-  const data = await getService(slug);
+export async function generateMetadata({ params }: PageProps<"/[locale]/services/[slug]">): Promise<Metadata> {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const [data, t] = await Promise.all([getService(slug, locale), getTranslations({ locale, namespace: "servicePage" })]);
   if (!data) return {};
   const { service } = data;
   return {
-    title: `${service.title} in Ontario`,
+    title: t("titleSuffix", { service: service.title }),
     description: service.description.slice(0, 158),
-    alternates: { canonical: `/services/${service.slug}` },
+    alternates: alternatesFor(locale as Locale, `/services/${service.slug}`),
     openGraph: { title: service.title, description: service.summary, images: [{ url: service.image.src }] },
   };
 }
@@ -35,9 +39,12 @@ export async function generateMetadata({ params }: PageProps<"/services/[slug]">
 const sectionTitle =
   "text-[32px] leading-[1.02] font-semibold tracking-[-0.04em] md:text-[44px] lg:text-[clamp(40px,4.4vw,60px)] lg:leading-[0.98] lg:tracking-[-0.05em]";
 
-export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
-  const { slug } = await params;
-  const [data, settings] = await Promise.all([getService(slug), getSettings()]);
+export default async function ServicePage({ params }: PageProps<"/[locale]/services/[slug]">) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("servicePage");
+  const tc = await getTranslations("common");
+  const [data, settings] = await Promise.all([getService(slug, locale), getSettings(locale)]);
   if (!data) notFound();
   const { service, others, home } = data;
   const requestHref = `/?service=${service.id}#quote`;
@@ -45,6 +52,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
+    inLanguage: HTML_LANG[locale as Locale],
     name: service.title,
     description: service.description,
     serviceType: service.title,
@@ -52,7 +60,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
     provider: { "@type": "LocalBusiness", name: settings.name, telephone: settings.phone, email: settings.email },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: `${service.title}: scope of work`,
+      name: t("scopeJsonLd", { service: service.title }),
       itemListElement: service.fullScope.map((x) => ({
         "@type": "Offer",
         itemOffered: { "@type": "Service", name: x },
@@ -71,19 +79,19 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       <section aria-labelledby="service-title" className="mx-auto max-w-[1240px] px-4 pt-10 md:pt-14">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <Link href="/" className={cn(buttonVariants({ variant: "secondary", size: "md" }), "pl-4")}>
-            <ArrowLeft className="size-4" aria-hidden="true" /> Back to home
+            <ArrowLeft className="size-4" aria-hidden="true" /> {tc("backToHome")}
           </Link>
-          <nav aria-label="Breadcrumb" className="text-sm text-ink-soft">
+          <nav aria-label={t("breadcrumb")} className="text-sm text-ink-soft">
             <ol className="flex flex-wrap items-center gap-2">
               <li>
                 <Link href="/" className="hover:text-navy-900">
-                  Home
+                  {t("home")}
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
               <li>
                 <Link href="/#services" className="hover:text-navy-900">
-                  Services
+                  {t("services")}
                 </Link>
               </li>
               <li aria-hidden="true">/</li>
@@ -111,18 +119,18 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
                 calLink={settings.calLink}
                 className={cn(buttonVariants({ variant: "primary", size: "lg" }), "font-bold")}
               >
-                <CalendarDays className="size-[18px]" aria-hidden="true" /> Book a free consultation
+                <CalendarDays className="size-[18px]" aria-hidden="true" /> {tc("bookConsultation")}
               </ConsultLink>
-              <a href={requestHref} className={buttonVariants({ variant: "dark", size: "lg" })}>
-                Request this service <ArrowRight className="size-4 text-yellow-500" aria-hidden="true" />
-              </a>
+              <Link href={requestHref} className={buttonVariants({ variant: "dark", size: "lg" })}>
+                {tc("requestThisService")} <ArrowRight className="size-4 text-yellow-500" aria-hidden="true" />
+              </Link>
             </div>
             <a
               href={settings.phoneHref}
               className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-ink-soft hover:text-navy-900"
             >
               <Phone className="size-4 text-yellow-700" aria-hidden="true" />
-              Breakdown or emergency? Call {settings.phone}
+              {t("emergencyCall", { phone: settings.phone })}
             </a>
           </div>
           <figure className="relative m-0 rounded-[28px] border border-steel-200 bg-white p-2.5 shadow-(--shadow-taped)">
@@ -153,10 +161,10 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           <div className="rounded-[28px] border border-steel-200 bg-white p-6 sm:p-[clamp(28px,4vw,48px)]">
             <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
               <h2 id="scope-title" data-reveal-heading className={sectionTitle}>
-                Scope <span className="text-steel-500">of work</span>
+                {t("scopeLead")} <span className="text-steel-500">{t("scopeAccent")}</span>
               </h2>
               <p className="max-w-[380px] text-[15px] leading-relaxed text-ink-muted">
-                What our crew takes on as part of {service.title.toLowerCase()}.
+                {t("scopeSub", { service: service.title })}
               </p>
             </div>
             <ul className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
@@ -184,7 +192,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       <section aria-labelledby="steps-title" className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-24">
         <Reveal items="[data-step]" stagger={0.08}>
           <h2 id="steps-title" data-reveal-heading className={cn(sectionTitle, "mb-8")}>
-            How the job <span className="text-steel-500">runs</span>
+            {t("stepsLead")} <span className="text-steel-500">{t("stepsAccent")}</span>
           </h2>
           <ol className="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
             {home.process.steps.map((s, i) => (
@@ -195,7 +203,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
               >
                 <span className="flex items-center gap-3">
                   <span aria-hidden="true" className="size-3 rotate-45 border-2 border-navy-900 bg-yellow-500" />
-                  <span className="text-sm font-bold text-yellow-700">Step {i + 1}</span>
+                  <span className="text-sm font-bold text-yellow-700">{t("step", { n: i + 1 })}</span>
                 </span>
                 <span className="text-xl font-semibold tracking-[-0.02em]">{s.title}</span>
                 <span className="text-[15px] leading-relaxed text-ink-muted lg:text-sm">{s.description}</span>
@@ -217,7 +225,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           >
             <div>
               <h2 id="industries-title" data-reveal-heading className={cn(sectionTitle, "text-white")}>
-                Industries <span className="text-yellow-500">we do this for</span>
+                {t("industriesLead")} <span className="text-yellow-500">{t("industriesAccent")}</span>
               </h2>
               <p className="mt-5 max-w-[460px] text-[15px] leading-relaxed text-[#c5d0db] md:text-base">
                 {home.industries.intro}
@@ -235,7 +243,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
               </ul>
             </div>
             <div className="rounded-[22px] border border-[#2a4763] bg-navy-950/60 p-6">
-              <p className="text-xs font-bold tracking-[0.08em] text-yellow-500 uppercase">Safety on every job</p>
+              <p className="text-xs font-bold tracking-[0.08em] text-yellow-500 uppercase">{t("safetyHeading")}</p>
               <p className="mt-3 text-[15px] leading-relaxed text-on-navy">{home.safety.body}</p>
               <ul className="mt-5 grid gap-3 sm:grid-cols-2">
                 {home.safety.checklist.map((c) => (
@@ -263,15 +271,15 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         <Reveal items="[data-card]">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <h2 id="others-title" data-reveal-heading className={sectionTitle}>
-              Other <span className="text-steel-500">services</span>
+              {t("otherLead")} <span className="text-steel-500">{t("otherAccent")}</span>
             </h2>
             <Link href="/#services" className={cn(buttonVariants({ variant: "link" }), "min-h-0 py-1")}>
-              All services
+              {t("allServices")}
             </Link>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {others.map((o) => (
-              <a
+              <Link
                 key={o.id}
                 href={`/services/${o.slug}`}
                 data-card
@@ -293,14 +301,14 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
                   <span className="text-lg leading-tight font-semibold tracking-[-0.02em]">{o.title}</span>
                   <span className="text-sm leading-relaxed text-ink-muted">{o.summary}</span>
                   <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-semibold text-navy-900">
-                    View service
+                    {tc("viewService")}
                     <ArrowRight
                       className="size-4 text-yellow-700 transition-transform group-hover:translate-x-1"
                       aria-hidden="true"
                     />
                   </span>
                 </span>
-              </a>
+              </Link>
             ))}
           </div>
         </Reveal>
@@ -321,10 +329,10 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
                 calLink={settings.calLink}
                 className={cn(buttonVariants({ variant: "primary", size: "lg" }), "font-bold")}
               >
-                <CalendarDays className="size-[18px]" aria-hidden="true" /> Book a free consultation
+                <CalendarDays className="size-[18px]" aria-hidden="true" /> {tc("bookConsultation")}
               </ConsultLink>
               <Link href="/" className={buttonVariants({ variant: "ghostDark", size: "lg" })}>
-                <ArrowLeft className="size-4" aria-hidden="true" /> Back to home
+                <ArrowLeft className="size-4" aria-hidden="true" /> {tc("backToHome")}
               </Link>
             </div>
           </div>
