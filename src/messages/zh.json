@@ -67,7 +67,7 @@
     "detailsPlaceholder": "需要做什么？设备、重量、停机窗口、现场条件…… *",
     "attach": "上传照片或图纸",
     "filesAttached": "已附加 {count} 个文件",
-    "fileHint": "PDF、JPG、PNG · 最大 10 MB",
+    "fileHint": "PDF、JPG、PNG · 合计最大 4 MB",
     "consent": "您可以就此申请与我联系（CASL）。",
     "sent": "申请已发送",
     "sending": "发送中……",
@@ -86,7 +86,7 @@
       "checkFields": "请检查高亮显示的字段。",
       "humanCheck": "我们无法验证您是真人，请重试。",
       "maxFiles": "最多可附加 {max} 个文件。",
-      "fileTooLarge": "{name} 超过 10 MB。",
+      "fileTooLarge": "附件总大小不能超过 4 MB。",
       "fileType": "{name}：请使用 PDF、JPG 或 PNG 格式。",
       "sendFailed": "发送您的申请时出了问题，请改为致电我们。",
       "nameRequired": "请输入您的姓名",
@@ -397,5 +397,15 @@
   "quoteEmail": {
     "subject": "我们已收到您的申请 · Ontario Millwright",
     "body": "{name}，您好：\n\n感谢您与我们联系。机械安装技师会查看您的申请并尽快回复您。\n\nOntario Millwright"
+  },
+  "whatsapp": {
+    "chat": "通过 WhatsApp 联系我们",
+    "tooltip": "通过 WhatsApp 联系我们",
+    "heroSub": "有问题？直接与我们的团队沟通。",
+    "ready": "您的申请已提交。WhatsApp 消息已准备好：请在 WhatsApp 中点击“发送”与我们交流。",
+    "open": "打开 WhatsApp",
+    "startNew": "提交新申请",
+    "prefer": "更习惯用 WhatsApp？",
+    "chatNow": "立即聊天"
   }
 }

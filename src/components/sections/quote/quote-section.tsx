@@ -5,6 +5,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { ConsultLink } from "@/components/ui/consult-link";
 import type { HomeContent, SiteSettings } from "@/content/types";
+import { buildWhatsAppUrl } from "@/lib/whatsapp";
 import { QuoteForm } from "./quote-form";
 
 type Props = {
@@ -15,7 +16,7 @@ type Props = {
 
 export async function QuoteSection({ data, services, settings }: Props) {
   const t = await getTranslations("quote");
-  const whatsapp = settings.whatsappNumber ? `https://wa.me/${settings.whatsappNumber}` : null;
+  const whatsapp = buildWhatsAppUrl(settings.whatsappNumber);
   return (
     <section id="quote" aria-labelledby="quote-title" className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26">
       <Reveal className="grid items-stretch gap-4 rounded-[24px] border border-steel-200 bg-white p-2 sm:rounded-[32px] sm:p-4 lg:grid-cols-2">
@@ -37,6 +38,7 @@ export async function QuoteSection({ data, services, settings }: Props) {
           <QuoteForm
             services={services}
             calLink={settings.calLink}
+            whatsappNumber={settings.whatsappNumber}
             turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
           />
         </div>

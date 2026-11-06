@@ -33,7 +33,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
   return (
     <>
       <JsonLd settings={settings} services={home.services.items} catalogName={tmeta("catalog")} lang={HTML_LANG[locale as Locale]} />
-      <HeroVideo hero={home.hero} calLink={settings.calLink} />
+      <HeroVideo hero={home.hero} calLink={settings.calLink} whatsappNumber={settings.whatsappNumber} />
       <VelocityMarquee
         label={tm("label")}
         rows={[

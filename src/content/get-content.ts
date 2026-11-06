@@ -28,7 +28,7 @@ async function getSettingsEn(): Promise<SiteSettings> {
       phone,
       phoneHref: toPhoneHref(phone),
       email: pick(s.email as string, seedSettings.email),
-      whatsappNumber: (s.whatsappNumber as string) || null,
+      whatsappNumber: pick(s.whatsappNumber as string, seedSettings.whatsappNumber),
       serviceArea: pick(s.serviceArea as string, seedSettings.serviceArea),
       calLink: pick(s.calLink as string, seedSettings.calLink),
     };

@@ -11,7 +11,7 @@ export const seedSettings: SiteSettings = {
   phone: "(416) 895-3704",
   phoneHref: "tel:+14168953704",
   email: "ontariomillwright@gmail.com",
-  whatsappNumber: null,
+  whatsappNumber: "14168953704",
   serviceArea: "All of Ontario, Canada",
   calLink: "",
 };

@@ -67,7 +67,7 @@
     "detailsPlaceholder": "Sur quoi allons-nous travailler? Équipement, poids, fenêtre d’arrêt, conditions du site… *",
     "attach": "Joindre des photos ou des plans",
     "filesAttached": "{count, plural, one {# fichier joint} other {# fichiers joints}}",
-    "fileHint": "PDF, JPG, PNG · jusqu’à 10 Mo",
+    "fileHint": "PDF, JPG, PNG · 4 Mo au total",
     "consent": "Vous pouvez me contacter au sujet de cette demande (LCAP).",
     "sent": "Demande envoyée",
     "sending": "Envoi…",
@@ -86,7 +86,7 @@
       "checkFields": "Veuillez vérifier les champs en surbrillance.",
       "humanCheck": "Nous n’avons pas pu vérifier que vous êtes une personne. Veuillez réessayer.",
       "maxFiles": "Joignez au maximum {max} fichiers.",
-      "fileTooLarge": "{name} dépasse 10 Mo.",
+      "fileTooLarge": "Les pièces jointes ne doivent pas dépasser 4 Mo au total.",
       "fileType": "{name} : utilisez un fichier PDF, JPG ou PNG.",
       "sendFailed": "Un problème est survenu lors de l’envoi de votre demande. Veuillez plutôt nous appeler.",
       "nameRequired": "Veuillez entrer votre nom",
@@ -397,5 +397,15 @@
   "quoteEmail": {
     "subject": "Nous avons bien reçu votre demande · Ontario Millwright",
     "body": "Bonjour {name},\n\nMerci de nous avoir contactés. Un mécanicien de chantier examinera votre demande et vous répondra.\n\nOntario Millwright"
+  },
+  "whatsapp": {
+    "chat": "Écrivez-nous sur WhatsApp",
+    "tooltip": "Écrivez-nous sur WhatsApp",
+    "heroSub": "Une question? Parlez directement avec notre équipe.",
+    "ready": "Votre demande a bien été reçue. Votre message WhatsApp est prêt : appuyez sur Envoyer dans WhatsApp pour discuter avec nous.",
+    "open": "Ouvrir WhatsApp",
+    "startNew": "Nouvelle demande",
+    "prefer": "Vous préférez WhatsApp?",
+    "chatNow": "Discuter maintenant"
   }
 }
