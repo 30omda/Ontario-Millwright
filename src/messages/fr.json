@@ -48,7 +48,6 @@
     "bookTime": "Choisir une heure",
     "email": "Courriel",
     "whatsapp": "WhatsApp",
-    "messageUs": "Écrivez-nous",
     "numberSoon": "Numéro à venir",
     "requiredNote": "Les champs marqués d’un astérisque sont obligatoires.",
     "contactLegend": "Vos coordonnées",
@@ -406,6 +405,9 @@
     "open": "Ouvrir WhatsApp",
     "startNew": "Nouvelle demande",
     "prefer": "Vous préférez WhatsApp?",
-    "chatNow": "Discuter maintenant"
+    "chatNow": "Discuter maintenant",
+    "cardCta": "Discutez avec notre équipe",
+    "cardSub": "Démarrez une conversation sur WhatsApp",
+    "cardAria": "Discuter avec Ontario Millwright sur WhatsApp"
   }
 }

@@ -48,7 +48,6 @@
     "bookTime": "预约时间",
     "email": "电子邮件",
     "whatsapp": "WhatsApp",
-    "messageUs": "给我们留言",
     "numberSoon": "号码即将公布",
     "requiredNote": "带星号的字段为必填项。",
     "contactLegend": "您的联系方式",
@@ -406,6 +405,9 @@
     "open": "打开 WhatsApp",
     "startNew": "提交新申请",
     "prefer": "更习惯用 WhatsApp？",
-    "chatNow": "立即聊天"
+    "chatNow": "立即聊天",
+    "cardCta": "与我们的团队聊天",
+    "cardSub": "在 WhatsApp 上开始对话",
+    "cardAria": "通过 WhatsApp 与 Ontario Millwright 聊天"
   }
 }
