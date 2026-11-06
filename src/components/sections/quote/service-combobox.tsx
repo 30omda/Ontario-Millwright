@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import { Command } from "cmdk";
@@ -36,9 +37,10 @@ function Highlight({ text, query }: { text: string; query: string }) {
  * Built on cmdk (keyboard + ARIA listbox) inside a Radix Popover.
  */
 export function ServiceCombobox({ options, value, onChange, invalid, describedBy }: Props) {
+  const t = useTranslations("quote");
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const all = useMemo(() => [...options, { id: "not-sure", title: "Not sure, help me choose" }], [options]);
+  const all = useMemo(() => [...options, { id: "not-sure", title: t("notSure") }], [options, t]);
   const selected = value.serviceId ? all.find((o) => o.id === value.serviceId)?.title : value.customService;
   const exact = all.some((o) => o.title.toLowerCase() === query.trim().toLowerCase());
 
@@ -53,7 +55,7 @@ export function ServiceCombobox({ options, value, onChange, invalid, describedBy
           aria-controls="service-combobox-list"
           aria-invalid={invalid || undefined}
           aria-describedby={describedBy}
-          aria-label="Service needed (required): pick one or type your own"
+          aria-label={t("serviceAria")}
           className={cn(
             "flex min-h-14 w-full items-center gap-3 rounded-2xl bg-steel-50 px-4 text-left text-base transition-shadow outline-none",
             "focus-visible:shadow-[inset_0_0_0_2px_var(--color-navy-900)]",
@@ -62,7 +64,7 @@ export function ServiceCombobox({ options, value, onChange, invalid, describedBy
         >
           <Wrench className="size-5 shrink-0 text-ink-soft" aria-hidden="true" />
           <span className={cn("min-w-0 grow truncate", !selected && "text-ink-soft")}>
-            {selected || "Service needed *"}
+            {selected || t("serviceNeeded")}
           </span>
           <AnimatePresence>
             {value.customService ? (
@@ -73,7 +75,7 @@ export function ServiceCombobox({ options, value, onChange, invalid, describedBy
                 transition={{ type: "spring", stiffness: 500, damping: 28 }}
                 className="shrink-0 rounded-full bg-yellow-200 px-2.5 py-1 text-xs font-semibold text-[#5c3d00]"
               >
-                Custom service
+                {t("customService")}
               </motion.span>
             ) : null}
           </AnimatePresence>
@@ -90,11 +92,11 @@ export function ServiceCombobox({ options, value, onChange, invalid, describedBy
           sideOffset={6}
           className="z-[70] w-(--radix-popover-trigger-width) rounded-[14px] border border-steel-300 bg-white p-1.5 shadow-[0_18px_40px_-18px_rgb(11_34_57/0.35)]"
         >
-          <Command shouldFilter label="Services" className="text-[15px] text-navy-900">
+          <Command shouldFilter label={t("servicesList")} className="text-[15px] text-navy-900">
             <Command.Input
               value={query}
               onValueChange={setQuery}
-              placeholder="Type to search or add your own…"
+              placeholder={t("searchPlaceholder")}
               className="mb-1 h-11 w-full rounded-lg border-0 bg-steel-50 px-3 text-base outline-none"
             />
             <Command.List className="max-h-64 overflow-auto">
@@ -130,7 +132,7 @@ export function ServiceCombobox({ options, value, onChange, invalid, describedBy
                     <Plus className="size-3.5" />
                   </span>
                   <span>
-                    Add “<b className="font-semibold">{query.trim()}</b>” as a custom service
+                    {t.rich("addCustom", { name: query.trim(), b: (c) => <b className="font-semibold">{c}</b> })}
                   </span>
                 </Command.Item>
               ) : null}

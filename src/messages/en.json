@@ -1,0 +1,148 @@
+{
+  "common": {
+    "skipToContent": "Skip to content",
+    "bookConsultation": "Book a free consultation",
+    "freeConsultation": "Free consultation",
+    "requestQuote": "Request a Quote",
+    "requestThisService": "Request this service",
+    "viewService": "View service",
+    "backToHome": "Back to home",
+    "backToTop": "Back to top ↑",
+    "goingGreen": "Going green 💚"
+  },
+  "nav": {
+    "services": "Services",
+    "industries": "Industries",
+    "process": "Process",
+    "safety": "Safety",
+    "about": "About",
+    "primary": "Primary",
+    "mobile": "Mobile",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "siteNav": "Site navigation",
+    "language": "Language",
+    "quote": "Request a Quote"
+  },
+  "hero": {
+    "videoLabel": "Close-up of meshing industrial gears turning in a factory machine",
+    "play": "Play background video",
+    "pause": "Pause background video"
+  },
+  "marquee": {
+    "label": "Services and industries"
+  },
+  "services": {
+    "notSureTitle": "Not sure which service you need?",
+    "notSureBody": "Tell us what the machine is doing. A millwright will walk through it with you and point you to the right crew.",
+    "scopeLabel": "{title} scope"
+  },
+  "about": {
+    "cta": "Work with us"
+  },
+  "quote": {
+    "serving": "Serving plants across Ontario",
+    "emergency": "Emergency? {phone}",
+    "consultTitle": "Free 30-minute consultation",
+    "consultBody": "Talk through the job before you commit.",
+    "bookTime": "Book a time",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "messageUs": "Message us",
+    "numberSoon": "Number coming soon",
+    "requiredNote": "Fields marked with an asterisk are required.",
+    "contactLegend": "Your contact details",
+    "required": "(required)",
+    "name": "Full name",
+    "company": "Company",
+    "emailField": "Work email",
+    "phone": "Phone",
+    "urgency": "How urgent is it?",
+    "emergencyOpt": "Emergency",
+    "plannedOpt": "Planned shutdown",
+    "flexibleOpt": "Flexible",
+    "locationLabel": "Facility location",
+    "locationPlaceholder": "City, Ontario",
+    "detailsLabel": "Project details",
+    "detailsPlaceholder": "What are we working on? Equipment, weight, shutdown window, site conditions… *",
+    "attach": "Attach photos or drawings",
+    "filesAttached": "{count, plural, one {# file attached} other {# files attached}}",
+    "fileHint": "PDF, JPG, PNG · up to 10 MB",
+    "consent": "You may contact me about this request (CASL).",
+    "sent": "Request sent",
+    "sending": "Sending…",
+    "send": "Send my request",
+    "preferTalk": "Prefer to talk?",
+    "bookLink": "Book a free consultation →",
+    "serviceAria": "Service needed (required): pick one or type your own",
+    "serviceNeeded": "Service needed *",
+    "notSure": "Not sure, help me choose",
+    "customService": "Custom service",
+    "servicesList": "Services",
+    "searchPlaceholder": "Type to search or add your own…",
+    "addCustom": "Add “<b>{name}</b>” as a custom service",
+    "result": {
+      "success": "Thanks! Your request is in. We'll get back to you shortly.",
+      "checkFields": "Please check the highlighted fields.",
+      "humanCheck": "We couldn't verify you're human. Please try again.",
+      "maxFiles": "Attach up to {max} files.",
+      "fileTooLarge": "{name} is larger than 10 MB.",
+      "fileType": "{name}: use PDF, JPG or PNG.",
+      "sendFailed": "Something went wrong sending your request. Please call us instead.",
+      "nameRequired": "Please enter your name",
+      "emailInvalid": "Please enter a valid email",
+      "urgencyRequired": "Pick how urgent the job is",
+      "detailsShort": "Tell us a bit more (at least 20 characters)",
+      "consentRequired": "Please confirm we can contact you",
+      "serviceRequired": "Pick a service or add your own",
+      "tooLong": "This is too long"
+    }
+  },
+  "footer": {
+    "services": "Services",
+    "company": "Company",
+    "howWeWork": "How we work",
+    "getInTouch": "Get in touch",
+    "emergencyLine": "Emergency line",
+    "requestQuote": "Request a quote",
+    "whatsappTbc": "WhatsApp [TBC]",
+    "rights": "© <year></year> {name} Services. All rights reserved.",
+    "privacy": "Privacy",
+    "accessibility": "Accessibility"
+  },
+  "servicePage": {
+    "home": "Home",
+    "services": "Services",
+    "breadcrumb": "Breadcrumb",
+    "emergencyCall": "Breakdown or emergency? Call {phone}",
+    "scopeLead": "Scope",
+    "scopeAccent": "of work",
+    "scopeSub": "What our crew takes on as part of {service}.",
+    "scopeJsonLd": "{service}: scope of work",
+    "stepsLead": "How the job",
+    "stepsAccent": "runs",
+    "step": "Step {n}",
+    "industriesLead": "Industries",
+    "industriesAccent": "we do this for",
+    "safetyHeading": "Safety on every job",
+    "otherLead": "Other",
+    "otherAccent": "services",
+    "allServices": "All services",
+    "titleSuffix": "{service} in Ontario"
+  },
+  "legal": {
+    "privacy": "Privacy policy",
+    "accessibility": "Accessibility",
+    "placeholder": "[TBC] This page is waiting for the final text from Ontario Millwright."
+  },
+  "meta": {
+    "title": "Industrial Millwright Contractors in Ontario",
+    "description": "Machinery installation and relocation, precision alignment, maintenance, welding and rebuilds for plants across Ontario. Book a free consultation.",
+    "ogLocale": "en_CA",
+    "catalog": "Millwright services"
+  },
+  "quoteEmail": {
+    "subject": "We received your request · Ontario Millwright",
+    "body": "Hi {name},\n\nThanks for reaching out. A millwright will review your request and get back to you.\n\nOntario Millwright"
+  }
+}

@@ -1,0 +1,401 @@
+{
+  "common": {
+    "skipToContent": "Aller au contenu",
+    "bookConsultation": "Réserver une consultation gratuite",
+    "freeConsultation": "Consultation gratuite",
+    "requestQuote": "Demander une soumission",
+    "requestThisService": "Demander ce service",
+    "viewService": "Voir le service",
+    "backToHome": "Retour à l’accueil",
+    "backToTop": "Haut de page ↑",
+    "goingGreen": "Cap sur le vert 💚"
+  },
+  "nav": {
+    "services": "Services",
+    "industries": "Industries",
+    "process": "Processus",
+    "safety": "Sécurité",
+    "about": "À propos",
+    "primary": "Principale",
+    "mobile": "Mobile",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "siteNav": "Navigation du site",
+    "language": "Langue",
+    "quote": "Soumission"
+  },
+  "hero": {
+    "videoLabel": "Gros plan d’engrenages industriels en prise tournant dans une machine d’usine",
+    "play": "Lire la vidéo d’arrière-plan",
+    "pause": "Mettre en pause la vidéo d’arrière-plan"
+  },
+  "marquee": {
+    "label": "Services et industries"
+  },
+  "services": {
+    "notSureTitle": "Vous ne savez pas quel service choisir?",
+    "notSureBody": "Dites-nous ce que fait la machine. Un mécanicien de chantier fera le tour du problème avec vous et vous dirigera vers la bonne équipe.",
+    "scopeLabel": "Portée : {title}"
+  },
+  "about": {
+    "cta": "Travaillons ensemble"
+  },
+  "quote": {
+    "serving": "Au service des usines de tout l’Ontario",
+    "emergency": "Urgence? {phone}",
+    "consultTitle": "Consultation gratuite de 30 minutes",
+    "consultBody": "Discutons du projet avant de vous engager.",
+    "bookTime": "Choisir une heure",
+    "email": "Courriel",
+    "whatsapp": "WhatsApp",
+    "messageUs": "Écrivez-nous",
+    "numberSoon": "Numéro à venir",
+    "requiredNote": "Les champs marqués d’un astérisque sont obligatoires.",
+    "contactLegend": "Vos coordonnées",
+    "required": "(obligatoire)",
+    "name": "Nom complet",
+    "company": "Entreprise",
+    "emailField": "Courriel professionnel",
+    "phone": "Téléphone",
+    "urgency": "Quel est le degré d’urgence?",
+    "emergencyOpt": "Urgence",
+    "plannedOpt": "Arrêt planifié",
+    "flexibleOpt": "Flexible",
+    "locationLabel": "Emplacement de l’installation",
+    "locationPlaceholder": "Ville, Ontario",
+    "detailsLabel": "Détails du projet",
+    "detailsPlaceholder": "Sur quoi allons-nous travailler? Équipement, poids, fenêtre d’arrêt, conditions du site… *",
+    "attach": "Joindre des photos ou des plans",
+    "filesAttached": "{count, plural, one {# fichier joint} other {# fichiers joints}}",
+    "fileHint": "PDF, JPG, PNG · jusqu’à 10 Mo",
+    "consent": "Vous pouvez me contacter au sujet de cette demande (LCAP).",
+    "sent": "Demande envoyée",
+    "sending": "Envoi…",
+    "send": "Envoyer ma demande",
+    "preferTalk": "Vous préférez en parler?",
+    "bookLink": "Réserver une consultation gratuite →",
+    "serviceAria": "Service requis (obligatoire) : choisissez-en un ou saisissez le vôtre",
+    "serviceNeeded": "Service requis *",
+    "notSure": "Je ne sais pas, aidez-moi à choisir",
+    "customService": "Service personnalisé",
+    "servicesList": "Services",
+    "searchPlaceholder": "Tapez pour chercher ou ajoutez le vôtre…",
+    "addCustom": "Ajouter « <b>{name}</b> » comme service personnalisé",
+    "result": {
+      "success": "Merci! Votre demande a bien été reçue. Nous vous répondrons sous peu.",
+      "checkFields": "Veuillez vérifier les champs en surbrillance.",
+      "humanCheck": "Nous n’avons pas pu vérifier que vous êtes une personne. Veuillez réessayer.",
+      "maxFiles": "Joignez au maximum {max} fichiers.",
+      "fileTooLarge": "{name} dépasse 10 Mo.",
+      "fileType": "{name} : utilisez un fichier PDF, JPG ou PNG.",
+      "sendFailed": "Un problème est survenu lors de l’envoi de votre demande. Veuillez plutôt nous appeler.",
+      "nameRequired": "Veuillez entrer votre nom",
+      "emailInvalid": "Veuillez entrer un courriel valide",
+      "urgencyRequired": "Indiquez le degré d’urgence du travail",
+      "detailsShort": "Dites-nous-en un peu plus (au moins 20 caractères)",
+      "consentRequired": "Veuillez confirmer que nous pouvons vous contacter",
+      "serviceRequired": "Choisissez un service ou ajoutez le vôtre",
+      "tooLong": "Ce texte est trop long"
+    }
+  },
+  "footer": {
+    "services": "Services",
+    "company": "Entreprise",
+    "howWeWork": "Notre façon de travailler",
+    "getInTouch": "Nous joindre",
+    "emergencyLine": "Ligne d’urgence",
+    "requestQuote": "Demander une soumission",
+    "whatsappTbc": "WhatsApp [à confirmer]",
+    "rights": "© <year></year> {name} Services. Tous droits réservés.",
+    "privacy": "Confidentialité",
+    "accessibility": "Accessibilité"
+  },
+  "servicePage": {
+    "home": "Accueil",
+    "services": "Services",
+    "breadcrumb": "Fil d’Ariane",
+    "emergencyCall": "Panne ou urgence? Appelez le {phone}",
+    "scopeLead": "Portée",
+    "scopeAccent": "des travaux",
+    "scopeSub": "Ce que notre équipe prend en charge dans le cadre de : {service}.",
+    "scopeJsonLd": "{service} : portée des travaux",
+    "stepsLead": "Le déroulement",
+    "stepsAccent": "du chantier",
+    "step": "Étape {n}",
+    "industriesLead": "Industries",
+    "industriesAccent": "où nous intervenons",
+    "safetyHeading": "La sécurité sur chaque chantier",
+    "otherLead": "Autres",
+    "otherAccent": "services",
+    "allServices": "Tous les services",
+    "titleSuffix": "{service} en Ontario"
+  },
+  "legal": {
+    "privacy": "Politique de confidentialité",
+    "accessibility": "Accessibilité",
+    "placeholder": "[À CONFIRMER] Cette page attend le texte final d’Ontario Millwright."
+  },
+  "content": {
+    "settings": {
+      "tagline": "Une seule équipe responsable, du relevé à la mise en service, au service des usines de tout l’Ontario.",
+      "serviceArea": "Tout l’Ontario, Canada"
+    },
+    "hero": {
+      "accent": "Services de mécanique de chantier",
+      "subcopy": "Nous installons, déplaçons, alignons et entretenons les machines dont dépend la production ontarienne, du remplacement d’une seule machine au déménagement complet d’une usine, en toute sécurité et dans les délais.",
+      "capabilities": [
+        {
+          "title": "Déménagement d’usine",
+          "description": "Lignes complètes déplacées, posées et réinstallées"
+        },
+        {
+          "title": "Travail de précision",
+          "description": "Alignement laser et nivellement optique"
+        },
+        {
+          "title": "Soutien d’urgence",
+          "description": "Équipes d’intervention pannes et arrêts"
+        },
+        {
+          "title": "Sécurité d’abord",
+          "description": "Un plan écrit pour chaque chantier, chaque quart"
+        }
+      ]
+    },
+    "marquee": {
+      "rowA": [
+        "Installation",
+        "Alignement de précision",
+        "Entretien",
+        "Soudure et fabrication",
+        "Reconstruction"
+      ],
+      "rowB": [
+        "Fabrication",
+        "Aliments et boissons",
+        "Pâtes et papiers",
+        "Mines et métaux",
+        "Production d’électricité",
+        "Automobile"
+      ]
+    },
+    "services": {
+      "title": "Services de",
+      "accent": "mécanique de chantier",
+      "intro": "Cinq métiers de base réunis sous un même toit : une seule équipe prend votre équipement du camion jusqu’à la pleine production. Chaque carte présente la portée réelle des travaux.",
+      "items": {
+        "installation": {
+          "title": "Installation et déménagement de machinerie",
+          "summary": "D’une simple presse à une usine entière, nous recevons, déballons, posons, nivelons et raccordons votre équipement pour qu’il soit prêt pour vos électriciens et votre équipe de mise en service. Pour les déménagements, nous documentons, démontons, transportons et remontons les lignes dans leur nouvel emplacement, dans l’ordre inverse du démontage.",
+          "description": "D’une simple presse à une usine entière, nous recevons, déballons, posons, nivelons et raccordons votre équipement pour qu’il soit prêt pour vos électriciens et votre équipe de mise en service. Pour les déménagements, nous documentons, démontons, transportons et remontons les lignes dans leur nouvel emplacement, dans l’ordre inverse du démontage.",
+          "scope": [
+            "Réception et déballage de l’équipement",
+            "Pose des fondations et des plaques d’assise",
+            "Déménagements d’usine complets",
+            "Installation de lignes de production",
+            "Convoyeurs et systèmes de tri",
+            "Ancrage, scellement et nivellement selon les spécifications"
+          ],
+          "fullScope": [
+            "Réception et déballage de l’équipement",
+            "Pose des fondations et des plaques d’assise",
+            "Déménagements d’usine complets",
+            "Installation de lignes de production",
+            "Convoyeurs et systèmes de tri",
+            "Ancrage, scellement et nivellement selon les spécifications"
+          ],
+          "imageAlt": "Ligne d’embouteillage avec convoyeurs dans une usine"
+        },
+        "alignment": {
+          "title": "Alignement et nivellement de précision",
+          "summary": "Équipement rotatif ramené aux tolérances du fabricant et documenté par des rapports avant et après.",
+          "description": "Le désalignement est l’ennemi silencieux des roulements, des joints et des accouplements. Nos spécialistes de l’alignement ramènent l’équipement rotatif aux tolérances du fabricant et le documentent par des rapports avant et après que votre équipe de fiabilité peut classer.",
+          "scope": [
+            "Alignement laser d’arbres",
+            "Nivellement optique et laser",
+            "Correction de pied bancal",
+            "Compensation de la dilatation thermique"
+          ],
+          "fullScope": [
+            "Alignement laser d’arbres",
+            "Alignement d’alésages et d’accouplements",
+            "Nivellement optique et laser",
+            "Vérification de la planéité des bâtis",
+            "Correction de pied bancal",
+            "Compensation de la dilatation thermique"
+          ],
+          "imageAlt": "Bride d’accouplement sur un grand arbre de rotor"
+        },
+        "maintenance": {
+          "title": "Entretien et réparation",
+          "summary": "Tournées d’entretien préventif, main-d’œuvre complète pour les arrêts et équipes d’intervention d’urgence.",
+          "description": "Planifié ou non, nous gardons votre équipement en vie : tournées d’entretien préventif, main-d’œuvre complète pour votre arrêt majeur et équipes d’urgence qui arrivent avec la discipline d’outillage et de pièces nécessaire pour vous remettre en marche.",
+          "scope": [
+            "Entretien préventif",
+            "Main-d’œuvre d’arrêt et de révision",
+            "Réparation d’urgence",
+            "Remplacement de roulements et de joints"
+          ],
+          "fullScope": [
+            "Programmes d’entretien préventif",
+            "Main-d’œuvre d’arrêt et de révision",
+            "Réparation d’urgence en cas de panne",
+            "Remplacement de roulements et de joints",
+            "Inspection et entretien de réducteurs",
+            "Entretien de courroies et d’entraînements de convoyeurs"
+          ],
+          "imageAlt": "Entraînement par courroie, poulies et arbres sur une machine"
+        },
+        "rebuilds": {
+          "title": "Reconstruction et révision d’équipement",
+          "summary": "Démonté jusqu’au carter, chaque surface d’usure mesurée, remis avec un rapport d’inspection complet.",
+          "description": "Une reconstruction bien faite coûte une fraction du remplacement et élimine les délais de livraison. Nous démontons l’équipement jusqu’au carter, mesurons chaque surface d’usure, remplaçons ce qui est usé et le remettons avec un rapport d’inspection complet.",
+          "scope": [
+            "Reconstruction de réducteurs",
+            "Révision de pompes et de compresseurs",
+            "Mesure et rapport d’usure",
+            "Essais de marche et documentation"
+          ],
+          "fullScope": [
+            "Reconstruction de réducteurs",
+            "Révision de pompes et de compresseurs",
+            "Remplacement de roulements de moteur",
+            "Mesure et rapport d’usure",
+            "Réparation d’arbres et de carters",
+            "Essais de marche et documentation"
+          ],
+          "imageAlt": "Coupe d’un réducteur montrant les engrenages et la turbine"
+        },
+        "welding": {
+          "title": "Soudure et fabrication",
+          "summary": "Plateformes, mezzanines, protecteurs de machines, goulottes et supports structuraux, fabriqués selon plan ou mesures sur place.",
+          "description": "Quand la pièce n’existe pas, nous la fabriquons. Nos soudeurs et fabricants produisent des plateformes, des mezzanines, des protecteurs de machines, des goulottes et des supports structuraux selon plan ou mesures sur place.",
+          "scope": [
+            "Acier de structure",
+            "Plateformes, escaliers et garde-corps",
+            "Protecteurs de machines",
+            "Soudure structurale certifiée"
+          ],
+          "fullScope": [
+            "Fabrication d’acier de structure",
+            "Plateformes, escaliers et garde-corps",
+            "Protecteurs de machines",
+            "Goulottes, trémies et transitions",
+            "Soudure structurale certifiée",
+            "Modification et réparation sur place"
+          ],
+          "imageAlt": "Étincelles sur le plancher d’un atelier"
+        }
+      }
+    },
+    "industries": {
+      "title": "Industries",
+      "accent": "desservies",
+      "intro": "Nos équipes travaillent chaque semaine dans des usines en exploitation partout en Ontario. Nous planifions autour de vos fenêtres de production : nuits, fins de semaine et arrêts planifiés.",
+      "items": {
+        "manufacturing": {
+          "title": "Fabrication",
+          "description": "Presses, lignes CNC, équipement d’assemblage"
+        },
+        "food": {
+          "title": "Aliments et boissons",
+          "description": "Installations sanitaires, lignes d’emballage"
+        },
+        "pulp": {
+          "title": "Pâtes et papiers",
+          "description": "Machines à papier, bobineuses, travaux d’arrêt"
+        },
+        "mining": {
+          "title": "Mines et métaux",
+          "description": "Broyeurs, concasseurs, convoyeurs, fours"
+        },
+        "power": {
+          "title": "Production d’électricité",
+          "description": "Turbines, génératrices, équipements auxiliaires"
+        },
+        "automotive": {
+          "title": "Automobile",
+          "description": "Emboutissage, lignes de transfert, cellules robotisées"
+        },
+        "warehousing": {
+          "title": "Entreposage et logistique",
+          "description": "Tri, convoyeurs, systèmes de rayonnage"
+        },
+        "chemical": {
+          "title": "Chimie et procédés",
+          "description": "Cuves, échangeurs, tuyauterie de procédé"
+        }
+      }
+    },
+    "process": {
+      "title": "Du relevé",
+      "accent": "à la",
+      "titleEnd": "mise en service",
+      "steps": {
+        "survey": {
+          "title": "Relevé et planification",
+          "description": "Nous parcourons le site, vérifions les poids, les dimensions et les accès, puis planifions le déplacement et l’installation avant de serrer le moindre boulon."
+        },
+        "move": {
+          "title": "Déplacement et positionnement",
+          "description": "Des équipes expérimentées déplacent l’équipement vers l’intérieur, l’extérieur ou à travers l’usine et le positionnent, prêt à être posé."
+        },
+        "align": {
+          "title": "Pose et alignement",
+          "description": "Les machines sont posées sur des plaques d’assise ou de nouvelles fondations, scellées, nivelées et alignées au laser selon les spécifications du fabricant."
+        },
+        "commission": {
+          "title": "Mise en service et soutien",
+          "description": "Nous appuyons le démarrage et les essais, remettons les rapports d’alignement et restons disponibles grâce à des programmes d’entretien préventif."
+        }
+      }
+    },
+    "safety": {
+      "title": "Aucun travail ne vaut",
+      "accent": "une blessure.",
+      "body": "Chaque chantier commence par un plan et une analyse des dangers, et chaque membre de l’équipe peut arrêter les travaux dès que quelque chose semble anormal. Cette discipline est la raison pour laquelle les directeurs d’usine nous confient leurs travaux les plus critiques.",
+      "checklistTitle": "Liste de vérification avant chantier",
+      "checklistNote": "Chaque chantier · Chaque quart",
+      "checklist": [
+        {
+          "title": "Plans de travail écrits",
+          "description": "Dangers analysés et approuvés avant le début des travaux."
+        },
+        {
+          "title": "Personnel formé",
+          "description": "Mécaniciens qualifiés, supervision expérimentée sur place."
+        },
+        {
+          "title": "Causeries quotidiennes",
+          "description": "Analyse des dangers du travail avec toute l’équipe à chaque quart."
+        },
+        {
+          "title": "Cadenassage",
+          "description": "Isolement des énergies vérifié avant le début des travaux."
+        }
+      ]
+    },
+    "about": {
+      "title": "Mécaniciens de métier.",
+      "accent": "Partenaires par la pratique.",
+      "quoteLead": "« Mesurer deux fois, bien poser,",
+      "quoteRest": "et laisser l’équipement en meilleur état qu’on l’a trouvé. »",
+      "body": "Le mécanicien de chantier est le professionnel de métier qui fait fonctionner les machines industrielles : il lit les plans, pose la machine, aligne les arbres et la garde en marche pendant des décennies. Aujourd’hui, nos équipes soutiennent des usines de toutes tailles partout en Ontario grâce à des projets d’installation, de la main-d’œuvre d’arrêt et de révision, et des contrats d’entretien continus.",
+      "imageAlt": "Usine d’embouteillage avec convoyeurs et équipements de procédé"
+    },
+    "quote": {
+      "titleLead": "Parlez-nous de la machine.",
+      "accent": "Nous nous occupons du reste."
+    }
+  },
+  "meta": {
+    "title": "Entrepreneurs en mécanique de chantier industrielle en Ontario",
+    "description": "Installation et déménagement de machinerie, alignement de précision, entretien, soudure et reconstruction pour les usines de tout l’Ontario. Réservez une consultation gratuite.",
+    "ogLocale": "fr_CA",
+    "catalog": "Services de mécanique de chantier"
+  },
+  "quoteEmail": {
+    "subject": "Nous avons bien reçu votre demande · Ontario Millwright",
+    "body": "Bonjour {name},\n\nMerci de nous avoir contactés. Un mécanicien de chantier examinera votre demande et vous répondra.\n\nOntario Millwright"
+  }
+}

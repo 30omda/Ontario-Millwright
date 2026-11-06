@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 import { ArrowRight, CircleHelp } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ConsultLink } from "@/components/ui/consult-link";
@@ -8,7 +10,9 @@ import { Reveal } from "@/components/motion/reveal";
 import type { HomeContent, Service, SiteSettings } from "@/content/types";
 import { cn } from "@/lib/utils";
 
-function ServiceCard({ s }: { s: Service }) {
+type Labels = { scope: string; request: string; view: string };
+
+function ServiceCard({ s, labels }: { s: Service; labels: Labels }) {
   return (
     <article
       data-card
@@ -29,7 +33,7 @@ function ServiceCard({ s }: { s: Service }) {
       <div className="flex grow flex-col gap-2.5 px-5 pt-4.5 pb-5.5">
         <h3 className="text-[21px] leading-[1.1] font-semibold tracking-[-0.03em] lg:text-2xl">{s.title}</h3>
         <p className="text-[15px] leading-relaxed text-ink-muted lg:text-sm">{s.summary}</p>
-        <ul className="mt-1.5 flex flex-wrap gap-1.5" aria-label={`${s.title} scope`}>
+        <ul className="mt-1.5 flex flex-wrap gap-1.5" aria-label={labels.scope}>
           {s.scope.map((x) => (
             <li
               key={x}
@@ -40,22 +44,24 @@ function ServiceCard({ s }: { s: Service }) {
           ))}
         </ul>
         <div className="mt-auto flex flex-wrap items-center gap-2 pt-3">
-          <a href={`/?service=${s.id}#quote`} className={buttonVariants({ variant: "dark", size: "sm" })}>
-            Request this service <ArrowRight className="size-3.5 text-yellow-500" aria-hidden="true" />
-          </a>
-          <a
+          <Link href={`/?service=${s.id}#quote`} className={buttonVariants({ variant: "dark", size: "sm" })}>
+            {labels.request} <ArrowRight className="size-3.5 text-yellow-500" aria-hidden="true" />
+          </Link>
+          <Link
             href={`/services/${s.slug}`}
             className={cn(buttonVariants({ variant: "link" }), "min-h-0 py-1 text-[13px]")}
           >
-            View service
-          </a>
+            {labels.view}
+          </Link>
         </div>
       </div>
     </article>
   );
 }
 
-export function Services({ data, settings }: { data: HomeContent["services"]; settings: SiteSettings }) {
+export async function Services({ data, settings }: { data: HomeContent["services"]; settings: SiteSettings }) {
+  const t = await getTranslations("services");
+  const tc = await getTranslations("common");
   return (
     <section id="services" aria-labelledby="services-title" className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26">
       <Reveal items="[data-card]">
@@ -66,7 +72,11 @@ export function Services({ data, settings }: { data: HomeContent["services"]; se
         {/* Masonry: cards keep their natural height (full-ratio images), no empty gaps */}
         <div className="columns-1 gap-3 md:columns-2 lg:columns-3">
           {data.items.map((s) => (
-            <ServiceCard key={s.id} s={s} />
+            <ServiceCard
+              key={s.id}
+              s={s}
+              labels={{ scope: t("scopeLabel", { title: s.title }), request: tc("requestThisService"), view: tc("viewService") }}
+            />
           ))}
           <article
             data-card
@@ -77,18 +87,17 @@ export function Services({ data, settings }: { data: HomeContent["services"]; se
               <CircleHelp className="size-[22px] text-navy-900" aria-hidden="true" />
             </span>
             <h3 className="text-[28px] leading-[1.05] font-semibold tracking-[-0.03em]">
-              Not sure which service you need?
+              {t("notSureTitle")}
             </h3>
             <p className="text-[15px] leading-relaxed text-on-navy">
-              Tell us what the machine is doing. A millwright will walk through it with you and point you to the right
-              crew.
+              {t("notSureBody")}
             </p>
             <div className="-mx-6.5 my-1 flex min-h-[170px] items-center justify-center">
               <MiniGears className="h-full max-h-[260px] w-full overflow-visible" />
             </div>
             <div className="mt-auto flex flex-wrap items-center gap-2.5">
               <ConsultLink calLink={settings.calLink} className={buttonVariants({ variant: "primary", size: "md" })}>
-                Book a free consultation
+                {tc("bookConsultation")}
               </ConsultLink>
               <a href={settings.phoneHref} className="border-b-2 border-yellow-500 py-1 text-sm font-medium text-white">
                 {settings.phone}

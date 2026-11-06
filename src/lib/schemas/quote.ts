@@ -4,30 +4,32 @@ export const URGENCY = ["emergency", "planned", "flexible"] as const;
 
 export const quoteSchema = z
   .object({
-    name: z.string().trim().min(2, "Please enter your name").max(80),
-    company: z.string().trim().max(120).optional().or(z.literal("")),
-    email: z.email("Please enter a valid email").max(160),
-    phone: z.string().trim().max(32).optional().or(z.literal("")),
-    serviceId: z.string().trim().max(80).optional().or(z.literal("")),
-    customService: z.string().trim().max(120).optional().or(z.literal("")),
-    urgency: z.enum(URGENCY, { message: "Pick how urgent the job is" }),
-    location: z.string().trim().max(120).optional().or(z.literal("")),
-    details: z.string().trim().min(20, "Tell us a bit more (at least 20 characters)").max(4000),
-    consent: z.literal(true, { message: "Please confirm we can contact you" }),
+    name: z.string().trim().min(2, "nameRequired").max(80, "tooLong"),
+    company: z.string().trim().max(120, "tooLong").optional().or(z.literal("")),
+    email: z.email("emailInvalid").max(160, "tooLong"),
+    phone: z.string().trim().max(32, "tooLong").optional().or(z.literal("")),
+    serviceId: z.string().trim().max(80, "tooLong").optional().or(z.literal("")),
+    customService: z.string().trim().max(120, "tooLong").optional().or(z.literal("")),
+    urgency: z.enum(URGENCY, { message: "urgencyRequired" }),
+    location: z.string().trim().max(120, "tooLong").optional().or(z.literal("")),
+    details: z.string().trim().min(20, "detailsShort").max(4000, "tooLong"),
+    consent: z.literal(true, { message: "consentRequired" }),
     turnstileToken: z.string().optional(),
   })
   .refine((v) => Boolean(v.serviceId) !== Boolean(v.customService), {
     path: ["serviceId"],
-    message: "Pick a service or add your own",
+    message: "serviceRequired",
   });
 
 export type QuoteInput = z.infer<typeof quoteSchema>;
 
 export type QuoteActionState =
   | { status: "idle" }
+  // `message` is a key under messages "quote.result", translated by the caller.
   | { status: "success"; message: string }
   | {
       status: "error";
       message: string;
+      values?: Record<string, string | number>;
       fieldErrors?: Partial<Record<keyof QuoteInput, string>>;
     };

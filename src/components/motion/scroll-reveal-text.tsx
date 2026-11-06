@@ -1,8 +1,10 @@
 "use client";
 
 import { useRef } from "react";
+import { useLocale } from "next-intl";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
+import { tokenize } from "@/lib/words";
 
 type Props = {
   text: string;
@@ -19,7 +21,7 @@ type Props = {
  */
 export function ScrollRevealText({ text, as: Tag = "p", className, mutedFrom, mutedClassName }: Props) {
   const ref = useRef<HTMLElement>(null);
-  const words = text.split(/(\s+)/);
+  const locale = useLocale();
 
   useGSAP(
     () => {
@@ -70,15 +72,12 @@ export function ScrollRevealText({ text, as: Tag = "p", className, mutedFrom, mu
     { scope: ref },
   );
 
-  const indexed = words.reduce<Array<{ w: string; idx: number }>>((acc, w) => {
-    const prev = acc.length ? acc[acc.length - 1]!.idx : -1;
-    acc.push({ w, idx: /^\s+$/.test(w) ? prev : prev + 1 });
-    return acc;
-  }, []);
+  let wordIndex = -1;
+  const indexed = tokenize(text, locale).map((t) => ({ w: t.text, space: !t.word, idx: t.word ? ++wordIndex : wordIndex }));
   return (
     <Tag ref={ref as never} aria-label={text} className={cn("origin-left will-change-transform", className)}>
-      {indexed.map(({ w, idx }, i) => {
-        if (/^\s+$/.test(w)) return w;
+      {indexed.map(({ w, space, idx }, i) => {
+        if (space) return w;
         const muted = mutedFrom !== undefined && idx >= mutedFrom;
         return (
           <span key={i} data-word aria-hidden="true" className={cn("inline-block", muted && mutedClassName)}>

@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { CalendarDays, Pause, Play } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
@@ -19,6 +20,8 @@ const FRAME_MAX = 1180; // px, width of the rounded frame before it expands
  * The frame is a clip-path on a full-viewport media layer, so expanding never causes layout/reflow.
  */
 export function HeroVideo({ hero, calLink }: Props) {
+  const t = useTranslations("hero");
+  const tc = useTranslations("common");
   const root = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [userPaused, setPaused] = useState(false);
@@ -173,7 +176,7 @@ export function HeroVideo({ hero, calLink }: Props) {
             playsInline
             preload="metadata"
             poster={video.poster}
-            aria-label="Close-up of meshing industrial gears turning in a factory machine"
+            aria-label={t("videoLabel")}
           >
             <source src={video.mp4_720} type="video/mp4" media="(max-width: 768px)" />
             <source src={video.webm} type="video/webm" />
@@ -222,7 +225,7 @@ export function HeroVideo({ hero, calLink }: Props) {
                   className={cn(buttonVariants({ variant: "primary", size: "lg" }), "font-bold")}
                 >
                   <CalendarDays className="size-[18px]" aria-hidden="true" />
-                  Book a free consultation
+                  {tc("bookConsultation")}
                 </ConsultLink>
                 <Link
                   href="/#quote"
@@ -231,7 +234,7 @@ export function HeroVideo({ hero, calLink }: Props) {
                     size: "lg",
                   })}
                 >
-                  Request a Quote
+                  {tc("requestQuote")}
                 </Link>
               </div>
             </div>
@@ -261,7 +264,7 @@ export function HeroVideo({ hero, calLink }: Props) {
           type="button"
           onClick={toggle}
           aria-pressed={paused}
-          aria-label={paused ? "Play background video" : "Pause background video"}
+          aria-label={paused ? t("play") : t("pause")}
           className="absolute top-[100px] right-[max(24px,calc((100%-1180px)/2+64px))] z-20 flex size-11 items-center justify-center rounded-full border border-white/45 bg-navy-950/55 text-white backdrop-blur md:top-[124px]"
         >
           {paused ? <Play className="size-4" aria-hidden="true" /> : <Pause className="size-4" aria-hidden="true" />}

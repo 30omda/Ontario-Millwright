@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 import { MapPin } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { buttonVariants } from "@/components/ui/button";
@@ -12,7 +13,8 @@ type Props = {
   settings: SiteSettings;
 };
 
-export function QuoteSection({ data, services, settings }: Props) {
+export async function QuoteSection({ data, services, settings }: Props) {
+  const t = await getTranslations("quote");
   const whatsapp = settings.whatsappNumber ? `https://wa.me/${settings.whatsappNumber}` : null;
   return (
     <section id="quote" aria-labelledby="quote-title" className="mx-auto max-w-[1240px] px-4 pt-16 md:pt-26">
@@ -20,9 +22,9 @@ export function QuoteSection({ data, services, settings }: Props) {
         <div className="flex flex-col gap-3.5 px-3 pt-5 pb-4 sm:px-6 sm:pt-7 sm:pb-6">
           <p className="flex flex-wrap items-center gap-2 text-sm text-ink-soft">
             <MapPin className="size-4" aria-hidden="true" />
-            Serving plants across Ontario
+            {t("serving")}
             <a href={settings.phoneHref} className="ml-1 font-medium text-yellow-700">
-              Emergency? {settings.phone}
+              {t("emergency", { phone: settings.phone })}
             </a>
           </p>
           <h2
@@ -53,11 +55,11 @@ export function QuoteSection({ data, services, settings }: Props) {
             className="flex flex-wrap items-center justify-between gap-3 rounded-[20px] bg-white px-5 py-4.5"
           >
             <span>
-              <span className="block text-[19px] font-semibold tracking-[-0.02em]">Free 30-minute consultation</span>
-              <span className="mt-0.5 block text-sm text-ink-soft">Talk through the job before you commit.</span>
+              <span className="block text-[19px] font-semibold tracking-[-0.02em]">{t("consultTitle")}</span>
+              <span className="mt-0.5 block text-sm text-ink-soft">{t("consultBody")}</span>
             </span>
             <ConsultLink calLink={settings.calLink} className={buttonVariants({ variant: "primary", size: "md" })}>
-              Book a time
+              {t("bookTime")}
             </ConsultLink>
           </div>
           <div className="grid gap-2.5 sm:grid-cols-2">
@@ -65,7 +67,7 @@ export function QuoteSection({ data, services, settings }: Props) {
               href={`mailto:${settings.email}`}
               className="rounded-2xl border border-white/25 bg-white/14 px-4 py-3.5 text-sm break-all text-white backdrop-blur-[10px]"
             >
-              <span className="block text-xs font-semibold text-yellow-500">Email</span>
+              <span className="block text-xs font-semibold text-yellow-500">{t("email")}</span>
               {settings.email}
             </a>
             {whatsapp ? (
@@ -76,12 +78,12 @@ export function QuoteSection({ data, services, settings }: Props) {
                 className="rounded-2xl border border-white/25 bg-white/14 px-4 py-3.5 text-sm text-white backdrop-blur-[10px]"
               >
                 <span className="block text-xs font-semibold text-yellow-500">WhatsApp</span>
-                Message us
+                {t("messageUs")}
               </a>
             ) : (
               <span className="rounded-2xl border border-white/25 bg-white/14 px-4 py-3.5 text-sm text-white/80">
                 <span className="block text-xs font-semibold text-yellow-500">WhatsApp</span>
-                Number coming soon
+                {t("numberSoon")}
               </span>
             )}
           </div>

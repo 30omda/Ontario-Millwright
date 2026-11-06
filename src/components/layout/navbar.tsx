@@ -1,24 +1,29 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, CalendarDays, Menu, Phone, X } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ConsultLink } from "@/components/ui/consult-link";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { Logo } from "@/components/ui/logo";
 import { Tape } from "@/components/ui/tape";
 import { cn } from "@/lib/utils";
 
+// Labels live in messages/<locale>.json under "nav".
 export const NAV_LINKS = [
-  { href: "/#services", label: "Services" },
-  { href: "/#industries", label: "Industries" },
-  { href: "/#process", label: "Process" },
-  // { href: "/#work", label: "Work" }, // Recent work section is hidden
-  { href: "/#safety", label: "Safety" },
-  { href: "/#about", label: "About" },
+  { href: "/#services", key: "services" },
+  { href: "/#industries", key: "industries" },
+  { href: "/#process", key: "process" },
+  // { href: "/#work", key: "work" }, // Recent work section is hidden
+  { href: "/#safety", key: "safety" },
+  { href: "/#about", key: "about" },
 ] as const;
+
+const MotionLink = motion.create(Link);
 
 type Props = {
   name: string;
@@ -32,6 +37,11 @@ type Props = {
  * reappears on any upward scroll. Never hides while the mobile menu is open.
  */
 export function Navbar({ name, phone, phoneHref, calLink }: Props) {
+  const t = useTranslations("nav");
+  const tc = useTranslations("common");
+  // French labels are long: the consultation button waits for the wider breakpoint
+  const fr = useLocale() === "fr";
+  const consultShow = fr ? "hidden xl:inline-flex" : "hidden nav:inline-flex";
   const [open, setOpen] = useState(false);
   const [compact, setCompact] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -74,33 +84,34 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
           <Logo name={name} />
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-5 text-[15px] font-medium nav:flex xl:gap-6.5">
+        <nav aria-label={t("primary")} className="hidden items-center gap-5 text-[15px] font-medium nav:flex xl:gap-6.5">
           {NAV_LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="text-navy-900 transition-colors hover:text-yellow-700">
-              {l.label}
-            </a>
+            <Link key={l.href} href={l.href} className="text-navy-900 transition-colors hover:text-yellow-700">
+              {t(l.key)}
+            </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-1.5">
+          <LanguageSwitcher />
           <ConsultLink
             calLink={calLink}
-            className={cn(buttonVariants({ variant: "info", size: "md" }), "hidden nav:inline-flex")}
+            className={cn(buttonVariants({ variant: "info", size: "md" }), consultShow)}
           >
             <CalendarDays className="size-4" aria-hidden="true" />
-            Free consultation
+            {tc("freeConsultation")}
           </ConsultLink>
-          <a href={phoneHref} className="hidden px-3.5 py-3 text-[15px] font-semibold text-navy-900 xl:inline-block">
+          <a href={phoneHref} className={cn("hidden px-3.5 py-3 text-[15px] font-semibold text-navy-900", !fr && "xl:inline-block")}>
             {phone}
           </a>
           <Link href="/#quote" className={cn(buttonVariants({ variant: "dark", size: "md" }), "hidden sm:inline-flex")}>
-            Request a Quote <ArrowUpRight className="size-4 text-yellow-500" aria-hidden="true" />
+            {t("quote")} <ArrowUpRight className="size-4 text-yellow-500" aria-hidden="true" />
           </Link>
 
           <Dialog.Root open={open} onOpenChange={setOpen}>
             <Dialog.Trigger
               className="inline-flex size-11 items-center justify-center rounded-full border border-steel-200 bg-white text-navy-900 nav:hidden"
-              aria-label="Open menu"
+              aria-label={t("openMenu")}
             >
               <Menu className="size-5" aria-hidden="true" />
             </Dialog.Trigger>
@@ -129,15 +140,15 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
                         </Dialog.Title>
                         <Dialog.Close
                           className="inline-flex size-11 items-center justify-center rounded-full border border-steel-200"
-                          aria-label="Close menu"
+                          aria-label={t("closeMenu")}
                         >
                           <X className="size-5" aria-hidden="true" />
                         </Dialog.Close>
                       </div>
-                      <Dialog.Description className="sr-only">Site navigation</Dialog.Description>
-                      <nav aria-label="Mobile" className="mt-4 flex flex-col">
+                      <Dialog.Description className="sr-only">{t("siteNav")}</Dialog.Description>
+                      <nav aria-label={t("mobile")} className="mt-4 flex flex-col">
                         {NAV_LINKS.map((l, i) => (
-                          <motion.a
+                          <MotionLink
                             key={l.href}
                             href={l.href}
                             onClick={() => setOpen(false)}
@@ -146,8 +157,8 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.05 + i * 0.04 }}
                           >
-                            {l.label}
-                          </motion.a>
+                            {t(l.key)}
+                          </MotionLink>
                         ))}
                       </nav>
                       <div className="mt-5 grid gap-2.5">
@@ -156,7 +167,7 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
                           onClick={() => setOpen(false)}
                           className={cn(buttonVariants({ variant: "primary", size: "lg" }))}
                         >
-                          <CalendarDays className="size-[18px]" aria-hidden="true" /> Book a free consultation
+                          <CalendarDays className="size-[18px]" aria-hidden="true" /> {tc("bookConsultation")}
                         </ConsultLink>
                         <Link
                           href="/#quote"
@@ -166,7 +177,7 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
                             size: "lg",
                           })}
                         >
-                          Request a Quote
+                          {tc("requestQuote")}
                         </Link>
                         <a
                           href={phoneHref}
