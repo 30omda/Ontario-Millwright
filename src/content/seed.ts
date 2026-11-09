@@ -10,7 +10,7 @@ export const seedSettings: SiteSettings = {
   tagline: "One accountable crew from survey to start-up, serving plants across Ontario.",
   phone: "(416) 895-3704",
   phoneHref: "tel:+14168953704",
-  phone2: "+1 (647) 797-7658",
+  phone2: "(647) 797-7658",
   phone2Href: "tel:+16477977658",
   email: "ontariomillwright@gmail.com",
   whatsappNumber: "14168953704",
