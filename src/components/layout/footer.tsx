@@ -40,18 +40,16 @@ export async function Footer({ settings, services }: { settings: SiteSettings; s
                 <Logo name={settings.name} className="h-16 sm:h-20" />
               </Link>
               <p className="max-w-80 text-base leading-relaxed text-ink-soft">{settings.tagline}</p>
-              <a
-                href={settings.phoneHref}
-                className="mt-1.5 inline-flex items-center gap-3 rounded-2xl bg-navy-900 py-3 pr-4.5 pl-3.5 text-white"
-              >
+              <div className="mt-1.5 inline-flex items-center gap-3 rounded-2xl bg-navy-900 py-3 pr-4.5 pl-3.5 text-white">
                 <span className="flex size-[34px] items-center justify-center rounded-[10px] bg-yellow-500">
                   <Phone className="size-[17px] text-navy-900" aria-hidden="true" />
                 </span>
                 <span>
                   <span className="block text-xs font-semibold text-yellow-500">{t("emergencyLine")}</span>
-                  <span className="block text-xl font-semibold tracking-[-0.02em]">{settings.phone}</span>
+                  <a href={settings.phoneHref} className="block text-xl font-semibold tracking-[-0.02em]">{settings.phone}</a>
+                  <a href={settings.phone2Href} className="block text-xl font-semibold tracking-[-0.02em]">{settings.phone2}</a>
                 </span>
-              </a>
+              </div>
             </div>
             <nav aria-label={t("services")} data-footer-col>
               <p className={headingCls}>{t("services")}</p>

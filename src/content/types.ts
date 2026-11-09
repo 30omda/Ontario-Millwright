@@ -46,6 +46,8 @@ export type SiteSettings = {
   tagline: string;
   phone: string;
   phoneHref: string;
+  phone2: string;
+  phone2Href: string;
   email: string;
   /** null until the client confirms the number */
   whatsappNumber: string | null;
