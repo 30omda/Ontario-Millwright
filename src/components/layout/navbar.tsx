@@ -29,6 +29,8 @@ type Props = {
   name: string;
   phone: string;
   phoneHref: string;
+  phone2: string;
+  phone2Href: string;
   calLink: string;
 };
 
@@ -36,7 +38,7 @@ type Props = {
  * Taped white card navbar (A3): compacts after 80px, hides on fast downward scroll,
  * reappears on any upward scroll. Never hides while the mobile menu is open.
  */
-export function Navbar({ name, phone, phoneHref, calLink }: Props) {
+export function Navbar({ name, phone, phoneHref, phone2, phone2Href, calLink }: Props) {
   const t = useTranslations("nav");
   const tc = useTranslations("common");
   // French labels are long: the consultation button waits for the wider breakpoint
@@ -101,9 +103,10 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
             <CalendarDays className="size-4" aria-hidden="true" />
             {tc("freeConsultation")}
           </ConsultLink>
-          <a href={phoneHref} className={cn("hidden px-3.5 py-3 text-[15px] font-semibold text-navy-900", !fr && "xl:inline-block")}>
-            {phone}
-          </a>
+          <div className={cn("hidden flex-col px-3.5 text-[13px] leading-tight font-semibold text-navy-900", !fr && "xl:flex")}>
+            <a href={phoneHref}>{phone}</a>
+            <a href={phone2Href}>{phone2}</a>
+          </div>
           <Link href="/#quote" className={cn(buttonVariants({ variant: "dark", size: "md" }), "hidden sm:inline-flex")}>
             {t("quote")} <ArrowUpRight className="size-4 text-yellow-500" aria-hidden="true" />
           </Link>
@@ -187,6 +190,15 @@ export function Navbar({ name, phone, phoneHref, calLink }: Props) {
                           })}
                         >
                           <Phone className="size-4" aria-hidden="true" /> {phone}
+                        </a>
+                        <a
+                          href={phone2Href}
+                          className={buttonVariants({
+                            variant: "secondary",
+                            size: "lg",
+                          })}
+                        >
+                          <Phone className="size-4" aria-hidden="true" /> {phone2}
                         </a>
                       </div>
                     </motion.div>

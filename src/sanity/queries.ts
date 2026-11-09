@@ -8,7 +8,7 @@ const imageProjection = `{
 }`;
 
 export const SETTINGS_QUERY = defineQuery(`*[_id == "siteSettings"][0]{
-  name, tagline, phone, email, whatsappNumber, serviceArea, calLink
+  name, tagline, phone, phone2, email, whatsappNumber, serviceArea, calLink
 }`);
 
 export const HOME_QUERY = defineQuery(`{

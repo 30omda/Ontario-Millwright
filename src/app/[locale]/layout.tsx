@@ -69,7 +69,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
             </a>
             <CalProvider enabled={Boolean(settings.calLink)} />
             <div className="min-h-svh overflow-x-clip bg-blueprint">
-              <Navbar name={settings.name} phone={settings.phone} phoneHref={settings.phoneHref} calLink={settings.calLink} />
+              <Navbar name={settings.name} phone={settings.phone} phoneHref={settings.phoneHref} phone2={settings.phone2} phone2Href={settings.phone2Href} calLink={settings.calLink} />
               <main id="main">{children}</main>
               <Footer settings={settings} services={home.services.items} />
             </div>

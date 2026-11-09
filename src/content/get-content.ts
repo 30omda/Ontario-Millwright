@@ -22,11 +22,14 @@ async function getSettingsEn(): Promise<SiteSettings> {
     const s = (await client.fetch(SETTINGS_QUERY)) as Raw;
     if (!s) return seedSettings;
     const phone = pick(s.phone as string, seedSettings.phone);
+    const phone2 = pick(s.phone2 as string, seedSettings.phone2);
     return {
       name: pick(s.name as string, seedSettings.name),
       tagline: pick(s.tagline as string, seedSettings.tagline),
       phone,
       phoneHref: toPhoneHref(phone),
+      phone2,
+      phone2Href: toPhoneHref(phone2),
       email: pick(s.email as string, seedSettings.email),
       whatsappNumber: pick(s.whatsappNumber as string, seedSettings.whatsappNumber),
       serviceArea: pick(s.serviceArea as string, seedSettings.serviceArea),
